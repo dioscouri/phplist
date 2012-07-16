@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ An ant build file for joomla install packages
+ 
+ @author 	Dioscouri Design
+ @link 	http://www.dioscouri.com
+ @copyright Copyright (C) 2007 Dioscouri Design. All rights reserved.
+ @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+-->
+<project name="phplist" default="build" basedir=".">
+	<description>Ant Build File for Joomla</description>
+
+	<!-- load variables from config file -->
+	<property name="cfg.configFile" location="antconfig.txt" />
+	<loadproperties srcfile="${cfg.configFile}" />
+
+	<!--config file values
+	cfg.name=extensionname
+	cfg.versionDir=v1_50
+	cfg.buildDir=packages
+	cfg.localhostRoot=../../www
+	cfg.xmlfile=files.txt
+	
+	ftp.server=
+	ftp.user=
+	ftp.password=
+	ftp.dir= 	
+	-->
+
+	<!-- auto values but should be checked -->
+	<property name="cfg.comName" value="${cfg.name}" />
+	<property name="cfg.comDir" value="${basedir}/${cfg.comName}" />
+	<property name="cfg.buildVersionDir" value="${cfg.buildDir}" />
+	<property name="cfg.adminFilesDir" location="${cfg.comDir}/admin" />
+	<property name="cfg.siteFilesDir" location="${cfg.comDir}/site" />
+	<property name="cfg.extensionsDir" location="${basedir}/extensions" />
+	<property name="cfg.mediaFilesDir" location="${cfg.comDir}/media" />
+	<property name="cfg.adminLangDir" location="${cfg.comDir}/languages/admin" />
+	<property name="cfg.siteLangDir" location="${cfg.comDir}/languages/site" />
+	<property name="cfg.siteSubModuleDir" location="${cfg.comDir}/mod_phplist_subscribe" />
+	<property name="cfg.siteUserPluginDir" location="${cfg.comDir}/phplist_plugin_user" />
+	<property name="cfg.plgBatchModifyDir" location="${cfg.comDir}/phplist_plugin_batchmodify" />
+	<property name="cfg.plgAmbrasubs" location="${cfg.comDir}/phplist_plugin_ambrasubsDownloaders" />
+
+	<!-- <property name="cfg.syspluginFilesDir" location="${cfg.comDir}/juga_plugin_system" /> -->
+	
+	<!-- some settings that are currently unused -->
+	<property name="cfg.addversion" value="true" />
+	<property name="cfg.versionprefix" value="v" />
+	<property name="cfg.adddate" value="true" />
+	<property name="cfg.datefmt" value="yyyy-MM-dd" />
+	<property name="cfg.dateloc" value="en,UK" />
+
+	<target name="build" depends="clean, init, build_component, info" />
+
+	<target name="init" description="creates nessecary directory to build with">
+		<mkdir dir="${cfg.buildVersionDir}" />
+		<mkdir dir="${cfg.buildVersionDir}/plugins" />
+		<mkdir dir="${cfg.buildVersionDir}/modules" />
+		<mkdir dir="${cfg.buildVersionDir}/components" />
+	</target>
+
+	<target name="build_component" depends="update_extensions" description="packages the final component file">
+		<zip destfile="${cfg.buildVersionDir}/components/${cfg.comName}.zip" basedir="${cfg.comDir}" />
+	</target>
+
+	<target name="build_plugins" description="packages any plugins">
+		<!-- add all plugin directories here -->
+		<!-- EX: <zip destfile="${cfg.buildVersionDir}/plugins/aplugin.zip" basedir="${cfg.versionDir}/aplugin" /> -->
+		<!-- <zip destfile="${cfg.buildVersionDir}/plugins/billets_plugin_ambrasubs.zip" basedir="${cfg.comDir}/billets_plugin_ambrasubs" /> -->
+		<zip destfile="${cfg.buildVersionDir}/plugins/phplist_plugin_ambrasubsDownloaders.zip" basedir="${cfg.comDir}/phplist_plugin_ambrasubsDownloaders" />	
+		<zip destfile="${cfg.buildVersionDir}/plugins/phplist_plugin_ambrasubsSubscribers.zip" basedir="${cfg.comDir}/phplist_plugin_ambrasubsSubscribers" />	
+		<!-- <zip destfile="${cfg.buildVersionDir}/plugins/phplist_plugin_batchmodify.zip" basedir="${cfg.comDir}/phplist_plugin_batchmodify" /> -->	
+	</target>
+
+	<target name="build_modules" description="packages any modules">
+		<!-- add all module directories here -->
+		<!-- EX: <zip destfile="${cfg.buildVersionDir}/modules/amodule.zip" basedir="${cfg.versionDir}/amodule" /> -->
+	</target>
+
+	<target name="update_extensions" depends="build_plugins, build_modules" description="copies fresh builds of plugins and extensions to the admin/extensions folder">
+		<copy todir="${cfg.extensionsDir}" overwrite="true">
+			<fileset dir="${cfg.buildVersionDir}/plugins" />
+		</copy>
+		<copy todir="${cfg.extensionsDir}" overwrite="true">
+			<fileset dir="${cfg.buildVersionDir}/modules" />
+		</copy>
+	</target>
+
+	<target name="info" description="prints information">
+		<echo message="Project:			${cfg.name}" />
+		<tstamp>
+			<format property="buildtime" pattern="yyyy-MM-dd'T'HH:mm:ss" />
+		</tstamp>
+		<echo message="Buildtime:	${buildtime}" />
+	</target>
+
+	<target name="clean" description="Destroys all generated files and dirs.">
+		<delete dir="${cfg.buildVersionDir}" />
+		<delete dir="packages" />
+		<delete file="${cfg.xmlfile}" />
+	</target>
+
+	<target name="update_localhost" description="attemps to update files on localhost server with files from working directory">
+		<copy todir="${cfg.localhostRoot}/administrator/components/com_${cfg.comName}" overwrite="true">
+			<fileset dir="${cfg.adminFilesDir}" />
+		</copy>
+		<copy todir="${cfg.localhostRoot}/components/com_${cfg.comName}" overwrite="true">
+			<fileset dir="${cfg.siteFilesDir}" />
+		</copy>
+		<copy todir="${cfg.localhostRoot}/media/com_${cfg.comName}" overwrite="true">
+			<fileset dir="${cfg.mediaFilesDir}" />
+		</copy>
+		<copy todir="${cfg.localhostRoot}/administrator/language/en-GB" overwrite="true">
+			<fileset dir="${cfg.adminLangDir}" />
+		</copy>
+		<copy todir="${cfg.localhostRoot}/language/en-GB" overwrite="true">
+			<fileset dir="${cfg.siteLangDir}" />
+		</copy>
+		<copy todir="${cfg.localhostRoot}/modules/mod_phplist_subscribe" overwrite="true">
+			  <fileset dir="${cfg.siteSubModuleDir}" />
+		</copy>
+		<copy todir="${cfg.localhostRoot}/plugins/user" overwrite="true">
+			  <fileset dir="${cfg.siteUserPluginDir}" />
+		</copy>
+        <copy todir="${cfg.localhostRoot}/plugins/phplist" overwrite="true">
+              <fileset dir="${cfg.plgBatchModifyDir}" />
+        </copy>
+        <copy todir="${cfg.localhostRoot}/plugins/phplist" overwrite="true">
+              <fileset dir="${cfg.plgAmbrasubs}" />
+        </copy>
+		<copy todir="${cfg.localhostRoot}/administrator/components/com_${cfg.comName}" overwrite="true">
+			<fileset file="${cfg.comDir}/manifest.xml"></fileset>
+		</copy>
+	</target>
+
+	<target name="upload" description="attempts to upload build file to ftp server">
+		<fileset id="ftp.upload.fileset" dir="${cfg.buildVersionDir}/components">
+			<include name="*.zip" />
+		</fileset>
+
+		<echo>FTP target is ${ftp.server}</echo>
+		<ftp server="${ftp.server}" userid="${ftp.user}" password="${ftp.password}" action="put" remotedir="${ftp.dir}">
+			<fileset refid="ftp.upload.fileset" />
+		</ftp>
+	</target>
+
+	<target name="build_xml" description="builds an xml listing of all the files in the working copy">
+		<fileset id="site" dir="${cfg.siteFilesDir}" />
+		<echo message="${line.separator}&lt;files folder=&quot;site&quot;&gt;${line.separator}&lt;filename&gt;" file="${cfg.xmlfile}" append="false" />
+		<echo-fileset filesetref="site" />
+		<echo message="&lt;/filename&gt;${line.separator}&lt;/files&gt;${line.separator}" file="${cfg.xmlfile}" append="true" />
+
+		<fileset id="admin" dir="${cfg.adminFilesDir}" />
+		<echo message="${line.separator}&lt;files folder=&quot;admin&quot;&gt;${line.separator}&lt;filename&gt;" file="${cfg.xmlfile}" append="true" />
+		<echo-fileset filesetref="admin" />
+		<echo message="&lt;/filename&gt;${line.separator}&lt;/files&gt;${line.separator}" file="${cfg.xmlfile}" append="true" />
+
+		<replace file="${cfg.xmlfile}" token="${cfg.siteFilesDir}/" value="" />
+		<replace file="${cfg.xmlfile}" token="${cfg.adminFilesDir}/" value="" />
+	</target>
+
+	<macrodef name="echo-fileset" description="creates a printable directory listing">
+		<attribute name="filesetref" />
+		<sequential>
+			<pathconvert pathsep="&lt;/filename&gt;${line.separator}&lt;filename&gt;" property="@{filesetref}.echopath">
+				<path>
+					<fileset refid="@{filesetref}" />
+				</path>
+			</pathconvert>
+			<echo message="${@{filesetref}.echopath}" file="${cfg.xmlfile}" append="true" />
+		</sequential>
+	</macrodef>
+</project>

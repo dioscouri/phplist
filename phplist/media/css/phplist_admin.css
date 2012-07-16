@@ -1,0 +1,150 @@
+@charset "utf-8";
+
+/** toolbar icons **/
+.icon-48-phplist {
+	background-image: url(../../../media/com_phplist/images/phplist.png);  
+	padding-left: 200px !important;
+}
+
+.icon-32-savenew { 
+	background-image: url(../../../media/com_phplist/images/icon-32-savenew.png); 
+}
+
+.icon-32-book_add { 
+	background-image: url(../../../media/com_phplist/images/book_add.png); 
+}
+
+.icon-32-book_remove { 
+	background-image: url(../../../media/com_phplist/images/book_remove.png); 
+}
+
+.icon-32-paste_add { 
+	background-image: url(../../../media/com_phplist/images/paste_add.png); 
+}
+
+.icon-32-paste_remove { 
+	background-image: url(../../../media/com_phplist/images/paste_remove.png); 
+}
+
+.icon-32-lock { 
+	background-image: url(../../../media/com_phplist/images/lock.png); 
+}
+
+.icon-32-lock_off { 
+	background-image: url(../../../media/com_phplist/images/lock_off.png); 
+}
+
+.icon-32-plugins { 
+	background-image: url(../../../media/com_phplist/images/plugins.png); 
+}
+
+.icon-32-required { 
+	background-image: url(../../../media/com_phplist/images/required.png); 
+}
+
+.icon-32-switch { 
+	background-image: url(../../../media/com_phplist/images/switch.png); 
+}
+
+.icon-32-refresh_window { 
+	background-image: url(../../../media/com_phplist/images/refresh_window.png); 
+}
+
+/** Missing Khepri Toolbar Icons **/
+.icon-32-refresh { 
+	background-image: url(../../../../administrator/templates/khepri/images/toolbar/icon-32-refresh.png); 
+}
+
+.icon-32-download { 
+	background-image: url(../../../../administrator/templates/khepri/images/toolbar/icon-32-download.png); 
+}
+
+.icon-32-clear { 
+	background-image: url(../../../../administrator/templates/khepri/images/toolbar/icon-32-trash.png); 
+}
+
+.icon-32-lock { 
+	background-image: url(../../../../administrator/templates/khepri/images/toolbar/icon-32-lock.png); 
+}
+
+.icon-32-search { 
+	background-image: url(../../../../administrator/templates/khepri/images/toolbar/icon-32-search.png); 
+}
+.icon-32-publish { 
+	background-image: url(../../../../administrator/templates/khepri/images/toolbar/icon-32-publish.png); 
+}
+.icon-32-unpublish { 
+	background-image: url(../../../../administrator/templates/khepri/images/toolbar/icon-32-unpublish.png); 
+}
+
+/** filter lines **/
+tr.filter div.range {
+    width: 100%;
+    text-align: left;
+}
+
+tr.filter div.range div.rangeline {
+    width: 100%;
+    white-space: nowrap;
+    padding-bottom: 2px;
+    text-align: right;
+}
+
+tr.filter div.range div.rangeline span.label {
+    text-align: left;
+}
+
+tr.filter div.range div.rangeline .input {
+    text-align: left;
+}
+
+/** common **/
+span.href {
+    cursor: pointer;
+    color: #0000FF;
+    text-decoration: none;
+    /* font-weight: bold; */
+}
+span.href:hover {
+    cursor: pointer;
+    color: #0000FF;
+    /* font-weight: bold; */
+    text-decoration: underline; 
+}
+
+/** notes **/
+.note 
+{
+    background-color: #FFFFDD;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align: justify;
+    border: 1px solid #DDDDBB;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+.note_pink 
+{
+    background-color: #FDE8FD;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align: justify;
+    border: 1px solid #FFCCCC;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+.note_green 
+{
+    background-color: #EBF6DF;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align: justify;
+    border: 1px solid #289728;
+    border-spacing: 0px;
+    border-collapse: collapse;  
+}

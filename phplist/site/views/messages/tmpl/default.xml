@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="PHPLIST MESSAGES LAYOUT">
+		<message>
+			<![CDATA[PHPLIST MESSAGES LAYOUT DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>PHPLIST MESSAGES LAYOUT</name>
+		<description>PHPLIST MESSAGES LAYOUT DESC</description>
+		<url addpath="/administrator/components/com_phplist/elements">
+			<param name="id" type="phplistnewsletter" section="com_phplist" default="0" label="SELECT NEWSLETTER" description="SELECT NEWSLETTER DESC" />
+		</url>
+	</state>
+	
+</metadata>

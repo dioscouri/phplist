@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="PHPLIST SINGLE MESSAGE LAYOUT">
+		<message>
+			<![CDATA[PHPLIST SINGLE MESSAGE LAYOUT DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>PHPLIST SINGLE MESSAGE LAYOUT</name>
+		<description>PHPLIST SINGLE MESSAGE LAYOUT DESC</description>
+		<url>
+			<param name="id" type="text" label="MESSAGE ID" description="MESSAGE ID DESC" />
+		</url>
+	</state>
+	
+</metadata>

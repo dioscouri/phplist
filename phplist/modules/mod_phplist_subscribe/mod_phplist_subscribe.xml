@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="module" method="upgrade">
+	<name>Subscribe to Our Newsletter</name>
+	<creationDate>April 2010</creationDate>
+	<author>Dioscouri Design</author>
+	<authorEmail>info@dioscouri.com</authorEmail>
+	<authorUrl>http://www.dioscouri.com</authorUrl>
+	<copyright>2010 Dioscouri.com</copyright>
+	<license>GNU General Public License v2</license>
+	<version>2.2.0</version>
+	<description>MOD_PHPLIST_SUBSCRIBE_DESC</description>
+
+	<files> 
+		<filename module="mod_phplist_subscribe">mod_phplist_subscribe.php</filename> 
+		<filename>mod_phplist_subscribe.js</filename> 
+		<filename>helper.php</filename>  
+		<folder>tmpl</folder> 
+	</files>
+	<languages folder="languages">
+		<language tag="en-GB">en-GB.mod_phplist_subscribe.ini</language>
+	</languages>
+			
+	<params>
+		<param name="header" type="text" default="" label="HEADER" description="HEADER DESC" size="45" />
+		<param name="footer" type="text" default="" label="FOOTER" description="FOOTER DESC" size="45" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		
+		<param name="display_type" type="radio" default="1" label="ALL NEWSLETTERS" description="ALL NEWSLETTERS DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="newsletterid" type="text" default="" label="SINGLE NEWSLETTER" description="SINGLE NEWSLETTER DESC" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		
+		<param name="display_url" type="radio" default="1" label="INCLUDE LINK" description="INCLUDE LINK DESC">
+			<option value="0">No</option>
+		  	<option value="1">Yes</option>
+		</param>
+		<param name="display_url_prefs" type="radio" default="1" label="INCLUDE PREFS LINK" description="INCLUDE PREFS LINK DESC">
+			<option value="0">No</option>
+		  	<option value="1">Yes</option>
+		</param>
+		<param name="display_already" type="radio" default="0" label="DISPLAY ALREADY" description="DISPLAY ALREADY DESC">
+		  	<option value="0">No</option>
+		  	<option value="1">Yes</option>
+		</param>
+		<param name="display_html" type="radio" default="0" label="DISPLAY HTML OPTION" description="DISPLAY HTML OPTION DESC">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		
+		<param name="result_page" type="radio" default="0" label="SEPERATE RESULT PAGE" description="SEPERATE RESULT PAGE DESC">
+		  	<option value="0">No</option>
+		  	<option value="1">Yes</option>
+		</param>
+		<param name="redirect_url" type="text" default="" label="REDIRECT URL" description="REDIRECT URL DESC" />
+	</params>
+	<params group="advanced">
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+	</params>
+</install>
