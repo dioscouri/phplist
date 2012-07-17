@@ -71,11 +71,11 @@
 	
 	<!-- Modules -->	
 	<modules>
-		<module module="modules/mod_phplist_subscribe" client="site" />
+		<module module="mod_phplist_subscribe" client="site" />
 	</modules> 
 
 	<!-- Plugins -->
 	<plugins>
-		<plugin plugin="plugins/phplist_plugin_user" group="user" publish="true" element="phplist" />
+		<plugin plugin="phplist_plugin_user" group="user" publish="true" element="phplist" />
 	</plugins> 		
 </install>
