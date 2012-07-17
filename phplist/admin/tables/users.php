@@ -11,9 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-JLoader::import( 'com_phplist.tables._base', JPATH_ADMINISTRATOR.DS.'components' );
-
-class TableUsers extends PhplistTable 
+class PhplistTableUsers extends DSCTable 
 {
 
 	function TableUsers( &$db ) 

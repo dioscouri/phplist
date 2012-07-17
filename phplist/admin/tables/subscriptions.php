@@ -11,12 +11,10 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.tables._base', JPATH_ADMINISTRATOR.DS.'components' );
-
-class TableSubscriptions extends PhplistTable
+class PhplistTableSubscriptions extends DSCTable
 {
 	
-	function TableSubscriptions( &$db )
+	function PhplistTableSubscriptions( &$db )
 	{
 		$tbl_key 	= 'userid';
 		$tbl_suffix = 'subscriptions';

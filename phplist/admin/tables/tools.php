@@ -11,9 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-JLoader::import( 'com_phplist.tables._base', JPATH_ADMINISTRATOR.DS.'components' );
-
-class TableTools extends PhplistTable 
+class PhplistTableTools extends DSCTable 
 {
 	/**
 	 * Could this be abstracted into the base?
@@ -21,7 +19,7 @@ class TableTools extends PhplistTable
 	 * @param $db
 	 * @return unknown_type
 	 */
-	function TableTools ( &$db ) 
+	function PhplistTableTools ( &$db ) 
 	{
 		
 		$tbl_key 	= 'id';

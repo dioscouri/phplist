@@ -11,11 +11,9 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.tables._base', JPATH_ADMINISTRATOR.DS.'components' );
-
-class TableUserAttributes extends PhplistTable
+class PhplistTableUserAttributes extends DSCTable
 {
-	function TableUserAttributes( &$db ) 
+	function PhplistTableUserAttributes( &$db ) 
 	{
 		$tbl_key 	= 'id';
 		$tbl_suffix = 'attributes';

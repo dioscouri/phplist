@@ -11,24 +11,21 @@
 /** ensure this file is being included by a parent file */
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-JLoader::import( 'com_phplist.tables._base', JPATH_ADMINISTRATOR.DS.'components' );
-
-class TableConfig extends PhplistTable 
+class PhplistTableConfig extends DSCTable 
 {
-
-	function TableConfig( &$db ) 
+	function PhplistTableConfig( &$db ) 
 	{
-		$tbl_key 	= 'title';
+		$tbl_key 	= 'config_name';
 		$tbl_suffix = 'config';
 		$this->set( '_suffix', $tbl_suffix );
-		$name 		= Phplist::getName();
+		$name 		= 'phplist';
 		
 		parent::__construct( "#__{$name}_{$tbl_suffix}", $tbl_key, $db );	
 	}
 	
 	function store( $updateNulls = true) 
 	{
-		$k = 'id';
+		$k = 'config_id';
  
         if (intval( $this->$k) > 0 )
         {
