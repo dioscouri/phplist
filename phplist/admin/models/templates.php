@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.models._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelTemplates extends PhplistModelBase
 {
@@ -31,9 +31,11 @@ class PhplistModelTemplates extends PhplistModelBase
 			$this->setDBO( $database );
 	}
 	
-	public function getList()
+	public function getList($refresh = false)
 	{
-		$list = parent::getList(); 
+		$list = parent::getList($refresh);
+		if(empty($list)) { return array(); }
+		
 		foreach(@$list as $item)
 		{
 			$item->link = 'index.php?option=com_phplist&controller=logs&view=logs&task=edit&id='.$item->id;

@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.models._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelUsers extends PhplistModelBase 
 {
@@ -108,9 +108,8 @@ class PhplistModelUsers extends PhplistModelBase
 		}
     }
     	
-	public function getList()
+	public function getList($refresh = false)
 	{
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		// Message if Joomla! users not in PHPList database
         // TODO Unfortunately, this causes a memory error for large sites, like Dioscouri, with 65,000+ users
@@ -128,7 +127,9 @@ class PhplistModelUsers extends PhplistModelBase
 		}	
 		
 		// get list
-		$list = parent::getList(); 
+		$list = parent::getList($refresh);
+		if(empty($list)) { return array(); }
+		
 		foreach($list as $item)
 		{
 			$item->link = 'index.php?option=com_phplist&controller=users&view=users&task=edit&id='.$item->id;

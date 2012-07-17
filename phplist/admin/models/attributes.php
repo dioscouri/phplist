@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.models._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelAttributes extends PhplistModelBase
 {

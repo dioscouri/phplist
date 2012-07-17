@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.models._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelMessages extends PhplistModelBase
 {
@@ -123,12 +123,11 @@ class PhplistModelMessages extends PhplistModelBase
 		$query->select( $field );		
 	}
     
-	public function getList()
-	{
-		JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
-		
-		$list = parent::getList(); 
+	public function getList($refresh = false)
+	{	
+		$list = parent::getList($refresh);
+		if(empty($list)) { return array();}
+		 
 		foreach(@$list as $item)
 		{
 			$item->link = 'index.php?option=com_phplist&controller=messages&view=messages&task=edit&id='.$item->id;

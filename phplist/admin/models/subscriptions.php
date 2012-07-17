@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.models._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelSubscriptions extends PhplistModelBase
 {
@@ -149,9 +149,11 @@ class PhplistModelSubscriptions extends PhplistModelBase
 		$query->select( $field );		
 	}
 	
-	public function getList()
+	public function getList($refresh = false)
 	{
-		$list = parent::getList();
+		$list = parent::getList($refresh);
+		if(empty($list)) { return array(); }
+		
 		foreach(@$list as $item)
 		{
 			$item->link = 'index.php?option=com_phplist&controller=subscriptions&task=unsubscribe&listid='.$item->listid.'&phplistuserid='.$item->userid;

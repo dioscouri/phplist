@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.models._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelLogs extends PhplistModelBase
 {
@@ -88,12 +88,6 @@ class PhplistModelLogs extends PhplistModelBase
             $query->group($select_group);	
         }
     }
-    
-	public function getList()
-	{
-		$list = parent::getList(); 
-		return $list;
-	}	
 }
 
 ?>
