@@ -1,5 +1,5 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
-<?php JHTML::_('script', Phplist::getName().'.js', 'media/com_phplist/js/'); ?>
+<?php JHTML::_('script', 'common.js', 'media/com_phplist/js/'); ?>
 <?php $form = @$this->form; ?>
 <?php $row = @$this->row; ?>
 

@@ -18,7 +18,7 @@ class PhplistViewDashboard extends PhplistViewBase
 	/*
 	function display($tpl=null) 
 	{
-		JLoader::import( 'com_phplist.helpers._base', JPATH_ADMINISTRATOR.DS.'components' );
+		Phplist::load( 'SynkHelperBase', 'helpers.base');
 		JLoader::import( 'com_phplist.library.grid', JPATH_ADMINISTRATOR.DS.'components' );
 		if (empty($this->hidestats))
 		{

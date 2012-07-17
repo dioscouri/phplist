@@ -1,11 +1,12 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 	<?php
+		$defines = Phplist::getInstance();
 		$img_file = "dioscouri_logo_transparent.png";
 		$img_path = "../media/com_phplist/images";
 
 		$url = "http://www.dioscouri.com/";
-		if ($amigosid = Phplist::getInstance()->get( 'amigosid', '' ))
+		if ($amigosid = $defines->get( 'amigosid', '' ))
 		{
 			$url .= "?amigosid=".$amigosid;
 		}
@@ -22,13 +23,13 @@
 			<a href="http://extensions.joomla.org/extensions/owner/dioscouri" target="_blank"><?php echo JText::_( "Leave JED Feedback" ); ?></a>
 		</td>
 		<td style="text-align: center; width: 33%;">
-			<?php echo JText::_( "Phplist Desc" ); ?>
+			<?php echo JText::_( "PHPLIST" ); ?>: <?php echo JText::_( "COM_PHPLIST_DESC" ); ?>
 			<br/>
-			<?php echo JText::_( "Copyright" ); ?>: <?php echo Phplist::getCopyrightYear(); ?> &copy; <a href="<?php echo $url; ?>" target="_blank">Dioscouri Design</a>
+			<?php echo JText::_( "Copyright" ); ?>: <?php echo $defines->getCopyrightYear(); ?> &copy; <a href="<?php echo $url; ?>" target="_blank">Dioscouri Design</a>
 			<br/>
-			<?php echo JText::_( "Version" ); ?>: <?php echo Phplist::getVersion(); ?>
+			<?php echo JText::_( "Version" ); ?>: <?php echo $defines->getVersion(); ?>
 			<br/>
-			<?php echo sprintf( JText::_('PHP_VERSION_LINE'), Phplist::getMinPhp(), Phplist::getServerPhp() );?>
+			<?php echo sprintf( JText::_('PHP_VERSION_LINE'), $defines->getMinPhp(), $defines->getServerPhp() );?>
 			<br/>
 			<?php echo JText::_( 'Powered by' )." <a href='http://www.phplist.com' target='_blank'>".JText::_( 'Phplist' )."</a>"; ?>
 		</td>

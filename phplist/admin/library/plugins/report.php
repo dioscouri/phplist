@@ -12,7 +12,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 JLoader::import( 'com_phplist.library.plugins._base', JPATH_ADMINISTRATOR.DS.'components' );
-JLoader::import( 'com_phplist.models._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistReportPlugin extends PhplistPluginBase
 {
