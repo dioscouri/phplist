@@ -11,34 +11,10 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.views._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistViewBase', 'views.base' );
 
 class PhplistViewMessages extends PhplistViewBase
 {
-	/**
-	 * 
-	 * @param $tpl
-	 * @return unknown_type
-	 */
-	function display($tpl=null) 
-	{
-		$layout = $this->getLayout();
-		switch(strtolower($layout))
-		{
-			case "view":
-				$this->_form($tpl);
-			  break;
-			case "form":
-				JRequest::setVar('hidemainmenu', '1');
-				$this->_form($tpl);
-			  break;
-			case "default":
-			default:
-				$this->_default($tpl);
-			  break;
-		}
-		parent::display($tpl);
-	}
     
     function _form($tpl=null)
     {

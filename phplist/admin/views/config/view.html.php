@@ -11,28 +11,10 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.views._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistViewBase', 'views.base' );
 
 class PhplistViewConfig extends PhplistViewBase 
 {
-	/**
-	 * 
-	 * @param $tpl
-	 * @return unknown_type
-	 */
-	function display($tpl=null) 
-	{
-		$layout = $this->getLayout();
-		switch(strtolower($layout))
-		{
-			case "default":
-			default:
-				$this->_default($tpl);
-			  break;
-		}
-		parent::display($tpl);
-	}
-	
 	/**
 	 * 
 	 * @return void
@@ -44,7 +26,7 @@ class PhplistViewConfig extends PhplistViewBase
 		JLoader::import( 'com_phplist.library.select', JPATH_ADMINISTRATOR.DS.'components' );
 
 		// check config
-			$row = PhplistConfig::getInstance();
+			$row = Phplist::getInstance();
 			$this->assignRef( 'row', $row );
 		
 		// plugins

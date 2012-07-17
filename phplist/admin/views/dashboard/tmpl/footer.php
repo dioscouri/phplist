@@ -5,7 +5,7 @@
 		$img_path = "../media/com_phplist/images";
 
 		$url = "http://www.dioscouri.com/";
-		if ($amigosid = PhplistConfig::getInstance()->get( 'amigosid', '' ))
+		if ($amigosid = Phplist::getInstance()->get( 'amigosid', '' ))
 		{
 			$url .= "?amigosid=".$amigosid;
 		}
