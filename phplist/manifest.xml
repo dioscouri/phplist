@@ -20,15 +20,11 @@
 		<folder>controllers</folder>
 		<folder>models</folder>
 		<folder>views</folder>
-	</files>	
-
-	<languages>
-		<language tag="en-GB">languages/site/en-GB.com_phplist.ini</language>
-	</languages>
+	</files>
 	
 	<!-- Application/administrator -->
 	<administration>
-		<menu img="../media/com_phplist/images/phplist_16.png">PhpList Integration</menu>
+		<menu img="../media/com_phplist/images/phplist_16.png">COM_SYNK</menu>
 
 		<files folder="admin">
 			<file>phplist.php</file>
@@ -45,27 +41,28 @@
 			<folder>views</folder>
 		</files>
 
-		<languages>
-			<language tag="en-GB">languages/admin/en-GB.com_phplist.ini</language>
+		<languages folder="languages">
+			<language tag="en-GB">admin/en-GB.com_phplist.ini</language>
+			<language tag="en-GB">site/en-GB.com_phplist.ini</language>
 		</languages>
 	</administration>
 	
 	<!-- Installation -->
 	<install>
 		<sql>
-			<file charset="utf8" driver="mysql">install/install.sql</file>
+			<file>install.sql</file>
 		</sql>
 	</install>
 	
-	<installfile>install/install.php</installfile>
-	<uninstallfile>install/uninstall.php</uninstallfile>
+	<installfile>install.php</installfile>
+	<uninstallfile>uninstall.php</uninstallfile>
 	
     <!--  Media -->
     <media destination="com_phplist" folder="media">
         <folder>css</folder>
         <folder>images</folder>
         <folder>js</folder>
-        <folder>libchart</folder>
+        <folder>menus</folder>
         <folder>fusioncharts</folder>
     </media>
 	
