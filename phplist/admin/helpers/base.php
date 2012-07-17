@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-class PhplistModelBase extends DSCModel
+class PhplistHelperBase extends DSCHelper
 {
 
 }
