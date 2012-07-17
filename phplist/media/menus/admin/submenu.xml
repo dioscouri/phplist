@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu>	
+   <link>
+       <name>Dashboard</name>
+       <url>index.php?option=com_phplist&#38;view=dashboard</url>
+   </link>
+   <link>
+       <name>Users</name>
+       <url>index.php?option=com_phplist&#38;view=users</url>
+   </link>
+   <link>
+       <name>Subscriptions</name>
+       <url>index.php?option=com_phplist&#38;view=subscriptions</url>
+   </link>
+   <link>
+       <name>Newsletters</name>
+       <url>index.php?option=com_phplist&#38;view=newsletters</url>
+   </link>
+   <link>
+       <name>Messages</name>
+       <url>index.php?option=com_phplist&#38;view=messages</url>
+   </link>
+   <link>
+       <name>Attributes</name>
+       <url>index.php?option=com_phplist&#38;view=attributes</url>
+   </link>
+   <link>
+       <name>Logs</name>
+       <url>index.php?option=com_phplist&#38;view=logs</url>
+   </link>
+   <link>
+       <name>Tools</name>
+       <url>index.php?option=com_phplist&#38;view=tools</url>
+   </link>
+   <link>
+       <name>Configuration</name>
+       <url>index.php?option=com_phplist&#38;view=config</url>
+   </link>
+</menu>
