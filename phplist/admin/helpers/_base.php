@@ -35,7 +35,7 @@ class PhplistHelperBase extends JObject
 
     function currency($amount)
     {
-        $config = PhplistConfig::getInstance();
+        $config = Phplist::getInstance();
 
         $num_decimals = $config->get('currency_num_decimals', '2');
         $thousands = $config->get('currency_thousands', ',');
@@ -49,7 +49,7 @@ class PhplistHelperBase extends JObject
 
     function number($number)
     {
-        $config = PhplistConfig::getInstance();
+        $config = Phplist::getInstance();
 
         $thousands = $config->get('currency_thousands', ',');
         $decimal = $config->get('currency_decimal', '.');

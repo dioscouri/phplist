@@ -11,34 +11,62 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-// Require the defines
-require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'defines.php' );
+// Check the registry to see if our Phplist class has been overridden
+if ( !class_exists('Phplist') )
+	JLoader::register( "Phplist", JPATH_ADMINISTRATOR.DS."components".DS."com_phplist".DS."defines.php" );
+
+// before executing any tasks, check the integrity of the installation
+Phplist::getClass( 'PhplistHelperDiagnostics', 'helpers.diagnostics' )->checkInstallation();
 
 // Require the base controller
-require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'controller.php' );
+Phplist::load( 'PhplistController', 'controller' );
 
 // Require specific controller if requested
-if ($controller = JRequest::getWord('controller', JRequest::getVar( 'view' ) )) 
+$controller = JRequest::getWord('controller', JRequest::getVar( 'view' ) );
+if (!Phplist::load( 'PhplistController'.$controller, "controllers.$controller" ))
+	$controller = '';
+
+if (empty($controller))
 {
-    $path = JPATH_COMPONENT_ADMINISTRATOR.DS.'controllers'.DS.$controller.'.php';
-    if (file_exists($path)) {
-        require_once $path;
-    } else {
-        $controller = '';
-    }
+	// redirect to default
+	$default_controller = new PhplistController();
+	$redirect = "index.php?option=com_phplist&view=" . $default_controller->default_view;
+	$redirect = JRoute::_( $redirect, false );
+	JFactory::getApplication()->redirect( $redirect );
 }
 
-// Create the controller
-$classname    = 'PhplistController'.$controller;
-$controller   = new $classname( );
+JHTML::_('stylesheet', 'admin.css', 'media/com_phplist/css/');
+
+$doc = JFactory::getDocument();
+$uri = JURI::getInstance();
+$js = "var com_phplist = {};\n";
+$js.= "com_phplist.jbase = '".$uri->root()."';\n";
+$doc->addScriptDeclaration($js);
+
+$parentPath = JPATH_ADMINISTRATOR . '/components/com_phplist/helpers';
+DSCLoader::discover('PhplistHelper', $parentPath, true);
+
+$parentPath = JPATH_ADMINISTRATOR . '/components/com_phplist/library';
+DSCLoader::discover('Phplist', $parentPath, true);
 
 // load the plugins
 JPluginHelper::importPlugin( 'phplist' );
 
+// Create the controller
+$classname = 'PhplistController'.$controller;
+$controller = Phplist::getClass( $classname );
+
+// ensure a valid task exists
+$task = JRequest::getVar('task');
+if (empty($task))
+{
+	$task = 'display';
+}
+JRequest::setVar( 'task', $task );
+
 // Perform the requested task
-$controller->execute( JRequest::getVar( 'task' ) );
+$controller->execute( $task );
 
 // Redirect if set by the controller
 $controller->redirect();
-
 ?>

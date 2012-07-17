@@ -32,7 +32,7 @@ class PhplistControllerConfig extends PhplistController
 		$error = false;
 		$errorMsg = "";
 		$model 	= $this->getModel( $this->get('suffix') );
-		$config = PhplistConfig::getInstance();
+		$config = Phplist::getInstance();
 		$properties = $config->getProperties();
 		 
 		foreach (@$properties as $key => $value ) 

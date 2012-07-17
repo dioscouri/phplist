@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `#__phplist_config` (
   `checked_out_time` datetime NOT NULL,
   `value` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM ;
+) Engine=MyISAM ;

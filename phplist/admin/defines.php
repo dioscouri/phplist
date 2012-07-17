@@ -10,246 +10,92 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class Phplist extends JObject
+class Phplist extends DSC
 {
-    static $_version        = '2.2.0';
-    static $_copyrightyear  = '2010';
-    static $_name           = 'phplist';
-    static $_min_php		= '5.2';
+	protected $_name           = 'phplist';
+	protected $_version        = '2.2.0';
+	protected $_build          = '';
+	protected $_versiontype    = '';
+	protected $_copyrightyear  = '2012';
+	protected $_min_php		= '5.2';
 
-    /**
-     * Get the version
-     */
-    public static function getVersion()
-    {
-        return self::$_version;
-    }
-
-    /**
-     * Get the copyright year
-     */
-    public static function getCopyrightYear()
-    {
-        return self::$_copyrightyear;
-    }
-
-    /**
-     * Get the Name
-     */
-    public static function getName()
-    {
-        return self::$_name;
-    }
-
-    /**
-     * Get the Minimum Version of Php
-     */
-    public static function getMinPhp()
-    {
-	    //get version from PHP. Note this should be in format 'x.x.x' but on some systems will look like this: eg. 'x.x.x-unbuntu5.2'
-    	$phpV = self::getServerPhp();
-    	$minV = self::$_min_php; 
-    	$passes = false;
+	public $show_linkback					= '1';
+	public $show_linkback_phplist			= '1';
+	public $activation_email				= '0';
+	public $default_html					= '1';
+	public $users_autocreate				= '0';
+	public $frontend_attribs				= '0';
+	public $display_submenu					= '1';
+	public $display_newsletter_order		= 'lastsent';
+	public $display_newsletter_order_dir	= 'ASC';
+	public $display_messagetemplate			= '0';
+	public $phplist_host					= 'localhost';
+	public $phplist_database				= 'phplist';
+	public $phplist_user					= 'phplist';
+	public $phplist_password				= '';
+	public $phplist_prefix					= 'phplist';
+	public $phplist_user_prefix				= 'phplist_user';
+	public $phplist_driver					= 'mysql';
+	public $phplist_port					= '3600';
 	
-	    if ($phpV[0] >= $minV[0]) {
-	        if (empty($minV[2]) || $minV[2] == '*') {
-	            $passes = true;
-	        } elseif ($phpV[2] >= $minV[2]) {
-	            if (empty($minV[4]) || $minV[4] == '*' || $phpV[4] >= $minV[4]) {
-	                $passes = true;
-	            }
-	        }
-	    }
-	    //if it doesn't pass raise a Joomla Notice
-	    if (!$passes) :
-	    	JError::raiseNotice('VERSION_ERROR',sprintf(JText::_('ERROR_PHP_VERSION'),$minV,$phpV));
-	    endif;
-
-	    //return minimum PHP version
-	    return self::$_min_php;
-    }    
-    
-    /**
-     * Gets the server's PHP Version
-     * @return unknown_type
-     */
-    public static function getServerPhp()
-    {
-        return PHP_VERSION;
-    }
-    
-	/**
-     * Get the URL to the folder containing all media assets
-     *
-     * @param string	$type	The type of URL to return, default 'media'
-     * @return 	string	URL
-     */
-    public static function getURL($type = 'media')
-    {
-    	$url = '';
-    	
-    	switch($type) 
-    	{
-    		case 'media' :
-    			$url = JURI::root(true).'/media/com_phplist/';
-    			break;
-    		case 'css' :
-    			$url = JURI::root(true).'/media/com_phplist/css/';
-    			break;
-    		case 'images' :
-    			$url = JURI::root(true).'/media/com_phplist/images/';
-    			break;
-    		case 'js' :
-    			$url = JURI::root(true).'/media/com_phplist/js/';
-    			break;			
-    	}
-    	
-    	return $url;
-    }
-    
-	/**
-     * Get the path to the folder containing all media assets
-     *
-     * @param 	string	$type	The type of path to return, default 'media'
-     * @return 	string	Path
-     */
-    public static function getPath($type = 'media')
-    {
-    	$path = '';
-    	
-    	switch($type) 
-    	{
-    		case 'media' :
-    			$path = JPATH_SITE.DS.'media'.DS.'com_phplist';
-    			break;
-    		case 'css' :
-    			$path = JPATH_SITE.DS.'media'.DS.'com_phplist'.DS.'css';
-    			break;
-    		case 'images' :
-    			$path = JPATH_SITE.DS.'media'.DS.'com_phplist'.DS.'images';
-    			break;
-    		case 'js' :
-    			$path = JPATH_SITE.DS.'media'.DS.'com_phplist'.DS.'js';
-    			break;			
-    	}
-    	
-    	return $path;
-    }
-	
-	/**
-	 * Method to dump the structure of a variable for debugging purposes
-	 *
-	 * @param	mixed	A variable
-	 * @param	boolean	True to ensure all characters are htmlsafe
-	 * @return	string
-	 * @since	1.5
-	 * @static
-	 */
-	public static function dump( &$var, $htmlSafe = true ) {
-		$result = print_r( $var, true );
-		return '<pre>'.( $htmlSafe ? htmlspecialchars( $result ) : $result).'</pre>';
-	}
-	
-}
-
-class PhplistConfig extends Phplist 
-{
-	
-	var $show_linkback					= '1';
-	var $show_linkback_phplist			= '1';
-	var $activation_email				= '0';
-	var $default_html					= '1';
-	var $users_autocreate				= '0';
-	var $frontend_attribs				= '0';
-	var $display_submenu				= '1';
-	var $display_newsletter_order		= 'lastsent';
-	var $display_newsletter_order_dir	= 'ASC';
-	var $display_messagetemplate		= '0';
-	var $phplist_host					= 'localhost';
-	var $phplist_database				= 'phplist';
-	var $phplist_user					= 'phplist';
-	var $phplist_password				= '';
-	var $phplist_prefix					= 'phplist';
-	var $phplist_user_prefix			= 'phplist_user';
-	var $phplist_driver					= 'mysql';
-	var $phplist_port					= '3600';
-
-		
-	/**
-	 * constructor
-	 * @return void
-	 */
-	function __construct() {
-		parent::__construct();
-		
-		$this->setVariables();
-	}
+	//TODO Tooltips should be here...
 
 	/**
 	 * Returns the query
 	 * @return string The query to be used to retrieve the rows from the database
 	 */
-	function _buildQuery() {
-
+	public function _buildQuery()
+	{
 		$query = "SELECT * FROM #__phplist_config";
-		
 		return $query;
 	}
 	
-	/**
-	 * Retrieves the data
-	 * @return array Array of objects containing the data from the database
-	 */
-	function getData() {
-		// load the data if it doesn't already exist
-		if (empty( $this->_data )) {
-			$database = &JFactory::getDBO();
-			$query = $this->_buildQuery();
-			$database->setQuery( $query );
-			$this->_data = $database->loadObjectList( );
-		}
-		
-		return $this->_data;
-	}
-
-	/**
-	 * Set Variables
-	 *
-	 * @acces	public
-	 * @return	object
-	 */
-	function setVariables() {
-		$success = false;
-		
-		if ( $data = $this->getData() ) {
-			for ($i=0; $i<count($data); $i++) {
-				$title = $data[$i]->title;
-				$value = $data[$i]->value;
-				if (isset($title)) {
-					$this->$title = $value;
-				}
-			}
-			
-			$success = true;
-		}
-		
-		return $success;
-	}	
-
 	/**
 	 * Get component config
 	 *
 	 * @acces	public
 	 * @return	object
 	 */
-	function &getInstance() {
+	public static function getInstance()
+	{
 		static $instance;
-
+	
 		if (!is_object($instance)) {
-			$instance = new PhplistConfig();
+			$instance = new Phplist();
 		}
-
+	
 		return $instance;
 	}
+	
+	/**
+	 * Intelligently loads instances of classes in framework
+	 *
+	 * Usage: $object = Synk::getClass( 'SynkHelperCarts', 'helpers.carts' );
+	 * Usage: $suffix = Synk::getClass( 'SynkHelperCarts', 'helpers.carts' )->getSuffix();
+	 * Usage: $categories = Synk::getClass( 'SynkSelect', 'select' )->category( $selected );
+	 *
+	 * @param string $classname   The class name
+	 * @param string $filepath    The filepath ( dot notation )
+	 * @param array  $options
+	 * @return object of requested class (if possible), else a new JObject
+	 */
+	public static function getClass( $classname, $filepath='controller', $options=array( 'site'=>'admin', 'type'=>'components', 'ext'=>'com_synk' )  )
+	{
+		return parent::getClass( $classname, $filepath, $options  );
+	}
+	
+	/**
+	 * Method to intelligently load class files in the framework
+	 *
+	 * @param string $classname   The class name
+	 * @param string $filepath    The filepath ( dot notation )
+	 * @param array  $options
+	 * @return boolean
+	 */
+	public static function load( $classname, $filepath='controller', $options=array( 'site'=>'admin', 'type'=>'components', 'ext'=>'com_synk' ) )
+	{
+		return parent::load( $classname, $filepath, $options  );
+	}
 }
+	
 ?>
