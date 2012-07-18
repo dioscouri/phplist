@@ -167,7 +167,7 @@ class PhplistHelperEmail extends PhplistHelperBase
 		
 		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
 		$phplistconfig = &PhplistConfigPhplist::getInstance();
-		$config = &PhplistConfig::getInstance();
+		$config = &Phplist::getInstance();
 		
 		//default text or html emails
 		if ($config->get('default_html', '') == '1')

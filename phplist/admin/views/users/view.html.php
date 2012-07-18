@@ -39,7 +39,7 @@ class PhplistViewUsers extends PhplistViewBase
 		}
 		
 		// Get default values from config
-		$config = PhplistConfig::getInstance();
+		$config = Phplist::getInstance();
 		$this->assign( 'default_html', $config->get( 'default_html', '1' ) );
     	$activation_email = $config->get( 'activation_email', '1' );
 		if ($activation_email == '1') 

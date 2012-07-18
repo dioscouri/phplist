@@ -49,7 +49,7 @@ class PhplistHelperUser extends PhplistHelperBase
 		
 		JTable::addIncludePath( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'tables' );
 		$row = &JTable::getInstance( 'phplistuser', 'Table' );
-		$config = &PhplistConfig::getInstance();
+		$config = &Phplist::getInstance();
 			
 		// First try to get the user by their email address in case they have a phplistUser account already
 		if ($getUser = PhplistHelperUser::getUser( $joomlaUserObject->email, '1', 'email' )) {

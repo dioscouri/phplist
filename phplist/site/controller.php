@@ -177,7 +177,7 @@ class PhplistController extends JController
 		$dispatcher = JDispatcher::getInstance();
 		$dispatcher->trigger('onAfterDisplayComponentPhplist', array() );
 		
-		$config = PhplistConfig::getInstance();
+		$config = Phplist::getInstance();
 		$show_linkback = $config->get( 'show_linkback', '1' );
 		$show_linkback_phplist = $config->get( 'show_linkback_phplist', '1' );
 		$url = "http://www.dioscouri.com/";

@@ -25,7 +25,7 @@ class PhplistViewDashboard extends PhplistViewBase
 			// TODO Update the stats method to get phplist-appropriate statistics
 			$this->_lastThirty();
 			
-		    if (PhplistConfig::getInstance()->get('display_dashboard_statistics', '1'))
+		    if (Phplist::getInstance()->get('display_dashboard_statistics', '1'))
             {
                 $this->_statistics();
             }

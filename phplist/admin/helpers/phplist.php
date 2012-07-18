@@ -37,7 +37,7 @@ class PhplistHelperPhplist extends PhplistHelperBase
 		if (!is_object($instance) || isset($instance->error) || isset($instance->_errorNum) || $refresh == '1' ) {
 
 			// check that config is complete
-			$config = &PhplistConfig::getInstance();
+			$config = &Phplist::getInstance();
 			// need host, user, password, database, and prefix to be complete
 			$host		= $config->get( 'phplist_host', '' );
 			$database	= $config->get( 'phplist_database', '' );
@@ -115,7 +115,7 @@ class PhplistHelperPhplist extends PhplistHelperBase
 	function getPrefix() 
 	{
 		$success = false;
-		$config = &PhplistConfig::getInstance();
+		$config = &Phplist::getInstance();
 		$success = $config->get( 'phplist_prefix', 'phplist' );
 		return $success;
 	}
@@ -127,7 +127,7 @@ class PhplistHelperPhplist extends PhplistHelperBase
 	function getUserTablePrefix() 
 	{
 		$success = false;
-		$config = &PhplistConfig::getInstance();
+		$config = &Phplist::getInstance();
 		$success = $config->get( 'phplist_user_prefix', 'phplist_user' );
 		return $success;
 	}

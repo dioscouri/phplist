@@ -41,7 +41,7 @@ class PhplistControllerNewsletters extends PhplistController
     	$ns = $this->getNamespace();
     	
     	$listid = JRequest::getVar( 'id' );
-    	$config = PhplistConfig::getInstance();
+    	$config = Phplist::getInstance();
 		$order_dir = $config->get('display_newsletter_order_dir', '1');
 		$order = $config->get('display_newsletter_order', '1');
 		
@@ -178,7 +178,7 @@ class PhplistControllerNewsletters extends PhplistController
 				$details->uid = $phplistUser->uniqid;
 				
 				// send confirmation email to New Users
-				$config = &PhplistConfig::getInstance();
+				$config = &Phplist::getInstance();
 				$activation_email = $config->get( 'activation_email', '1' );
 				if ($activation_email == '1')
 				{

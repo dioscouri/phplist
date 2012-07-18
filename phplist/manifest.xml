@@ -41,9 +41,14 @@
 			<folder>views</folder>
 		</files>
 
-		<languages folder="languages">
-			<language tag="en-GB">admin/en-GB.com_phplist.ini</language>
-			<language tag="en-GB">site/en-GB.com_phplist.ini</language>
+		<languages folder="languages/admin">
+			<language tag="en-GB">en-GB.com_phplist.ini</language>
+			<language tag="en-GB">en-GB.com_phplist.sys.ini</language>
+			<language tag="en-GB">en-GB.com_phplist.menu.ini</language>
+		</languages>
+		
+		<languages folder="languages/site">
+			<language tag="en-GB">en-GB.com_phplist.ini</language>
 		</languages>
 	</administration>
 	
@@ -63,16 +68,15 @@
         <folder>images</folder>
         <folder>js</folder>
         <folder>menus</folder>
-        <folder>fusioncharts</folder>
     </media>
 	
 	<!-- Modules -->	
 	<modules>
-		<module module="mod_phplist_subscribe" client="site" />
+		<!--<module module="mod_phplist_subscribe" client="site" />-->
 	</modules> 
 
 	<!-- Plugins -->
 	<plugins>
-		<plugin plugin="phplist_plugin_user" group="user" publish="true" element="phplist" />
+		<!--<plugin plugin="phplist_plugin_user" group="user" publish="true" element="phplist" />-->
 	</plugins> 		
 </install>

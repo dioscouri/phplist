@@ -53,7 +53,7 @@ class PhplistViewMessages extends PhplistViewBase
 	{
 		parent::_form($tpl='');
 		
-		$config = PhplistConfig::getInstance();
+		$config = Phplist::getInstance();
 		$message_template = $config->get('display_messagetemplate', '1');
 		print_r($message_template);
 		

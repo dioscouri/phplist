@@ -86,7 +86,7 @@ class plgUserPhplist extends JPlugin
 		$phplistUser = PhplistHelperUser::getUser( $joomlaUser['email'], '1', 'email' );
 		
 		//check PHPlist confirmation email config setting
-		$config = &PhplistConfig::getInstance();
+		$config = &Phplist::getInstance();
 		$activation_email = $config->get( 'activation_email', '1' );
 		
 		//check Joomla! config Activation email setting

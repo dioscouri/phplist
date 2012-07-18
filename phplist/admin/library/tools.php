@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-class PhplistHelperTools extends DSCTools
+class PhplistTools extends DSCTools
 {
 	/**
 	 * Get the Phplist plugins which should be configured in the Configuration menu of the Phplist Component

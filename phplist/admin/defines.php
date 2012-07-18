@@ -79,7 +79,7 @@ class Phplist extends DSC
 	 * @param array  $options
 	 * @return object of requested class (if possible), else a new JObject
 	 */
-	public static function getClass( $classname, $filepath='controller', $options=array( 'site'=>'admin', 'type'=>'components', 'ext'=>'com_synk' )  )
+	public static function getClass( $classname, $filepath='controller', $options=array( 'site'=>'admin', 'type'=>'components', 'ext'=>'com_phplist' )  )
 	{
 		return parent::getClass( $classname, $filepath, $options  );
 	}
@@ -92,7 +92,7 @@ class Phplist extends DSC
 	 * @param array  $options
 	 * @return boolean
 	 */
-	public static function load( $classname, $filepath='controller', $options=array( 'site'=>'admin', 'type'=>'components', 'ext'=>'com_synk' ) )
+	public static function load( $classname, $filepath='controller', $options=array( 'site'=>'admin', 'type'=>'components', 'ext'=>'com_phplist' ) )
 	{
 		return parent::load( $classname, $filepath, $options  );
 	}

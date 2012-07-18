@@ -121,7 +121,7 @@ class modPhplistSubscribeHelper
     	$vars = new JObject();
     	
     	//get config settings
-    	$config = &PhplistConfig::getInstance();
+    	$config = &Phplist::getInstance();
     	$htmlemail = $config->get( 'default_html', '1' );
     	$activation_email = $config->get( 'activation_email', '1' );
     	
