@@ -26,6 +26,18 @@ class PhplistHelperPhplist extends PhplistHelperBase
 	}
 	
 	/**
+	 * Returns the phphlist message table name
+	 * @return unknown_type
+	 */
+	function getTableNameData()
+	{
+		$success = false;
+		$phplist_prefix = PhplistHelperPhplist::getPrefix();
+		$success = "{$phplist_prefix}_messagedata";
+		return $success;
+	}
+	
+	/**
 	 * Returns the phplist database object
 	 * @return unknown_type
 	 */

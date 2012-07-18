@@ -15,13 +15,12 @@ class PhplistTableTemplates extends DSCTable
 {
 	function PhplistTableTemplates( &$db ) 
 	{
+		$database = PhplistHelperPhplist::getDatabase();
+		
 		$tbl_key 	= 'id';
 		$tbl_suffix = 'templates';
 		$this->set( '_suffix', $tbl_suffix );
 		
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.template', JPATH_ADMINISTRATOR.DS.'components' );
-		$database = PhplistHelperPhplist::getDatabase();		
 		$tablename = PhplistHelperTemplate::getTableName();
 		
 		parent::__construct( $tablename, $tbl_key, $database );			

@@ -131,7 +131,7 @@ class PhplistModelMessages extends PhplistModelBase
 		foreach(@$list as $item)
 		{
 			$item->link = 'index.php?option=com_phplist&controller=messages&view=messages&task=edit&id='.$item->id;
-			$item->link_view = PhplistUrl::appendURL("index.php?option=com_phplist&view=messages&task=view&id=".$item->id."&newsletterid=".$item->listid);
+			$item->link_view = PhplistHelperUrl::appendURL("index.php?option=com_phplist&view=messages&task=view&id=".$item->id."&newsletterid=".$item->listid);
 			// get status link and link text
 			if (strtolower($item->status) != 'submitted' && strtolower($item->status) != 'inprocess')
 			{

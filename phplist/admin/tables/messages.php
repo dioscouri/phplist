@@ -15,13 +15,12 @@ class PhplistTableMessages extends DSCTable
 {
 	function PhplistTableMessages( &$db )
 	{
+		$database = PhplistHelperPhplist::getDatabase();
+		
 		$tbl_key 	= 'id';
 		$tbl_suffix = 'messages';
 		$this->set( '_suffix', $tbl_suffix );
 		
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
-		$database = PhplistHelperPhplist::getDatabase();
 		$tablename = PhplistHelperMessage::getTableName();
 		
 		parent::__construct( $tablename, $tbl_key, $database );			

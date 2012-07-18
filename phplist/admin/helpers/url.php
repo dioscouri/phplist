@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 
 Phplist::load( 'PhplistHelperBase', 'helpers.base');
 
-class PhplistUrl extends PhplistHelperBase
+class PhplistHelperUrl extends PhplistHelperBase
 {
 	
 	/**
@@ -86,6 +86,36 @@ class PhplistUrl extends PhplistHelperBase
 			$id = $item->id;		
 		}
 		return $id;		
+	}
+	
+	/**
+	 *
+	 * Wrapper that adds the current Itemid and UID if present to the URL
+	 *
+	 * @param	string $string The string to translate
+	 */
+	
+	function appendURL( $url, $logout='0' )
+	{
+	 JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
+	 /// add itemid to url
+	 $return = PhplistUrl::addItemid($url);
+
+	 if ($logout == '0')
+	 {
+	 	// add uid to url if valid user
+	 	$uid = JRequest::getVar( 'uid' );
+	 	$isUser = '';
+	 	if ($uid)
+	 	{
+	 		$isUser = PhplistHelperUser::getUser($uid, '0', 'uid');
+	 	}
+	 	if ($isUser)
+	 	{
+	 		$return.= "&uid=".$uid;
+	 	}
+	 }
+	 return $return;
 	}
 
 }

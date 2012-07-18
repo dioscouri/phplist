@@ -16,13 +16,12 @@ class PhplistTableSubscriptions extends DSCTable
 	
 	function PhplistTableSubscriptions( &$db )
 	{
+		$database = PhplistHelperPhplist::getDatabase();
+		
 		$tbl_key 	= 'userid';
 		$tbl_suffix = 'subscriptions';
 		$this->set( '_suffix', $tbl_suffix );
 		
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		$database = PhplistHelperPhplist::getDatabase();
 		$tablename = PhplistHelperSubscription::getTableName();
 		
 		parent::__construct( $tablename, $tbl_key, $database );			

@@ -122,8 +122,8 @@ class PhplistModelNewsletters extends PhplistModelBase
 		{
 			$item->link = 'index.php?option=com_phplist&controller=newsletters&view=newsletters&task=edit&id='.$item->id;
 			$item->link_subscribers = 'index.php?option=com_phplist&view=subscriptions&filter_listid='.$item->id;
-			$item->link_messages = PhplistUrl::appendURL('index.php?option=com_phplist&amp;view=messages&amp;task=list&amp;id='.$item->id);
-		    $item->link_switch = PhplistUrl::appendURL("index.php?option=com_phplist&controller=newsletters&task=switch_subscription&cid[]={$item->id}");
+			$item->link_messages = PhplistHelperUrl::appendURL('index.php?option=com_phplist&amp;view=messages&amp;task=list&amp;id='.$item->id);
+		    $item->link_switch = PhplistHelperUrl::appendURL("index.php?option=com_phplist&controller=newsletters&task=switch_subscription&cid[]={$item->id}");
 			
 			// get last mailing
             unset($lastMailing);

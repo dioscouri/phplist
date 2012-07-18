@@ -15,13 +15,13 @@ class PhplistTableAttributes extends DSCTable
 {
 	function PhplistTableAttributes( &$db ) 
 	{
+		
+		$database = PhplistHelperPhplist::getDatabase();
+		
 		$tbl_key 	= 'id';
 		$tbl_suffix = 'attributes';
 		$this->set( '_suffix', $tbl_suffix );
 		
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		$database = PhplistHelperPhplist::getDatabase();		
 		$tablename = PhplistHelperAttribute::getTableName();
 		
 		parent::__construct( $tablename, $tbl_key, $database );			

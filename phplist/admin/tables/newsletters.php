@@ -16,13 +16,12 @@ class PhplistTableNewsletters extends DSCTable
 	
 	function PhplistTableNewsletters( &$db )
 	{
+		$database = PhplistHelperPhplist::getDatabase();
+		
 		$tbl_key 	= 'id';
 		$tbl_suffix = 'newsletters';
 		$this->set( '_suffix', $tbl_suffix );
 		
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-		$database = PhplistHelperPhplist::getDatabase();
 		$tablename = PhplistHelperNewsletter::getTableName();
 		
 		parent::__construct( $tablename, $tbl_key, $database );			
