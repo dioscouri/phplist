@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-Phplist::load( 'SynkHelperBase', 'helpers.base');
+Phplist::load( 'PhplistHelperBase', 'helpers.base');
 
 class PhplistHelperSubscription extends PhplistHelperBase
 {

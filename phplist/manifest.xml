@@ -24,7 +24,7 @@
 	
 	<!-- Application/administrator -->
 	<administration>
-		<menu img="../media/com_phplist/images/phplist_16.png">COM_SYNK</menu>
+		<menu img="../media/com_phplist/images/phplist_16.png">COM_PHPLIST</menu>
 
 		<files folder="admin">
 			<file>phplist.php</file>

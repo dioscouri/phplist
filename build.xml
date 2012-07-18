@@ -40,7 +40,6 @@
 	<property name="cfg.siteSubModuleDir" location="${cfg.comDir}/mod_phplist_subscribe" />
 	<property name="cfg.siteUserPluginDir" location="${cfg.comDir}/phplist_plugin_user" />
 	<property name="cfg.plgBatchModifyDir" location="${cfg.comDir}/phplist_plugin_batchmodify" />
-	<property name="cfg.plgAmbrasubs" location="${cfg.comDir}/phplist_plugin_ambrasubsDownloaders" />
 
 	<!-- <property name="cfg.syspluginFilesDir" location="${cfg.comDir}/juga_plugin_system" /> -->
 	
@@ -68,8 +67,6 @@
 		<!-- add all plugin directories here -->
 		<!-- EX: <zip destfile="${cfg.buildVersionDir}/plugins/aplugin.zip" basedir="${cfg.versionDir}/aplugin" /> -->
 		<!-- <zip destfile="${cfg.buildVersionDir}/plugins/billets_plugin_ambrasubs.zip" basedir="${cfg.comDir}/billets_plugin_ambrasubs" /> -->
-		<zip destfile="${cfg.buildVersionDir}/plugins/phplist_plugin_ambrasubsDownloaders.zip" basedir="${cfg.comDir}/phplist_plugin_ambrasubsDownloaders" />	
-		<zip destfile="${cfg.buildVersionDir}/plugins/phplist_plugin_ambrasubsSubscribers.zip" basedir="${cfg.comDir}/phplist_plugin_ambrasubsSubscribers" />	
 		<!-- <zip destfile="${cfg.buildVersionDir}/plugins/phplist_plugin_batchmodify.zip" basedir="${cfg.comDir}/phplist_plugin_batchmodify" /> -->	
 	</target>
 

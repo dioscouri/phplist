@@ -48,7 +48,7 @@ class PhplistInstaller extends JObject
     public $lib_url = 'http://updates.dioscouri.com/library/downloads/latest.zip';
     public $plugin_url = 'http://updates.dioscouri.com/plg_system_dioscouri/downloads/latest.zip';
     public $plugin_url_j15 = 'http://updates.dioscouri.com/plg_system_dioscouri/downloads/j15/latest.zip';
-    public $min_php_required = '5.3.0';
+    public $min_php_required = '5.2.0';
     
     /**
      * Checks the minimum required php version
