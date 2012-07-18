@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content" method="upgrade">
+	<name>Phplist - Auto Messages</name>
+	<version>3.0.0rc1</version>
+	<creationDate>April 2010</creationDate>
+	<author>Dioscouri Design</author>
+	<authorEmail>info@dioscouri.com</authorEmail>
+	<authorUrl>http://www.dioscouri.com</authorUrl>
+	<copyright>2010 Dioscouri.com</copyright>
+	<license>GNU General Public License v2</license>
+	<description>PLG_PHPLIST_AUTOMESSAGES_DESC</description>
+
+	<files> 
+		<file plugin="phplist">phplist.php</file>
+	</files>
+
+	<languages>
+		<language tag="en-GB">languages/en-GB.plg_content_phplist.ini</language>
+	</languages>
+	
+	<params addpath="/administrator/components/com_phplist/elements">
+	<param name="contentcategory" type="Categorylist" default="" label="CATEGORIES_TITLE" section="content" description="CATEGORIES_DESC" size="5" />
+	
+	<param name="@spacer" type="spacer" default="" label="" description="" />
+	
+	<param name="newsletters" type="PhplistNewsletterlist" default="" label="NEWSLETTERS_TITLE" description="NEWSLETTERS_TITLE" size="5" />
+	
+	<param name="@spacer" type="spacer" default="" label="" description="" />
+
+	<param name="onlynewmessages" type="radio" default="0" label="ONLY_NEW_MESSAGES_TITLE" description="ONLY_NEW_MESSAGES_DESC" >
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</param>
+	
+	<param name="autoupdate" type="radio" default="0" label="AUTOUPDATE_MESSAGES_TITLE" description="AUTOUPDATE_MESSAGES_DESC" >
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</param>
+	
+	<param name="@spacer" type="spacer" default="" label="" description="" />
+	
+	<param name="autoqueue" type="radio" default="0" label="AUTOQUEUE_MESSAGES_TITLE" description="AUTOQUEUE_MESSAGES_DESC" >
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</param>
+	
+	<param name="embargotime" type="text" default="0" label="EMBARGO_TITLE" description="EMBARGO_DESC" size="30" ></param>		
+	
+	<param name="@spacer" type="spacer" default="" label="" description="" />
+	
+	<param name="messagesubject" type="text" default="0" label="MESSAGE_SUBJECT_TITLE" description="MESSAGE_SUBJECT_DESC" size="30" ></param>		
+	<param name="appendsubject" type="radio" default="after" label="APPEND_SUBJECT_TITLE" description="APPEND_SUBJECT_DESC" >
+			<option value="before">Before</option>
+			<option value="after">After</option>
+			<option value="hide">Hide</option>
+	</param>
+	<param name="articlecontent" type="radio" default="both" label="ARTICLE_CONTENT_TITLE" description="ARTICLE_CONTENT_DESC" >
+			<option value="intro">Article Intro</option>
+			<option value="main">Main Text</option>
+			<option value="both">Both</option>
+	</param>
+	
+	
+	
+	</params>
+	
+</install>
