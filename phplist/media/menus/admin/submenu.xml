@@ -36,4 +36,8 @@
        <name>Configuration</name>
        <url>index.php?option=com_phplist&#38;view=config</url>
    </link>
+    <link>
+       <name>PHPList Configuration</name>
+       <url>index.php?option=com_phplist&#38;view=configphplist</url>
+   </link>
 </menu>

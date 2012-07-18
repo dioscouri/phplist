@@ -59,18 +59,19 @@ if ( $isInstalled )
 		// check if user already subscribed to single newsletter id
 		if ($phplistUser)
 		{
-			$isSubscribed = PhplistHelperSubscription::isUser( $phplistUser->id, $newsletterid );
-		
-			if ($isSubscribed && !$display_already)
-			{
-				// do nothing
-				$donothing = true;
+			for ($i=0; $i<count($newsletterid); $i++) {
+				$isSubscribed = PhplistHelperSubscription::isUser( $phplistUser->id, $newsletterid[$i] );
+				if ($isSubscribed && !$display_already)
+				{
+					// do nothing
+					$donothing = true;
+				}
 			}
 		}
 		
 		// get attributes form fields
 		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		$attributes = PhplistHelperAttribute::getAttributes($frontend = '1');
+		$attributes = PhplistHelperAttribute::getAttributes(true);
 		
 		// newlsetters page link
 		$newsletters_link = "index.php?option=com_phplist&view=newsletters";

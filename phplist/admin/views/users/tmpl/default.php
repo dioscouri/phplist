@@ -71,7 +71,6 @@
                     </div>
                 </th>
                 <th>
-                    <?php $attribs = array('class' => 'inputbox', 'size' => '1', 'onchange' => 'document.adminForm.submit();'); ?>
                     <div class="range">
                         <div class="rangeline">
                             <span class="label"><?php echo JText::_("FROM"); ?>:</span> <input id="filter_foreignkey_from" name="filter_foreignkey_from" value="<?php echo @$state->filter_foreignkey_from; ?>" size="5" class="input" />

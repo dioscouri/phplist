@@ -150,7 +150,7 @@
 					?>
 				</td>
 				<td style="text-align: center;">
-					<?php echo JHTML::_( "date", $item->entered, "%d %b %Y, %I:%M%p",'0' ); ?>
+					<?php echo JHTML::_( "date", $item->entered, "%d %b %Y, %I:%M%p" ); ?>
 				</td>
 				<td style="text-align: center;">
 				[ <a href="<?php echo $item->link ?>">

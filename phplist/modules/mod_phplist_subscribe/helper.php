@@ -31,6 +31,7 @@ class modPhplistSubscribeHelper
 			JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 			JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
 			JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
+			
 			// Also check that DB is setup
 			$database = PhplistHelperPhplist::getDBO();
 			if (!isset($database->error)) 
@@ -121,7 +122,7 @@ class modPhplistSubscribeHelper
     	$vars = new JObject();
     	
     	//get config settings
-    	$config = &Phplist::getInstance();
+    	$config = &PhplistConfig::getInstance();
     	$htmlemail = $config->get( 'default_html', '1' );
     	$activation_email = $config->get( 'activation_email', '1' );
     	
@@ -138,25 +139,6 @@ class modPhplistSubscribeHelper
     	}
     	$redirect = JRequest::getVar( 'return' );
     	
-		/* TODO check a newsletter is selected (if tickboxes)
-		 * if (intval($cids['0']) == '0')
-		{
-			$vars->message = JText::_( "PLEASE SELECT A NEWSLETTER" );
-			$this->messagetype	= 'notice';
-			$this->setRedirect( $redirect, $this->message, $this->messagetype );
-			return false;
-		}*/
-		
-		
-		/* TODO check for valid email address
-		 * if (!$isEmailAddress = JMailHelper::isEmailAddress( $email ))
-		{
-			$this->message .= JText::_( "PLEASE ENTER A VALID EMAIL ADDRESS" );
-			$this->messagetype	= 'notice';
-			$this->setRedirect( $redirect, $this->message, $this->messagetype );
-			return false;
-		}*/
-    	
     	$phplistUser = PhplistHelperUser::getUser( $email, '1', 'email' );
     	
 		$details = new JObject();
@@ -171,6 +153,7 @@ class modPhplistSubscribeHelper
 		
 		$details->userid = $phplistUser->id;
 		$details->uid = $phplistUser->uniqid;
+		$newsletters = JRequest :: getVar('cid', array(0), 'request', 'array');
 
 		if ($activation_email == '1')
 		{

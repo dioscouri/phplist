@@ -41,6 +41,7 @@ class PhplistModelMessages extends PhplistModelBase
         $filter_subject    = $this->getState('filter_subject');
         $filter_date_from   = $this->getState('filter_date_from');
         $filter_date_to     = $this->getState('filter_date_to');
+        $filter_datetime   = $this->getState('filter_datetime');
 
        	if ($filter) 
        	{
@@ -96,6 +97,10 @@ class PhplistModelMessages extends PhplistModelBase
         {
             $query->where("m2n.entered <= '".$filter_date_to."'");
         }
+        if (strlen($filter_datetime))
+        {
+        	$query->where("tbl.entered = '".$filter_date_to."'");
+        }
        	
     }
     
@@ -103,7 +108,7 @@ class PhplistModelMessages extends PhplistModelBase
 	{
 		parent::_buildQueryJoins($query);
         JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-        $listid_tablename = PhplistHelperNewsletter::getTableNameMessage();
+        $listid_tablename = PhplistHelperNewsletter::getTableNameListmessage();
         $query->join('LEFT', "{$listid_tablename} AS m2n ON tbl.id = m2n.messageid");
 	}
 	

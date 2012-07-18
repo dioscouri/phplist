@@ -38,7 +38,7 @@ $lang->load( $element, JPATH_BASE );
 <?php 
 	if ($display_type == '1') :
 		// display checkbox list of newsletters
-		$newsletters = PhplistHelperNewsletter::getTypes('1');
+		$newsletters = PhplistHelperNewsletter::getNewsletters('1');
 		for ($i=0; $i<count($newsletters); $i++) :
 			$letter = $newsletters[$i];
 			if ($phplistUser) :
@@ -56,8 +56,11 @@ $lang->load( $element, JPATH_BASE );
 			endif;
 	 	endfor;
 	else :
-		// display hidden text field with newsletterid ?>
-		<input type="hidden" name="cid[]" value="<?php echo $newsletterid; ?>" /><?php
+		// display hidden text field with newslettersid
+		for ($i=0; $i<count($newsletterid); $i++) :
+		?>
+		<input type="hidden" name="cid[]" value="<?php echo $newsletterid[$i]; ?>" /><?php
+		endfor;
  	endif;
 
 if ($display_html) : ?>

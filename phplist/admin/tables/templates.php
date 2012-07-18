@@ -18,7 +18,7 @@ class PhplistTableTemplates extends DSCTable
 		$database = PhplistHelperPhplist::getDatabase();
 		
 		$tbl_key 	= 'id';
-		$tbl_suffix = 'templates';
+		$tbl_suffix = 'template';
 		$this->set( '_suffix', $tbl_suffix );
 		
 		$tablename = PhplistHelperTemplate::getTableName();

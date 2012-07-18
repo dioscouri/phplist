@@ -34,6 +34,8 @@ class PhplistControllerConfig extends PhplistController
         $model  = $this->getModel( $this->get('suffix') );
         $config = Phplist::getInstance();
         $properties = $config->getProperties();
+        
+        $frontend_attribs = JRequest::getVar('frontend_attribs', array(), 'post', 'array');
 
         foreach (@$properties as $key => $value ) 
         {
@@ -41,6 +43,23 @@ class PhplistControllerConfig extends PhplistController
             $row = $model->getTable( 'config' );
             $newvalue = JRequest::getVar( $key );
             $value_exists = array_key_exists( $key, $_POST );
+            
+            ///remove trailing or preceding underscores from database prefix and usertable prefix
+            if ($key == 'phplist_prefix' || $key == 'phplist_user_prefix')
+            {
+            	$newvalue = preg_replace('/^_+/','',trim($newvalue));
+            	$newvalue = preg_replace('/_+$/','',$newvalue);
+            }
+            	
+            //save frontend_attribs as CSV
+            if ($key == 'frontend_attribs')
+            {
+            	if (is_array( $frontend_attribs ))
+            	{
+            		$newvalue = implode( ",", $frontend_attribs );
+            	}
+            }
+            
             if ( $value_exists && !empty($key) ) 
             { 
                 // proceed if newvalue present in request. prevents overwriting for non-existent values.

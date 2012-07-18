@@ -87,7 +87,7 @@ class PhplistModelNewsletters extends PhplistModelBase
         JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
         JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
 
-        $tablename_lettermsg = PhplistHelperNewsletter::getTableNameMessage();
+        $tablename_lettermsg = PhplistHelperNewsletter::getTableNameListmessage();
         $tablename_msg = PhplistHelperMessage::getTableName();
         
         $field[] = "
@@ -128,7 +128,7 @@ class PhplistModelNewsletters extends PhplistModelBase
 			// get last mailing
             unset($lastMailing);
             $item->lastMailingDate = JText::_( "NO MESSAGES SENT" );
-            if ($lastMailing = PhplistHelperNewsletter::getLastMailing( $item->id, '1' )) 
+            if ($lastMailing = PhplistHelperNewsletter::getLastMailing( $item->id)) 
             {
                 $item->lastMailingDate = JHTML::_( "date", $lastMailing->sendstart, "%d %b %Y, %I:%M%p" );
             }

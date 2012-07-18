@@ -21,6 +21,20 @@
 			submitform( pressbutton );
 		}
 	}
+	function phplistInsertArticle( url, articleid ) 
+    {
+            // execute Ajax request to server
+            var a=new Ajax(url,{
+                method:"get",
+                data:{"articleid":articleid},
+                onComplete: function(response){
+                	var resp=Json.evaluate(response, false);
+                	jInsertEditorText(resp, 'message');
+                }
+            }).request();
+            
+            document.getElementById('sbox-window').close();
+    }
 </script>
 
 <form action="<?php echo JRoute::_( @$form['action'] ) ?>" method="post" class="adminform" name="adminForm" >
@@ -33,20 +47,6 @@
 				<td style="vertical-align: top; min-width: 70%;">
 
 					<table class="admintable">
-						<!--
-						<tr>
-							<td width="100" align="right" class="key">
-								<label for="autofill">
-									<?php // echo JText::_( 'Auto-Fill with Content Article' ); ?>:
-								</label>
-							</td>
-							<td>
-								<?php // TODO include ability to select an article, click Apply, and have 'message' be filled with fulltext of article ?>
-		                        <?php // echo $this->elementArticle; ?>
-								<?php // echo $this->resetArticle; ?>
-							</td>
-						</tr>
-						-->
 						<tr>
 							<td width="100" align="right" class="key">
 								<label for="subject">
@@ -54,7 +54,7 @@
 								</label>
 							</td>
 							<td>
-								<input type="text" name="subject" id="subject" size="50" value="<?php echo @$row->subject; ?>" />
+								<input type="text" name="subject" id="subject" size="40" value="<?php echo @$row->subject; ?>" />
 							</td>
 						</tr>
 						<tr>
@@ -64,7 +64,17 @@
 								</label>
 							</td>
 							<td>
-								<input type="text" name="fromfield" id="fromfield" size="50" value="<?php echo @$row->fromfield; ?>" />
+								<input type="text" name="fromfield" id="fromfield" size="30" value="<?php echo @$row->fromfield; ?>" />
+							</td>
+						</tr>
+							<tr>
+							<td width="100" align="right" class="key">
+								<label for="autofill">
+									<?php  echo JText::_( 'Insert Content' ); ?>:
+								</label>
+							</td>
+							<td>
+		                        <?php  echo $this->elementArticle; ?><br/>
 							</td>
 						</tr>
 						<tr>

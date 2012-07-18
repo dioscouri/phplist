@@ -55,6 +55,7 @@ class PhplistControllerUsers extends PhplistController
 		$state['filter_foreignkey_to']      = $app->getUserStateFromRequest($ns.'foreignkey_to', 'filter_foreignkey_to', '', '');
 		$state['filter_html']      = $app->getUserStateFromRequest($ns.'html', 'filter_html', '', '');
 		$state['filter_confirmed']      = $app->getUserStateFromRequest($ns.'confirmed', 'filter_confirmed', '', '');
+		$state['flex_list']      = JRequest::getVar('flex_list', '0', 'get', 'int');
 
 		foreach (@$state as $key=>$value)
 		{
@@ -78,33 +79,43 @@ class PhplistControllerUsers extends PhplistController
 		$error = false;
 		$this->messagetype	= '';
 		$this->message 		= '';
-		$redirect = 'index.php?option=com_phplist&view='.$this->get('suffix');
+		$redirect = 'index.php?option=com_phplist&view='.$this->get('suffix').'&flex_list='.$details->listid;
 		$redirect = JRoute::_( $redirect, false );
 
 		$model = $this->getModel($this->get('suffix'));
 		$row = $model->getTable();
 
 		$cids = JRequest::getVar('cid', array (0), 'post', 'array');
+		$num_already = 0;
+		$num_added = 0;
 		foreach (@$cids as $cid)
 		{
 			$details->userid = $cid;
 				
 			if (!$action = PhplistHelperSubscription::storeUserTo( $details ))
 			{
-				$this->message .= $action->errorMsg.", ID: {$details->userid}";
-				$this->messagetype = 'notice';
-				$error = true;
+				$num_already++;
+			}
+			else {
+				$num_added++;
 			}
 		}
 
-		if ($error)
+		if (empty($details->listid))
 		{
-			$this->message = JText::_('FLEX+ NEWSLETTER NOT SELECTED ERROR') . $this->message;
+			$this->message = JText::_('FLEX+ NEWSLETTER NOT SELECTED ERROR');
 			//TODO Keep selected user tickboxes checked after this error message
 		}
 		else
 		{
-			$this->message = JText::_('USERS SUCCESSFULLY SUBSCRIBED');
+			if (!empty($num_already))
+			{
+				$this->message .= $num_already. ' ' .JText::_('ALREADY SUBSCRIBED'). '</li><li>';
+			}
+			if (!empty($num_added))
+			{
+				$this->message .= $num_added. ' ' .JText::_('USERS SUCCESSFULLY SUBSCRIBED');
+			}
 		}
 
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
@@ -125,33 +136,43 @@ class PhplistControllerUsers extends PhplistController
 		$error = false;
 		$this->messagetype	= '';
 		$this->message 		= '';
-		$redirect = 'index.php?option=com_phplist&view='.$this->get('suffix');
+		$redirect = 'index.php?option=com_phplist&view='.$this->get('suffix').'&flex_list='.$details->listid;
 		$redirect = JRoute::_( $redirect, false );
 
 		$model = $this->getModel($this->get('suffix'));
 		$row = $model->getTable();
-
+		
 		$cids = JRequest::getVar('cid', array (0), 'post', 'array');
+		$num_removed = 0;
+		$num_already = 0;
 		foreach (@$cids as $cid)
 		{
 			$details->userid = $cid;
 				
-			if (!$action = PhplistHelperSubscription::removeUserFrom( $details ))
+		if (!$action = PhplistHelperSubscription::removeUserFrom( $details ))
 			{
-				//	$this->message .= $action->errorMsg.", ID: {$cid}";
-				$this->messagetype = 'notice';
-				$error = true;
+				$num_already++;
+			}
+			else {
+				$num_removed++;
 			}
 		}
 
-		if ($error)
+		if (empty($details->listid))
 		{
-			$this->message = JText::_('FLEX- NEWSLETTER NOT SELECTED ERROR') . $this->message;
+			$this->message = JText::_('FLEX- NEWSLETTER NOT SELECTED ERROR');
 			// TODO keep selected checkboxes after this error
 		}
 		else
 		{
-			$this->message = JText::_('USERS SUCCESSFULLY SUBSCRIBED');
+			if (!empty($num_already))
+			{
+				$this->message .= $num_already. ' ' .JText::_('ALREADY UNSUBSCRIBED'). '</li><li>';
+			}
+			if (!empty($num_removed))
+			{
+				$this->message .= $num_removed. ' ' .JText::_('USERS SUCCESSFULLY UNSUBSCRIBED');
+			}
 		}
 
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
@@ -364,7 +385,7 @@ class PhplistControllerUsers extends PhplistController
 			$details->userid = $row->id;
 			 
 			// update subscriptions
-			$newsletters = PhplistHelperNewsletter::getTypes();
+			$newsletters = PhplistHelperNewsletter::getNewsletters();
 			if ($newsletters)
 			{
 				foreach ($newsletters as $d)
@@ -423,5 +444,8 @@ class PhplistControllerUsers extends PhplistController
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
 	}
 }
+
+
+
 
 ?>

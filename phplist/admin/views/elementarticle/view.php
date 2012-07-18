@@ -54,8 +54,8 @@ class PhplistViewElementArticle extends JView
 		JHTML::_('behavior.tooltip');
 
 		$object = JRequest::getVar( 'object' );
-		$link = 'index.php?option='._THISCOMPONENT.'&task=elementArticle&tmpl=component&object='.$object;
-		// index.php?option=com_phplist&amp;task=elementArticle&amp;tmpl=component&amp;object=articleid
+		$link = 'index.php?option=com_phplist&task=elementArticle&tmpl=component&object='.$object;
+				// index.php?option=com_phplist&amp;task=elementArticle&amp;tmpl=component&amp;object=articleid
 		?>
 		<form action="<?php echo $link; ?>" method="post" name="adminForm">
 
@@ -125,8 +125,8 @@ class PhplistViewElementArticle extends JView
 						<?php echo $page->getRowOffset( $i ); ?>
 					</td>
 					<td>
-						<a style="cursor: pointer;" onclick="window.parent.jSelectArticle('<?php echo $row->id; ?>', '<?php echo str_replace(array("'", "\""), array("\\'", ""),$row->title); ?>', '<?php echo JRequest::getVar('object'); ?>');">
-							<?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?></a>
+						<a style="cursor: pointer;" onclick="window.parent.phplistInsertArticle('index.php?option=com_phplist&controller=messages&task=insertArticle&format=raw','<?php echo $row->id; ?>');">
+												<?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?></a>
 					</td>
 					<td align="center">
 						<?php echo $row->groupname;?>

@@ -23,6 +23,9 @@ class PhplistControllerMessages extends PhplistController
 		$this->set('suffix', 'messages');
 		$this->registerTask( 'addtoqueue', 'changestatus' );
 		$this->registerTask( 'suspend', 'changestatus' );
+		$this->registerTask( 'insertArticle', 'insertArticle' );
+		$this->registerTask( 'send_test', 'sendTest' );
+		$this->registerTask( 'send_test_email', 'sendTestEmail' );
 	}
 	
 	/**
@@ -141,6 +144,9 @@ class PhplistControllerMessages extends PhplistController
        		$row->footer = stripslashes($row->footer);
    		}
 		
+   		//convert relative to absolute links
+   		$row->message = PhplistHelperMessage::_relToAbs($row->message);
+   		
 		if ($isNew)
 		{
 			// draft if new
@@ -170,34 +176,36 @@ class PhplistControllerMessages extends PhplistController
 		if ( $row->save() ) 
 		{
 			$model->setId( $row->id );
-			$this->messagetype 	= 'message';
-			$this->message  	= JText::_( 'MESSAGE SAVED' );
 			
-		    // Get the array of addtonewsletter[] from request
-	        $addtonewsletter = JRequest::getVar( 'addtonewsletter', '', 'request', 'array' );
-	        $messageid = $model->getId();
-	        $newsletters = PhplistHelperNewsletter::getTypes();
-	        if ($newsletters)
-	        {                   
-	            foreach ($newsletters as $d)
-	            {
-	                if ($d->id > 0)
-	                {
-	                    if (!isset($addtonewsletter[$d->id]))
-	                    {
-	                        $remove = PhplistHelperMessage::removeFromNewsletter( $messageid, $d->id );
-	                    }
-	                    elseif (isset($addtonewsletter[$d->id]))
-	                    {
-	                        $is = PhplistHelperMessage::isNewsletter( $messageid, $d->id );
-	                        if ($is != 'true')
-	                        {
-	                        $add = PhplistHelperMessage::addToNewsletter( $messageid, $d->id );
-	                        }
-	                    } 
-	                }
-	            }
-	        }
+			// Get the array of addtonewsletter[] from request
+			$addtonewsletter = JRequest::getVar( 'addtonewsletter', '', 'request', 'array' );
+			$messageid = $model->getId();
+			$newsletters = PhplistHelperNewsletter::getNewsletters();
+			if ($newsletters)
+			{
+				foreach ($newsletters as $d)
+				{
+					if ($d->id > 0)
+					{
+						if (!isset($addtonewsletter[$d->id]))
+						{
+							PhplistHelperMessage::removeFromNewsletter( $messageid, $d->id );
+						}
+						elseif (isset($addtonewsletter[$d->id]))
+						{
+							$is = PhplistHelperMessage::isNewsletter( $messageid, $d->id );
+							if ($is != 'true')
+							{
+								PhplistHelperMessage::addToNewsletter( $messageid, $d->id );
+							}
+						}
+					}
+				}
+			}
+			
+			
+			$this->messagetype 	= 'message';
+			$this->message  	= JText::_( 'MESSAGE SAVED'. $this->getError());
 			
 			$dispatcher = JDispatcher::getInstance();
 			$dispatcher->trigger( 'onAfterSave'.$this->get('suffix'), array( $row ) );
@@ -208,23 +216,141 @@ class PhplistControllerMessages extends PhplistController
 			$this->message 		= JText::_( 'SAVE FAILED' )." - ".$row->getError();
 		}
 		
-    	$redirect = "index.php?option=com_phplist";
-    	$task = JRequest::getVar('task');
-    	switch ($task)
-    	{
-    		case "savenew":
-    			$redirect .= '&view='.$this->get('suffix').'&layout=form';
-    		  break;
-    		case "apply":
-    			$redirect .= '&view='.$this->get('suffix').'&layout=form&id='.$model->getId();
-    		  break;
-    		case "save":
-    		default:
-    			$redirect .= "&view=".$this->get('suffix');
-    		  break;
-    	}
-
-    	$redirect = JRoute::_( $redirect, false );
+		$redirect = "index.php?option=com_phplist";
+		$task = JRequest::getVar('task');
+		switch ($task)
+		{
+			case "savenew":
+				$redirect .= '&view='.$this->get('suffix').'&layout=form';
+				break;
+			case "apply":
+				$redirect .= '&view='.$this->get('suffix').'&layout=form&id='.$model->getId();
+				break;
+			case "save":
+			default:
+				$redirect .= "&view=".$this->get('suffix');
+				break;
+		}
+		
+		$redirect = JRoute::_( $redirect, false );
+		$this->setRedirect( $redirect, $this->message, $this->messagetype );
+		}
+		
+		/**
+		 * Articles element
+		 */
+		function elementArticle()
+		{
+			JModel::addIncludePath( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_content'.DS.'models' );
+			$model = JModel::getInstance( 'Element', 'ContentModel' );
+			$this->addViewPath( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_content'.DS.'views' );
+			$view	= &$this->getView( 'Element', '', 'ContentView' );
+			include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_content'.DS.'helper.php' );
+			// $view->addHelperPath( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_content'.DS.'helper' );
+			$view->setModel( $model, true );
+			$view->display();
+		}
+		
+		/**
+		 *
+		 * @return
+		 */
+		function insertArticle()
+		{
+			$success = true;
+			$response = array();
+			$response['msg'] = "";
+			$response['error'] = "";
+			$msg = new stdClass();
+			$msg->message = "";
+			$msg->error = "";
+		
+			$dispatcher	   =& JDispatcher::getInstance();
+			$articleId = JRequest::getVar( 'articleid');
+		
+			$article =& JTable::getInstance('content');
+			$article->load( $articleId );
+			$article->text = $article->introtext . chr(13).chr(13) . $article->fulltext;
+		
+			$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
+			$params		= &JComponentHelper::getParams('com_content');
+			$aparams	=& $article->parameters;
+			$params->merge($aparams);
+		
+			// Fire Content plugins on the article so they change their tags
+			/*
+				* Process the prepare content plugins
+			*/
+			JPluginHelper::importPlugin('content');
+			$results = $dispatcher->trigger('onPrepareContent', array (& $article, & $params, $limitstart));
+		
+			/*
+			 * Handle display events
+			*/
+			$article->event = new stdClass();
+			$results = $dispatcher->trigger('onAfterDisplayTitle', array ($article, &$params, $limitstart));
+			$article->event->afterDisplayTitle = trim(implode("\n", $results));
+				
+			$results = $dispatcher->trigger('onBeforeDisplayContent', array (& $article, & $params, $limitstart));
+			$article->event->beforeDisplayContent = trim(implode("\n", $results));
+				
+			$results = $dispatcher->trigger('onAfterDisplayContent', array (& $article, & $params, $limitstart));
+			$article->event->afterDisplayContent = trim(implode("\n", $results));
+		
+			$text = "";
+			$text .= "<h3>{$article->title}</h3>";
+			$text .= $article->event->afterDisplayTitle;
+			$text .= $article->event->beforeDisplayContent;
+			$text .= $article->text;
+			$text .= $article->event->afterDisplayContent;
+				
+			// encode and echo (need to echo to send back to browser)
+			echo ( json_encode( $text ) );
+			return $success;
+		
+		}
+		
+		// toolbar button
+		function sendTest()
+		{
+			$model 	= $this->getModel( $this->get('suffix') );
+			$row = $model->getTable();
+			$row->load( $model->getId() );
+			$redirect = "index.php?option=com_phplist&view=messages&layout=testemail&id=".$row->id;
+			$redirect = JRoute::_( $redirect, false );
+			$this->setRedirect( $redirect );
+		}
+		
+		// send out test email
+		function sendTestEmail()
+		{
+			JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
+			JLoader::import( 'com_phplist.helpers.email', JPATH_ADMINISTRATOR.DS.'components' );
+		
+			$model  = $this->getModel( 'messages' );
+			$message = $model->getTable();
+		
+			$mid =  JRequest::getVar( 'mid' );
+			$message->load( $mid , 'id' );
+		
+			$toemail = JRequest::getVar( 'email' );
+			$fromemail = $message->fromemail;
+		
+			$testemail = PhplistHelperEmail::_sendMessage( $message, 'test', $toemail);
+		
+			if ($testemail)
+			{
+				$this->messagetype  = 'notice';
+				$this->message      = JText::_( 'TEST MESSAGE SUCCESSFULLY SENT TO' ) .' '. $toemail;
+			}
+			else
+			{
+				$this->messagetype  = 'error';
+				$this->message      = JText::_( 'SENDING TEST MESSAGE FAILED' );
+			}
+		
+    	$redirect = PhplistUrl::appendURL("index.php?option=com_phplist&view=messages") ;
+		$redirect = JRoute::_( $redirect, false );
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );  
 	}
 }

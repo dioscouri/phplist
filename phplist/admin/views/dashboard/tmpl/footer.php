@@ -29,6 +29,8 @@
 			<br/>
 			<?php echo JText::_( "Version" ); ?>: <?php echo $defines->getVersion(); ?>
 			<br/>
+			<?php echo sprintf( JText::_('PHPLIST_VERSION_LINE'), Phplist::getPHPListRecomendedVersion(), Phplist::getPHPListVersion());?>
+			<br/>
 			<?php echo sprintf( JText::_('PHP_VERSION_LINE'), $defines->getMinPhp(), $defines->getServerPhp() );?>
 			<br/>
 			<?php echo JText::_( 'Powered by' )." <a href='http://www.phplist.com' target='_blank'>".JText::_( 'Phplist' )."</a>"; ?>

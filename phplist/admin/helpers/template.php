@@ -16,7 +16,7 @@ Phplist::load( 'PhplistHelperBase', 'helpers.base');
 class PhplistHelperTemplate extends PhplistHelperBase
 {
 	/**
-	 * Returns the phphlist log table name
+	 * Returns the phphlist template table name
 	 * @return unknown_type
 	 */
 	function getTableName() 

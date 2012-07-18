@@ -15,13 +15,12 @@ Phplist::load( 'PhplistHelperBase', 'helpers.base');
 
 class PhplistHelperAttribute extends PhplistHelperBase
 {
-	/**
+		/**
 	 * Returns the phphlist attributes table name
 	 * @return unknown_type
 	 */
 	function getTableName() 
 	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' ); 
 		$success = false;
 		$phplist_prefix = PhplistHelperPhplist::getPrefix();
 		$success = "{$phplist_prefix}_user_attribute";
@@ -34,7 +33,6 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	 */
 	function getTableName_userattributes() 
 	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' ); 
 		$success = false;
 		$phplist_user_prefix = PhplistHelperPhplist::getUserTablePrefix();
 		$success = "{$phplist_user_prefix}_user_attribute";
@@ -47,27 +45,23 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	 */
 	function getTableName_attributeslists($attribId) 
 	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' ); 
-		$success = false;
-		$phplist_prefix = PhplistHelperPhplist::getPrefix();
-		
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
 		
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		$tablename_attributes = PhplistHelperAttribute::getTableName();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
-		$query = "
-			SELECT
-				*
-			FROM
-				{$tablename_attributes}
-			WHERE
-				{$tablename_attributes}.id = '{$attribId}'
-		";
-		$database->setQuery( $query );
+		$table = JTable::getInstance( 'Attributes', 'Table' );
+		$query = new PhplistQuery( );
+		$query->select( "tablename" );
+		$query->from( $table->getTableName( ) . " AS tbl" );
+		$query->where( "tbl.id = " . ( int ) $attribId );
+		
+		$database->setQuery( ( string ) $query );
 		$data = $database->loadObject();
+		
 		$tablename_attributeslists = $data->tablename;
+		$phplist_prefix = PhplistHelperPhplist::getPrefix();
 		$success = "{$phplist_prefix}_listattr_{$tablename_attributeslists}";
 		
 		return $success;
@@ -77,24 +71,27 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	 * returns a list of all the attributes, or front end only attributes.
 	 * replaces .'s and spaces for form use if $formuse = '1'
 	 */
-	function getAttributes($frontend = '0')
+	function getAttributes($frontend = false)
 	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		$tablename_attributes = PhplistHelperAttribute::getTableName();
-		$database = PhplistHelperPhplist::getDBO();
 		$success = false;
+		$database = PhplistHelperPhplist::getDBO();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
-		$where = "";
-		if ($frontend == '1')
+		$table = JTable::getInstance( 'Attributes', 'Table' );
+		$query = new PhplistQuery( );
+		$query->select( "*" );
+		$query->from( $table->getTableName( ) . " AS tbl" );
+		
+		if ($frontend)
 		{
 			// get csv of front end attribute id's from config
-			$config = &Phplist::getInstance();
+			$config = &PhplistConfig::getInstance();
 			$frontendAttribs = $config->get( 'frontend_attribs', '1' );
-
+			
 			if ($frontendAttribs  != '' && $frontendAttribs  != '0')
 			{
-				$where .= ' WHERE id IN ('.$frontendAttribs.')';
+				$query->where( "tbl.id IN (" . $frontendAttribs .")");
 			}
 			else
 			{
@@ -102,17 +99,9 @@ class PhplistHelperAttribute extends PhplistHelperBase
 				return false;
 			}
 		}
-
-		$query = "
-			SELECT
-				*
-			FROM
-				{$tablename_attributes}  
-			{$where}
-		";
-		$database->setQuery( $query );
-		$data = $database->loadObjectList();
 		
+		$database->setQuery( ( string ) $query );
+		$data = $database->loadObjectList();
 		$success = $data;
 		return $success;
 	}
@@ -152,42 +141,36 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	/**
 	 * gets attribute info for a user
 	 */
-	function getUserAttributes( $userid, $frontend='0' )
+	function getUserAttributes( $userid, $frontend = false )
 	{
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		$tablename_attributes = PhplistHelperAttribute::getTableName();
 		$tablename_userattributes = PhplistHelperAttribute::getTableName_userattributes();
-
-		$where = "";
-		if ($frontend == '1')
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
+		
+		$query = new PhplistQuery( );
+		$query->select( "*" );
+		$query->from( $tablename_userattributes . " AS tbl" );		
+		$query->join( 'LEFT', $tablename_attributes.' AS attribs ON tbl.attributeid = attribs.id' );
+		$query->where( 'tbl.userid = '.$userid );
+		
+		if ($frontend)
 		{
 			// get csv of front end attribute id's from config
-			$config = &Phplist::getInstance();
+			$config = &PhplistConfig::getInstance();
 			$frontendAttribs = $config->get( 'frontend_attribs', '1' );
 
-			if ($frontendAttribs  != '')
+			if ($frontendAttribs  != '' && $frontendAttribs  != '0')
 			{
-				$where .= ' AND id IN ('.$frontendAttribs.')';
+				$query->where( "attribs.id IN (" . $frontendAttribs .")");
 			}
 		}
 		
-		$query = "
-			SELECT
-				*
-			FROM
-				{$tablename_userattributes}
-				LEFT JOIN {$tablename_attributes} ON {$tablename_userattributes}.attributeid = {$tablename_attributes}.id   
-			WHERE
-				{$tablename_userattributes}.userid = '{$userid}'
-				{$where}
-		";
-		$database->setQuery( $query );
+		$database->setQuery( ( string ) $query );
 		$data = $database->loadObjectList();
 		$success = $data;
-		
 		return $success;
 	}
 	
@@ -198,30 +181,19 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	{
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		$tablename_attributes = PhplistHelperAttribute::getTableName();
 		$tablename_userattributes = PhplistHelperAttribute::getTableName_userattributes();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
-		$query = "
-			SELECT
-				*
-			FROM
-				{$tablename_userattributes}
-			WHERE
-				{$tablename_userattributes}.userid = '{$userId}'
-				AND 
-				{$tablename_userattributes}.attributeid = '{$attribId}'
-			LIMIT 1
-		";
-		$database->setQuery( $query );
-		$database->query();
-		$rows = $database->getNumRows();
+		$query = new PhplistQuery( );
+		$query->select( "value" );
+		$query->from( $tablename_userattributes . " AS tbl" );		
+		$query->where( 'tbl.userid = '.$userId );
+		$query->where( 'tbl.attributeid = '.$attribId );
+		
+		$database->setQuery( ( string ) $query );
 		$data = $database->loadObject();
-		if ($rows == 1)
-		{
-			$success = $data->value;
-		}
+		$success = $data->value;
 		return $success;
 	}
 	
@@ -233,25 +205,18 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	{
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		$tablename_attributes = PhplistHelperAttribute::getTableName();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
-		$query = "
-			SELECT
-				default_value
-			FROM
-				{$tablename_attributes}
-			WHERE
-				{$tablename_attributes}.id = '{$attribId}'
-			LIMIT 1
-		";
-		$database->setQuery( $query );
-		$database->query();
-		if ($data = $database->loadObject())
-		{
-			$success = $data->default_value;
-		}
+		$query = new PhplistQuery( );
+		$query->select( "default_value" );
+		$query->from( $tablename_attributes . " AS tbl" );		
+		$query->where( 'tbl.id = '.$attribId );
+		
+		$database->setQuery( ( string ) $query );
+		$data = $database->loadObject();
+		$success = $data->default_value;
 		return $success;
 	}
 	
@@ -261,17 +226,17 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	function getAttributeListValues($id)
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-       	$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperAttribute::getTableName_attributeslists( $id );
-		$query = "
-			SELECT
-				*
-			FROM
-				{$tablename}
-			ORDER BY listorder ASC
-		";
-		$database->setQuery( $query );
+		$database = PhplistHelperPhplist::getDBO();
+		$tablename_attributeslists = PhplistHelperAttribute::getTableName_attributeslists( $id );
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
+		
+		$query = new PhplistQuery( );
+		$query->select( "*" );
+		$query->from( $tablename_attributeslists . " AS tbl" );		
+		$query->order('listorder ASC');
+		
+		$database->setQuery( ( string ) $query );
 		$data = $database->loadObjectList();
 		$success = $data;
 		return $success;
@@ -284,6 +249,8 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	{
 		$success = false;
 		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
+		JLoader::import( 'com_phplist.library.select', JPATH_ADMINISTRATOR.DS.'components' );
+		
 		$newname = $name;
 		//remove spaces from name
 		$name = str_replace(' ','_',$newname);
@@ -413,61 +380,43 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	 */
 	function insertAttributeValue( $userid, $attribId, $value )
 	{
-		
-		// First check if an attribute value exists for the user (even if value is null)
 		$success = false;
-		$isValue = false;
 		$database = PhplistHelperPhplist::getDBO();
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		$tablename = PhplistHelperAttribute::getTableName_userattributes();
+		$tablename_userattributes = PhplistHelperAttribute::getTableName_userattributes();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
-		$query = "
-			SELECT
-				*
-			FROM
-				{$tablename}
-			WHERE
-				`attributeid` = '{$attribId}'
-			AND
-				`userid` = '{$userid}'
-		";
-				
-		$database->setQuery( $query );
+		$query = new PhplistQuery( );
+		$query->select( "*" );
+		$query->from( $tablename_userattributes . " AS tbl" );		
+		$query->where('tbl.attributeid ='.$attribId);
+		$query->where('tbl.userid ='.$userid);
+		
+		$database->setQuery( ( string ) $query );
 		if ($data = $database->loadObject())
 		{
-			$isValue = true;
-		}
-		
-		if ($isValue == true)
-		{
 			//if a row exsits for user attribute, update it
-			$updateQuery = "
-			UPDATE
-			{$tablename}
-			SET
-				`value` = '{$value}'
-			WHERE
-				`attributeid` = '{$attribId}'
-			AND
-				`userid` = '{$userid}'
-			";
-			$database->setQuery( $updateQuery );
-			$success = $database->query();
+			$success = true;
+			$database->setQuery( "UPDATE ".$tablename_userattributes." SET value = '".$value."' WHERE attributeid = ".$attribId." AND userid = ".$userid );
+			if ( !$database->query( ) )
+			{
+				$this->setError( $database->getErrorMsg( ) );
+				$success = false;
+			}
+			return $success;
 		}
 		else
 		{
+			$success = true;
 			//if a row does not exsit for user attribute, insert it
-			$insertQuery = "
-			INSERT INTO
-			{$tablename}
-			VALUES
-			('{$attribId}','{$userid}','{$value}')
-			";
-			
-			$database->setQuery( $insertQuery );
-			$success = $database->query();
+			$database->setQuery( "INSERT INTO ".$tablename_userattributes." VALUES (".$attribId.",".$userid.",'".$value."')");
+			if ( !$database->query( ) )
+			{
+				$this->setError( $database->getErrorMsg( ) );
+				$success = false;
+			}
+			return $success;
 		}
-		return $success;
 	}
 }
 

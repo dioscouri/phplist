@@ -121,6 +121,36 @@ class PhplistSelect extends DSCSelect
 	 * @param $allowAny
 	 * @return unknown_type
 	 */
+ 	public static function attributes($selected, $name = 'filter_attributes', $attribs = array('class' => 'inputbox', 'size' => '1'), $idtag = null, $allowAny = false, $title = 'Select Attributes')
+ 	{
+ 		$list = array();
+ 		if($allowAny) {
+ 			$list[] =  self::option('', "- ".JText::_( $title )." -", 'id', 'title' );
+ 		}
+ 	
+ 		JModel::addIncludePath( JPATH_ADMINISTRATOR.DS.'components'.'com_phplist'.DS.'models' );
+ 		$model = JModel::getInstance('Attributes', 'PhplistModel');
+ 		$model->setState( 'select', 'tbl.name AS title, tbl.id as id');
+ 		$model->setState( 'order', 'tbl.listorder' );
+ 		$model->setState( 'direction', 'ASC' );
+ 		$items = $model->getList();
+ 		foreach (@$items as $item)
+ 		{
+ 			$list[] =  self::option( $item->id, JText::_($item->title), 'id', 'title' );
+ 		}
+ 	
+ 		return self::genericlist($list, $name, $attribs, 'id', 'title', $selected, $idtag );
+ 	}
+ 	
+ 	/**
+ 	 *
+ 	 * @param $selected
+ 	 * @param $name
+ 	 * @param $attribs
+ 	 * @param $idtag
+ 	 * @param $allowAny
+ 	 * @return unknown_type
+ 	 */
 	public static function attribute_type($selected, $name = 'filter_type', $attribs = array('class' => 'inputbox', 'size' => '1'), $idtag = null, $allowAny = false, $title = 'Select Type')
  	{
         $list = array();

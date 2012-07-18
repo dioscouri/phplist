@@ -15,13 +15,12 @@ Phplist::load( 'PhplistHelperBase', 'helpers.base');
 
 class PhplistHelperUser extends PhplistHelperBase
 {
-	/**
+		/**
 	 * Returns the phphlist users table name
 	 * @return unknown_type
 	 */
 	function getTableName() 
 	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
 		$success = false;
 		$phplist_user_prefix = PhplistHelperPhplist::getUserTablePrefix();
 		$success = "{$phplist_user_prefix}_user";
@@ -35,7 +34,6 @@ class PhplistHelperUser extends PhplistHelperBase
 	 */
 	function create( $joomlaUserObject, $phplistUserDetails='', $UserLogin='false', $jactivation = '0' )
 	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
 		$success = false;
 		$config =& JFactory::getConfig();
 		$date = JFactory::getDate();
@@ -49,7 +47,7 @@ class PhplistHelperUser extends PhplistHelperBase
 		
 		JTable::addIncludePath( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'tables' );
 		$row = &JTable::getInstance( 'phplistuser', 'Table' );
-		$config = &Phplist::getInstance();
+		$config = &PhplistConfig::getInstance();
 			
 		// First try to get the user by their email address in case they have a phplistUser account already
 		if ($getUser = PhplistHelperUser::getUser( $joomlaUserObject->email, '1', 'email' )) {
@@ -75,10 +73,8 @@ class PhplistHelperUser extends PhplistHelperBase
 		$activation_email = $config->get( 'activation_email', '1' );
 		if ($activation_email == '1' || $jactivation == '1') 
 		{
-			
-			//if PHPList confirmation email required, or (user plugin only) user activation email Joomla! config set to Yes, set as unconfirmed
 			$row->confirmed = '0';
-			//TODO put sendactivation email here, and remove from newsletters/module/userplugin functions.
+			//TODO put sendactivation email here, and remove from newsletters/module functions.
 		}
 		
 		if ($row->store()) {
@@ -227,7 +223,6 @@ class PhplistHelperUser extends PhplistHelperBase
 	 */
 	function getUserByUid( $value, $returnObject='0' )
 	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
 		$success = false;
 		
 		$database = PhplistHelperPhplist::getDBO();
@@ -268,9 +263,7 @@ class PhplistHelperUser extends PhplistHelperBase
 	 * @return unknown_type
 	 */
 	function getUserByForeignKey( $value, $returnObject='0' )
-	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		
+	{		
 		$success = false;
 		
 		$database = PhplistHelperPhplist::getDBO();
@@ -311,9 +304,7 @@ class PhplistHelperUser extends PhplistHelperBase
 	 * @return unknown_type
 	 */
 	function getUserById( $value, $returnObject='0' )
-	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		
+	{		
 		$success = false;
 		
 		$database = PhplistHelperPhplist::getDBO();
@@ -354,9 +345,7 @@ class PhplistHelperUser extends PhplistHelperBase
 	 * @return unknown_type
 	 */
 	function getUserByEmail( $value, $returnObject='0' )
-	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		
+	{		
 		$success = false;
 		
 		$database = PhplistHelperPhplist::getDBO();
@@ -486,6 +475,9 @@ class PhplistHelperUser extends PhplistHelperBase
 	 * @return array
 	 */
 	function &createNewUser( $details, $useractivation='0' ) {
+		
+		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
+		
 		global $mainframe;
 		$success = false;
 
@@ -535,7 +527,7 @@ class PhplistHelperUser extends PhplistHelperBase
 		// Send registration confirmation mail
 		// $password = JRequest::getString('password', '', 'post', JREQUEST_ALLOWRAW);
 		// $password = preg_replace('/[\x00-\x1F\x7F]/', '', $password); // Disallow control chars in the email
-	$sendemail = PhplistHelperUser::_sendMail( $user, $details, $useractivation );
+	$sendemail = PhplistHelperEmail::_sendJoomlaUserEmail( $user, $details, $useractivation );
 		
 		return $user;
 	}
@@ -621,108 +613,12 @@ class PhplistHelperUser extends PhplistHelperBase
 	}
 
 	/**
-	 * Returns yes/no
-	 * @param object
-	 * @param mixed Boolean
-	 * @return array
-	 */
-	function _sendMail( &$user, $details, $useractivation ) {
-		global $mainframe;
-
-		$db		=& JFactory::getDBO();
-
-		$name 		= $user->get('name');
-		$email 		= $user->get('email');
-		$username 	= $user->get('username');
-		$activation	= $user->get('activation');
-		$password 	= $details['password2']; // using the original generated pword for the email
-		
-		$usersConfig 	= &JComponentHelper::getParams( 'com_users' );
-		// $useractivation = $usersConfig->get( 'useractivation' );
-		$sitename 		= $mainframe->getCfg( 'sitename' );
-		$mailfrom 		= $mainframe->getCfg( 'mailfrom' );
-		$fromname 		= $mainframe->getCfg( 'fromname' );
-		$siteURL		= JURI::base();
-
-		$subject 	= sprintf ( JText::_( 'Account details for' ), $name, $sitename);
-		$subject 	= html_entity_decode($subject, ENT_QUOTES);
-
-		if ( $useractivation == 1 ){
-			$message = sprintf ( JText::_( 'Email Message Activation' ), $sitename, $siteURL, $username, $password, $activation );
-		} else {
-			$message = sprintf ( JText::_( 'Email Message' ), $sitename, $siteURL, $username, $password );
-		}
-
-		$message = html_entity_decode($message, ENT_QUOTES);
-
-		//get all super administrator
-		$query = 'SELECT name, email, sendEmail' .
-				' FROM #__users' .
-				' WHERE LOWER( usertype ) = "super administrator"';
-		$db->setQuery( $query );
-		$rows = $db->loadObjectList();
-
-		// Send email to user
-		if ( ! $mailfrom  || ! $fromname ) {
-			$fromname = $rows[0]->name;
-			$mailfrom = $rows[0]->email;
-		}
-
-		$success = PhplistHelperUser::_doMail($mailfrom, $fromname, $email, $subject, $message);
-
-		/*
-				// Send notification to all administrators
-				$subject2 = sprintf ( JText::_( 'Account details for' ), $name, $sitename);
-				$subject2 = html_entity_decode($subject2, ENT_QUOTES);
-		
-				// get superadministrators id
-				foreach ( $rows as $row )
-				{
-					if ($row->sendEmail)
-					{
-						$message2 = sprintf ( JText::_( 'SEND_MSG_ADMIN' ), $row->name, $sitename, $name, $email, $username);
-						$message2 = html_entity_decode($message2, ENT_QUOTES);
-						JUtility::sendMail($mailfrom, $fromname, $row->email, $subject2, $message2);
-					}
-				}
-		*/
-		
-		return $success;
-	}
-	
-	/**
-	 * Returns yes/no
-	 * @param object
-	 * @param mixed Boolean
-	 * @return array
-	 */
-	function _sendConfirmationMail( $email, $name, $newsletters, $uniqueid ) {
-		global $mainframe;
-
-		$sitename 		= $mainframe->getCfg( 'sitename' );
-		$mailfrom 		= $mainframe->getCfg( 'mailfrom' );
-		$fromname 		= $mainframe->getCfg( 'fromname' );
-		$siteURL		= JURI::base();
-		
-		$link = $siteURL . 'index.php?option=com_phplist&view=newsletters&task=confirm&uid='. $uniqueid;
-		
-		$subject 	= JText::_( 'PLEASE CONFIRM YOUR SUBSCRIPTION' ) . '-'. $sitename ;
-		$subject 	= html_entity_decode($subject, ENT_QUOTES);
-
-		$message = sprintf( JText::_( 'Email Message Confirmation' ), $name, $newsletters, $link, $sitename);
-		$message = html_entity_decode($message, ENT_QUOTES);
-
-		$success = PhplistHelperUser::_doMail($mailfrom, $fromname, $email, $subject, $message);
-		
-		return $success;
-	}
-	/**
 	 * Set User confirmed state to 1
 	 */
 	function confirmUser( $uniqueid )
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
+		
 		$database = PhplistHelperPhplist::getDBO();
 		$tablename = PhplistHelperUser::getTableName();
 		
@@ -739,35 +635,11 @@ class PhplistHelperUser extends PhplistHelperBase
 	
 	/**
 	 * 
-	 * @return unknown_type
-	 */
-	function _doMail( $from, $fromname, $recipient, $subject, $body, $actions=NULL, $mode=NULL, $cc=NULL, $bcc=NULL, $attachment=NULL, $replyto=NULL, $replytoname=NULL ) 
-	{
-		$success = false;
-
-		$message =& JFactory::getMailer();
-		$message->addRecipient( $recipient );
-		$message->setSubject( $subject );
-		$message->setBody( $body );
-		$sender = array( $from, $fromname );
-		$message->setSender($sender);
-		$sent = $message->send();
-		if ($sent == '1') {
-			$success = true;
-		}
-		
-		return $success;
-	}
-	
-	/**
-	 * 
 	 * Deletes user completely from PHPList database
 	 */
-	
 	function deleteUser( $id, $source='foreignkey' )
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
 		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$phplist_prefix = PhplistHelperPhplist::getPrefix();
@@ -868,7 +740,6 @@ class PhplistHelperUser extends PhplistHelperBase
 	function deleteForeignkey( $foreignkey )
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
 		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$phplist_user_prefix = PhplistHelperPhplist::getUserTablePrefix();
@@ -899,7 +770,6 @@ class PhplistHelperUser extends PhplistHelperBase
 	function syncJoomlaUsers($returnObject = '1')
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
 		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		// Get the list of all foreignkeys

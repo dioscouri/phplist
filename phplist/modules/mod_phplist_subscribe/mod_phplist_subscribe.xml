@@ -7,7 +7,7 @@
 	<authorUrl>http://www.dioscouri.com</authorUrl>
 	<copyright>2010 Dioscouri.com</copyright>
 	<license>GNU General Public License v2</license>
-	<version>2.2.0</version>
+	<version>3.0.0rc1</version>
 	<description>MOD_PHPLIST_SUBSCRIBE_DESC</description>
 
 	<files> 
@@ -20,7 +20,7 @@
 		<language tag="en-GB">en-GB.mod_phplist_subscribe.ini</language>
 	</languages>
 			
-	<params>
+	<params addpath="/administrator/components/com_phplist/elements">
 		<param name="header" type="text" default="" label="HEADER" description="HEADER DESC" size="45" />
 		<param name="footer" type="text" default="" label="FOOTER" description="FOOTER DESC" size="45" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
@@ -29,9 +29,9 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="newsletterid" type="text" default="" label="SINGLE NEWSLETTER" description="SINGLE NEWSLETTER DESC" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		
+		<param name="newsletterid" type="phplistnewsletterlist" section="com_phplist" default="0" label="HIDDEN NEWSLETTER" description="HIDDEN NEWSLETTER DESC" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="display_url" type="radio" default="1" label="INCLUDE LINK" description="INCLUDE LINK DESC">
 			<option value="0">No</option>
 		  	<option value="1">Yes</option>

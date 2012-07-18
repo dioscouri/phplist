@@ -36,10 +36,6 @@ class PhplistModelTemplates extends PhplistModelBase
 		$list = parent::getList($refresh);
 		if(empty($list)) { return array(); }
 		
-		foreach(@$list as $item)
-		{
-			$item->link = 'index.php?option=com_phplist&controller=logs&view=logs&task=edit&id='.$item->id;
-		}
 		return $list;
 	}	
 }

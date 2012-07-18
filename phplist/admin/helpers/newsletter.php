@@ -31,7 +31,7 @@ class PhplistHelperNewsletter extends PhplistHelperBase
 	 * Returns the phphlist message table name
 	 * @return unknown_type
 	 */
-	function getTableNameMessage() 
+	function getTableNameListmessage() 
 	{
 		$success = false;
 		$phplist_prefix = PhplistHelperPhplist::getPrefix();
@@ -45,75 +45,47 @@ class PhplistHelperNewsletter extends PhplistHelperBase
 	 * @param $returnObject
 	 * @return unknown_type
 	 */
-	function getLastMailing( $newsletterid, $returnObject='0' )
+	function getLastMailing( $newsletterid )
 	{
-        JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		$tablename_letter = PhplistHelperNewsletter::getTableName();
-		$tablename_lettermsg = PhplistHelperNewsletter::getTableNameMessage();
+		$tablename_newsletters = PhplistHelperNewsletter::getTableName();
+		$tablename_listmessages = PhplistHelperNewsletter::getTableNameListmessage();
+		JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
 		$tablename_msg = PhplistHelperMessage::getTableName();
 		
-		$query = "
-			SELECT
-				msg.*
-			FROM
-				$tablename_msg AS msg
-			LEFT JOIN 
-				$tablename_lettermsg AS lettermsg ON msg.id = lettermsg.messageid
-			WHERE
-				lettermsg.listid = '{$newsletterid}'
-			AND
-				msg.status = 'sent'
-			ORDER BY
-				msg.sendstart DESC
-			LIMIT 1
-		";
-		$database->setQuery( $query );
-		$data = $database->loadObject();
-		if ($data)
-		{
-			$success = true;
-			if ($returnObject == '1')
-			{
-				$success = $data;
-			}
-		}
+		$query = new PhplistQuery( );
+		$query->select( "msg.*" );
+		$query->from( $tablename_msg . " AS msg" );		
+		$query->join( 'LEFT', $tablename_listmessages.' as listmsg ON msg.id = listmsg.messageid' );
+		$query->where( 'listmsg.listid = '.$newsletterid );
+		$query->where( "msg.status = 'sent'" );
+		$query->order( "msg.sendstart DESC LIMIT 1");
 		
+		$database->setQuery( ( string ) $query );
+		$data = $database->loadObject();
+		$success = $data;
 		return $success;
+
 	}
 	/**
-	 * Returns a list of types
+	 * Returns a list of newsletters
 	 * @param mixed Boolean
 	 * @param mixed Boolean
 	 * @return array
 	 */
-	function &getTypes( $published='0' )
+	function getNewsletters( $published='0' )
 	{
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-		
-		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperNewsletter::getTableName();
-		$where = "";
+		JModel::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'models' );
+		$model = JModel::getInstance( 'Newsletters', 'PhplistModel' );
 		if ($published  == '1')
 		{
-			$where .= ' WHERE tbl.active = 1';
+			$model->setState( 'filter_active', $published );
 		}
-		
-		$query = "
-			SELECT
-				tbl.*
-			FROM
-				{$tablename} AS tbl
-				{$where}
-			ORDER BY
-				tbl.listorder ASC
-		";
-
-		$database->setQuery( $query );
-		$data = $database->loadObjectList();
-		
-		return $data;
+		$model->setState( 'order', 'listorder' );
+		$model->setState( 'direction', 'ASC' );
+		$items = $model->getList();
+		return $items;
 	}
 	/**
 	 * Returns a newsletter Name
@@ -121,27 +93,13 @@ class PhplistHelperNewsletter extends PhplistHelperBase
 	 * @param mixed Boolean
 	 * @return array
 	 */
-	function getName( $listid )
+	function getNewsletter( $listid )
 	{
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		
-		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperNewsletter::getTableName();
-		
-		$query = "
-			SELECT
-				*
-			FROM
-				{$tablename}
-			WHERE
-			id = '{$listid}'
-		";
-
-		$database->setQuery( $query );
-		$data = $database->loadObject();
-		
-		return $data;
+		JModel::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'models' );
+		$model = JModel::getInstance( 'Newsletters', 'PhplistModel' );
+		$model->setId($listid);
+		$items = $model->getItem();
+		return $items;
 	}
 	
 	/**
@@ -152,25 +110,20 @@ class PhplistHelperNewsletter extends PhplistHelperBase
 	 */
 	function getNumSubscribers( $listid )
 	{
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		
+		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperSubscription::getTableName();
-		
-		$query = "
-			SELECT 
-                COUNT(userid)
-            FROM
-				{$tablename} AS subscriptions 
-            WHERE 
-                subscriptions.listid = {$listid}
-		";
+		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
+		$tablename_subs = PhplistHelperSubscription::getTableName();
 
-		$database->setQuery( $query );
-		$count = $database->loadResult();
+		$query = new PhplistQuery( );
+		$query->select( "COUNT(userid)" );
+		$query->from( $tablename_subs);		
+		$query->where( 'listid = '.$listid );
 		
-		return $count;
+		$database->setQuery( ( string ) $query );
+		$data = $database->loadResult();
+		$success = $data;
+		return $success;
 	}
 }
 

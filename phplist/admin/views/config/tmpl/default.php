@@ -66,10 +66,32 @@
 								<?php echo JText::_( 'DISPLAY ATTRIBUTES IN FRONT END' ); ?>
 							</th>
 							<td>
-		                       <input name="frontend_attribs" type="text" class="text_area" size='10' value="<?php echo $this->row->get('frontend_attribs', ''); ?>" />
+			                	<?php echo PhplistSelect::attributes( explode(',',$this->row->get('frontend_attribs', '1')), 'frontend_attribs[]', ' multiple="multiple" size="5" ', 'id', true, JText::_('No Attributes') );?>
 							</td>
 							<td width="35%">
 								<?php echo JText::_( 'DISPLAY ATTRIBUTES IN FRONT END DESC' ); ?>
+							</td>
+						</tr>
+						<tr>
+			            	<th style="width: 25%;">
+								<?php echo JText::_( 'DEFAULT TEMPLATE FOR MESSAGES' ); ?>
+							</th>
+							<td>
+			                	<?php echo PhplistSelect::templates( $this->row->get('default_template', '1'), 'default_template', '', 'id', true );?>
+							</td>
+							<td width="35%">
+								<?php echo JText::_( 'DEFAULT TEMPLATE FOR MESSAGES DESC' ); ?>
+							</td>
+						</tr>
+						<tr>
+			            	<th style="width: 25%;">
+								<?php echo JText::_( 'DEFAULT FROM EMAIL ADDRESS' ); ?>
+							</th>
+							<td>
+			               		<input name="default_fromemail" type="text" class="text_area" size='20' value="<?php echo $this->row->get('default_fromemail', ''); ?>" />
+							</td>
+							<td width="35%">
+								<?php echo JText::_( 'DEFAULT FROM EMAIL ADDRESS DESC' ); ?>
 							</td>
 						</tr>
 					</tbody>
@@ -96,6 +118,17 @@
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
+								<?php echo JText::_( 'DISPLAY SEARCH INPUT' ); ?>
+							</th>
+			                <td>
+								<?php echo JHTML::_('select.booleanlist', 'display_search', 'class="inputbox"', $this->row->get('display_search', '1') ); ?>
+			                </td>
+			                <td width="35%">
+			                	<?php echo JText::_( 'DISPLAY SEARCH INPUT DESC' ); ?>
+			                </td>
+						</tr>
+						<tr>
+			            	<th style="width: 25%;">
 								<?php echo JText::_( 'NEWSLETTER ORDERING' ); ?>
 							</th>
 			                <td>
@@ -115,18 +148,7 @@
 			                <td width="35%">
 			                	<?php echo JText::_( 'NEWSLETTER ORDERING DIRECTION DESC' ); ?>
 			                </td>
-						</tr>
-						<tr>
-			            	<th style="width: 25%;">
-								<?php echo JText::_( 'MESSAGE TEMPLATE VIEW' ); ?>
-							</th>
-			                <td>
-								<?php echo JHTML::_('select.booleanlist', 'display_messagetemplate', 'class="inputbox"', $this->row->get('display_messagetemplate', '1') ); ?>
-			                </td>
-			                <td width="35%">
-			                	<?php echo JText::_( 'MESSAGE TEMPLATE VIEW DESC' ); ?>
-			                </td>
-						</tr>	
+						</tr>		
 					</tbody>
 					</table>
 					<?php	
@@ -335,7 +357,7 @@
 		                        <?php echo JHTML::_('select.booleanlist', 'page_tooltip_logs_disabled', 'class="inputbox"', $this->row->get('page_tooltip_logs_disabled', '0') ); ?>
 							</td>
 						</tr>
-							<tr>
+						<tr>
 			            	<th style="width: 25%;">
 								<?php echo JText::_( 'Hide Tools Note' ); ?>
 							</th>
@@ -343,6 +365,14 @@
 		                        <?php echo JHTML::_('select.booleanlist', 'page_tooltip_tools_disabled', 'class="inputbox"', $this->row->get('page_tooltip_tools_disabled', '0') ); ?>
 							</td>
 						</tr>
+						<tr>
+			            	<th style="width: 25%;">
+								<?php echo JText::_( 'Hide PHPList Config Note' ); ?>
+							</th>
+							<td>
+		                        <?php echo JHTML::_('select.booleanlist', 'page_tooltip_phplistconfig_disabled', 'class="inputbox"', $this->row->get('page_tooltip_tools_disabled', '0') ); ?>
+							</td>
+						</tr>s
 					</tbody>
 					</table>
 					<?php	

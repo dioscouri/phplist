@@ -18,7 +18,7 @@ Phplist::load( 'PhplistHelperBase', 'helpers.base');
  */
 class PhplistHelperMessage  extends PhplistHelperBase
 {
-	/**
+/**
 	 * Returns the phphlist message table name
 	 * @return unknown_type
 	 */
@@ -79,31 +79,40 @@ class PhplistHelperMessage  extends PhplistHelperBase
 	 */
 	function getNewsletters( $id )
 	{
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' ); 
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperNewsletter::getTableNameMessage();
+		$tablename_listmessage = PhplistHelperNewsletter::getTableNameListmessage();
 		$tablename_newsletters = PhplistHelperNewsletter::getTableName();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
-		// TODO Fix this query
-		$query = "
-			SELECT
-				{$tablename_newsletters}.*
-			FROM
-				{$tablename_newsletters}
-				LEFT JOIN {$tablename} ON {$tablename}.listid = {$tablename_newsletters}.id  
-			WHERE
-				{$tablename}.messageid = '{$id}'
-		";
-		$database->setQuery( $query );
+		$query = new PhplistQuery( );
+		$query->select( "*" );
+		$query->from( $tablename_newsletters . " AS tbl" );		
+		$query->join( 'LEFT', $tablename_listmessage.' as listmsg ON listmsg.listid = tbl.id' );
+		$query->where( 'listmsg.messageid = '.$id );
+		$database->setQuery( ( string ) $query );
 		$data = $database->loadObjectList();
 		$success = $data;
-
 		return $success;
 	}
 	
 	/**
-	 * Finds out whether a message has specific data
+	 * Gets data from message table
+	 * @param $id
+	 * @return unknown_type
+	 */
+	function getMessage( $id )
+	{
+		JModel::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'models' );
+		$model = JModel::getInstance( 'Messages', 'PhplistModel' );
+		$model->setId($id);
+		$items = $model->getItem();
+		return $items;
+	}
+	
+	/**
+	 * Finds out whether a message is on a newsletter list
 	 * Returns boolean unless $returnObject is true, then returns db object
 	 * 
 	 * @param int		the message id
@@ -111,96 +120,85 @@ class PhplistHelperMessage  extends PhplistHelperBase
 	 * @param boolean	whether to return an object or not
 	 * @return unknown_type
 	 */
-	function isNewsletter( $id, $newsletterid, $returnObject='0' )
+	function isNewsletter( $id, $newsletterid )
 	{
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperNewsletter::getTableNameMessage();
+		$tablename_listmessage = PhplistHelperNewsletter::getTableNameListmessage();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
-		// TODO Fix this query
-		$query = "
-			SELECT
-				*
-			FROM
-				$tablename
-			WHERE
-				`messageid` = '{$id}'
-			AND
-				`listid` = '{$newsletterid}'
-			LIMIT 1
-		";
-		$database->setQuery( $query );
+		$query = new PhplistQuery( );
+		$query->select( "*" );
+		$query->from( $tablename_listmessage . " AS tbl" );		
+		$query->where( 'tbl.messageid = '.$id );
+		$query->where( 'tbl.listid = '.$newsletterid );
+		$database->setQuery( ( string ) $query );
 		$data = $database->loadObject();
-		if ($data)
-		{
-			$success = true;
-			if ($returnObject == '1')
-			{
-				$success = $data;
-			}
-		}
-		
+		$success = $data;
 		return $success;
 	}
 
 	/**
 	 * 
-	 * @param object	$details->userid, $details->typeid
+	 * @param object
 	 * @return boolean
 	 */
 	function addToNewsletter( $id, $newsletterid )
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' ); 
-		
 		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperNewsletter::getTableNameMessage();
+		$tablename_listmessage = PhplistHelperNewsletter::getTableNameListmessage();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
 		$config =& JFactory::getConfig();
 		$date = JFactory::getDate();
 		$date->setOffset($config->getValue('config.offset'));
 		$datetime = $date->toMySQL(true);
 		
-		$query = "
-			INSERT INTO
-				{$tablename}
-			SET
-				`messageid` = '{$id}',
-				`listid` = '{$newsletterid}',
-				`entered` = '{$datetime}'
-		";
-		$database->setQuery( $query );
-		$success = $database->query();
+		$query = new PhplistQuery( );
+		$query->insert($tablename_listmessage);
+		$query->set( "messageid = ".$id );
+		$query->set( "listid = ".$newsletterid );
+		$query->set( "entered = '".$datetime."'" );
 		
+		$database->setQuery( (string) $query );
+		$success = true;
+		if ( !$database->query() )
+		{
+			$this->setError( $database->getErrorMsg( ) );
+			$success = false;
+		}
 		return $success;
 	}
 
 	/**
 	 * 
-	 * @param object	$details->userid, $details->typeid
+	 * @param object
 	 * @return boolean
 	 */
 	function removeFromNewsletter( $id, $newsletterid )
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' ); 
-		
 		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperNewsletter::getTableNameMessage();
-				
-		$query = "
-			DELETE FROM
-				{$tablename}
-			WHERE
-				`messageid` = '{$id}'
-			AND
-				`listid` = '{$newsletterid}'
-			LIMIT 1			
-		";
-		$database->setQuery( $query );
-		$success = $database->query();
+		$tablename_listmessage = PhplistHelperNewsletter::getTableNameListmessage();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
+		$query = new PhplistQuery( );
+		$query->delete();
+		$query->from( $tablename_listmessage );
+		$query->where( "messageid = ".$id );
+		$query->where( "listid = ".$newsletterid );
+		
+		$database->setQuery( (string) $query );
+		$success = true;
+		if ( !$database->query() )
+		{
+			$this->setError( $database->getErrorMsg( ) );
+			$success = false;
+		}
 		return $success;
 	}
 
@@ -214,17 +212,15 @@ class PhplistHelperMessage  extends PhplistHelperBase
 	{
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperMessage::getTableNameData();
+		$tablename_data = PhplistHelperMessage::getTableNameData();
+		Phplist::load( 'PhplistQuery', 'library.query' );
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
-		$query = "
-			SELECT
-				*
-			FROM
-				$tablename
-			WHERE
-				`id` = '{$id}'
-		";
-		$database->setQuery( $query );
+		$query = new PhplistQuery( );
+		$query->select( "*" );
+		$query->from( $tablename_data);		
+		$query->where( 'id = '.$id );
+		$database->setQuery( ( string ) $query );
 		$data = $database->loadObjectList();
 		
 		$success = array();
@@ -235,170 +231,9 @@ class PhplistHelperMessage  extends PhplistHelperBase
 			$messagedata = $d->data;
 			$success["$name"] = $messagedata;
 		}
-		
-		return $success;
-	}
-	
-	/**
-	 * 
-	 * @param $id
-	 * @param $name
-	 * @param $data
-	 * @return unknown_type
-	 */
-	function storeData( $id, $name, $data )
-	{
-		$success = false;
-		
-		if (!is_numeric($id) || empty($name) )
-		{
-			return $success;
-		}
-		
-		if ($is = PhplistHelperMessage::isData( $id, $name ))
-		{
-			$success = PhplistHelperMessage::updateData( $id, $name, $data );
-		}
-		else
-		{
-			$success = PhplistHelperMessage::insertData( $id, $name, $data );
-		}
-		
 		return $success;
 	}
 
-	/**
-	 * Finds out whether a message has specific data
-	 * Returns boolean unless $returnObject is true, then returns db object
-	 * 
-	 * @param int		the message id
-	 * @param int		the data name
-	 * @param boolean	whether to return an object or not
-	 * @return unknown_type
-	 */
-	function isData( $id, $name, $returnObject='0' )
-	{
-		$success = false;
-		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperMessage::getTableNameData();
-		
-		// TODO Fix this query
-		$query = "
-			SELECT
-				*
-			FROM
-				$tablename
-			WHERE
-				`id` = '{$id}'
-			AND
-				`name` = '{$name}'
-			LIMIT 1
-		";
-		$database->setQuery( $query );
-		$data = $database->loadObject();
-		if ($data)
-		{
-			$success = true;
-			if ($returnObject == '1')
-			{
-				$success = $data;
-			}
-		}
-		
-		return $success;
-	}
-
-	/**
-	 * 
-	 * @param object	$details->userid, $details->typeid
-	 * @return boolean
-	 */
-	function insertData( $id, $name, $data )
-	{
-		$success = false;
-		
-		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperMessage::getTableNameData();
-		$id = intval($id);
-		$name = $database->getEscaped( $name );
-		$data = $database->getEscaped( $data );
-		
-		$query = "
-			INSERT INTO
-				$tablename
-			SET
-				`id` = '{$id}',
-				`name` = '{$name}',
-				`data` = '{$data}'
-		";
-		$database->setQuery( $query );
-		$success = $database->query();
-		
-		return $success;
-	}
-
-	/**
-	 *
-	 * @param object	$details->userid, $details->typeid
-	 * @return boolean
-	 */
-	function updateData( $id, $name, $data )
-	{
-		$success = false;
-		
-		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperMessage::getTableNameData();
-		$id = intval($id);
-		$name = $database->getEscaped( $name );
-		$data = $database->getEscaped( $data );
-		
-		$query = "
-			UPDATE
-				$tablename
-			SET
-				`data` = '{$data}'
-			WHERE
-				`id` = '{$id}'
-			AND
-				`name` = '{$name}'
-			LIMIT 1			
-		";
-		$database->setQuery( $query );
-		$success = $database->query();
-				
-		return $success;
-	}
-
-	/**
-	 * 
-	 * @param object	$details->userid, $details->typeid
-	 * @return boolean
-	 */
-	function removeData( $id, $name )
-	{
-		$success = false;
-
-		$database = PhplistHelperPhplist::getDBO();
-		$tablename = PhplistHelperMessage::getTableNameData();
-		$id = intval($id);
-		$name = $database->getEscaped( $name );
-		$data = $database->getEscaped( $data );
-		
-		$query = "
-			DELETE FROM
-				$tablename
-			WHERE
-				`id` = '{$id}'
-			AND
-				`name` = '{$name}'
-			LIMIT 1			
-		";
-		$database->setQuery( $query );
-		$success = $database->query();
-		
-		return $success;
-	}
-	
 	/**
 	 * Calculates and formats the diff between two times
 	 * @param $time1
@@ -456,21 +291,8 @@ class PhplistHelperMessage  extends PhplistHelperBase
 	 */
 	function getDefaultFooter()
 	{
-		$success = false;
-		$database = PhplistHelperPhplist::getDBO();
-		$phplist_prefix = PhplistHelperPhplist::getPrefix();
-		$tablename = "{$phplist_prefix}_config";
-		
-		$query = "
-			SELECT
-				*
-			FROM
-				$tablename
-			WHERE
-				`item` = 'messagefooter'
-		";
-		$database->setQuery( $query );
-		$success = $database->loadObject();
+		$phplistconfig = &PhplistConfigPhplist::getInstance();
+		$success = $phplistconfig->get('messagefooter', '');
 		
 		return $success;
 	}
@@ -485,6 +307,21 @@ class PhplistHelperMessage  extends PhplistHelperBase
 	{
 		$message = preg_replace('(\\[.*?\\])','' , $message);
 		return $message;
+	}
+	
+	/**
+	 * Change all relative URLs and image links to Absolute, so they work from the emails.
+	 * 
+	 * @param 
+	 * @return unknown_type
+	 */
+	
+	function _relToAbs($text)
+	{
+		global $mainframe;
+		$base = $mainframe->getSiteURL();
+		$text = preg_replace("/(href|src)=\"(?!http|ftp|https|mailto)([^\"]*)\"/", "$1=\"$base\$2\"", $text);
+		return $text;
 	}
 }
 
