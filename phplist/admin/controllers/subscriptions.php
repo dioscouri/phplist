@@ -80,7 +80,7 @@ class PhplistControllerSubscriptions extends PhplistController
 		if (!$listid || !$phplistuserid) 
 		{
 			$this->messagetype = 'notice';
-			$this->message .= JText::_( "UNSUBSCRIBE FAILED" );
+			$this->message .= JText::_( "UNSUBSCRIBE_FAILED" );
 			$this->setRedirect( $redirect, $this->message, $this->messagetype );
 			return;
 		}
@@ -100,7 +100,7 @@ class PhplistControllerSubscriptions extends PhplistController
 		else
 		{
 			$this->messagetype = 'message';
-			$this->message .= $email . ' ' .JText::_( "SUCCESSFULLY UNSUBSCRIBED FROM NEWSLETTER" ) . ' ' . $listid;
+			$this->message .= $email . ' ' .JText::_( "SUCCESSFULLY_UNSUBSCRIBED_FROM_NEWSLETTER" ) . ' ' . $listid;
 		}
 		
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
@@ -136,11 +136,11 @@ class PhplistControllerSubscriptions extends PhplistController
 
         if ($error)
         {
-            $this->message = JText::_('UNSUBSCRIBE FAILED') . " - " . $this->message;
+            $this->message = JText::_('UNSUBSCRIBE_FAILED') . " - " . $this->message;
         }
             else
         {
-            $this->message = JText::_('SELECTED ITEMS SUCCESSFULLY UNSUBSCRIBED');
+            $this->message = JText::_('SELECTED_ITEMS_SUCCESSFULLY_UNSUBSCRIBED');
         }
 
         $this->setRedirect( $redirect, $this->message, $this->messagetype );

@@ -184,8 +184,10 @@ class PhplistHelperSubscription extends PhplistHelperBase
 		LIMIT 1
 		";
 		$database->setQuery( $query );
-		$success = $database->query();
-
+		if ($database->query()) {
+			$success = true;
+		}
+		
 		//populate usestats table with unsubscription
 		$unixdate = mktime(0,0,0,date('m'),date('d'),date('Y'));
 		$query = "

@@ -141,16 +141,16 @@
 				<td style="text-align: center;">
 					<?php if ($item->user_confirmed == '1')
 					{ 
-						echo '<img border="0" alt="Enabled" src="media/dioscouri/images/tick.png"/>';
+						echo '<img border="0" alt="Enabled" src="../media/dioscouri/images/tick.png"/>';
 					}
 					else
 					{
-						echo '<img border="0" alt="Disabled" src="media/dioscouri/images/publish_x.png"/>';
+						echo '<img border="0" alt="Disabled" src="../media/dioscouri/images/publish_x.png"/>';
 					}
 					?>
 				</td>
 				<td style="text-align: center;">
-					<?php echo JHTML::_( "date", $item->entered, "%d %b %Y, %I:%M%p" ); ?>
+					<?php echo JHTML::_( "date", $item->entered,  JText::_('DATE_FORMAT_LC2') ); ?>
 				</td>
 				<td style="text-align: center;">
 				[ <a href="<?php echo $item->link ?>">

@@ -184,8 +184,6 @@ class PhplistControllerUsers extends PhplistController
 		$model = JModel::getInstance( 'Newsletters', 'PhplistModel' );
 		$newsletters= $model->getList();
 
-		$details->listid = JRequest::getVar('flex_list', '0', 'post', 'int');
-
 		$error = false;
 		$this->messagetype	= '';
 		$this->message 		= '';
@@ -203,23 +201,11 @@ class PhplistControllerUsers extends PhplistController
 			foreach (@$newsletters as $newsletter)
 			{
 				$details->listid = $newsletter->id;
-				if (!$action = PhplistHelperSubscription::removeUserFrom( $details ))
-				{
-					$this->message .= $action->errorMsg.", ID: {$cid}";
-					$this->messagetype = 'notice';
-					$error = true;
-				}
+				PhplistHelperSubscription::removeUserFrom( $details );
 			}
 		}
 
-		if ($error)
-		{
-			$this->message = JText::_('UNSUBSCRIBE FAILED') . $this->message;
-		}
-		else
-		{
-			$this->message = JText::_('USERS SUCCESSFULLY UNSUBSCRIBED');
-		}
+		$this->message = JText::_('USERS_SUCCESSFULLY_UNSUBSCRIBED');
 
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
 	}
