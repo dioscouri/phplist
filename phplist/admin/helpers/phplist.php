@@ -119,6 +119,12 @@ class PhplistHelperPhplist extends PhplistHelperBase
 		
 		return $instance;
 	}
+	
+	function setPhplistDatabase()
+	{
+		$database = PhplistHelperPhplist::getDatabase();
+		return $this->setDBO( $database );
+	}
 
 	/**
 	 * Returns the phplist database prefix

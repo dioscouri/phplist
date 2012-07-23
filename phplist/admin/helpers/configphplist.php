@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.helpers._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistHelperBase', 'helpers.base');
 
 class PhplistHelperConfigPhplist extends PhplistHelperBase
 {

@@ -15,20 +15,11 @@ Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelNewsletters extends PhplistModelBase
 {
-	/**
-	 * Constructor needs to set the DBO for the whole model
-	 * @param $config
-	 * @return unknown_type
-	 */
+
 	function __construct($config = array())
 	{
 		parent::__construct($config);
-		
-		// get the phplist DBO
-			JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-			$database = PhplistHelperPhplist::getDatabase();
-			// set the model's database object to the phplist db
-			$this->setDBO( $database );
+		$database = PhplistHelperPhplist::setPhplistDatabase();
 	}
 	
 	protected function _buildQueryWhere(&$query)
