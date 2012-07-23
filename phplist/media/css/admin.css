@@ -148,3 +148,22 @@ span.href:hover {
     border-spacing: 0px;
     border-collapse: collapse;  
 }
+/** custom **/
+.label {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	font-weight: bold;
+}
+/** J1.6+ fixes */
+form fieldset label {
+    clear: none !important;
+    margin: 5px 10px 5px 0px !important;
+    float: none !important;
+    display: inline;
+}
+
+form fieldset img, fieldset input {
+  float: none !important;
+  display: inline;
+}
