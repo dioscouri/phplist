@@ -18,7 +18,7 @@ class PhplistViewLogs extends PhplistViewBase
     
 	function _defaultToolbar()
 	{
-		JToolBarHelper::deleteList( JText::_( 'DELETE LOG ENTRIES' ) );
+		JToolBarHelper::deleteList( JText::_( 'DELETE_LOG_ENTRIES' ) );
 	}
 }
 

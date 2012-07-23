@@ -36,7 +36,7 @@
                 	<?php echo PhplistGrid::sort( 'Name', "tbl.name", @$state->direction, @$state->order ); ?>
                 </th>
                 <th style="width: 150px;">
-                    <?php echo JText::_( 'Last Message Sent' ); ?>
+                    <?php echo JText::_( 'LAST_MESSAGE_SENT' ); ?>
                 </th>
                 <th style="width: 100px;">
                 	<?php echo PhplistGrid::sort( 'Order', "tbl.listorder", @$state->direction, @$state->order ); ?>
@@ -125,7 +125,7 @@
 				   echo ($NumSubscribers == '1') ? JText::_( "SUBSCRIBER" ) : JText::_( "SUBSCRIBERS" ); ?>
 				    <br/>
 					[<a href="<?php echo $item->link_subscribers;?>">
-					   <?php echo JText::_( 'VIEW SUBSCRIBERS' ); ?>
+					   <?php echo JText::_( 'VIEW_SUBSCRIBERS' ); ?>
 					</a>]
 				</td>
 			</tr>
@@ -160,7 +160,7 @@
 			<?php if (!count(@$items)) : ?>
 			<tr>
 				<td colspan="10" align="center">
-					<?php echo JText::_('NO ITEMS FOUND'); ?>
+					<?php echo JText::_('NO_ITEMS_FOUND'); ?>
 				</td>
 			</tr>
 			<?php endif; ?>

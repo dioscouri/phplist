@@ -17,8 +17,8 @@ class PhplistViewAttributes extends PhplistViewBase
 {
 	function _defaultToolbar()
 	{
-		JToolBarHelper::custom('required.enable', "publish.png", "icon-32-publish.png", JText::_( 'Make Required' ), true);
-		JToolBarHelper::custom('required.disable', "unpublish.png", "icon-32-unpublish.png", JText::_( 'Make Optional' ), true);		
+		JToolBarHelper::custom('required.enable', "publish.png", "icon-32-publish.png", JText::_( 'MAKE_REQUIRED' ), true);
+		JToolBarHelper::custom('required.disable', "unpublish.png", "icon-32-unpublish.png", JText::_( 'MAKE_OPTIONAL' ), true);		
 	}
 }
 

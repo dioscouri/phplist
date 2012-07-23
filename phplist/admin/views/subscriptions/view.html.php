@@ -18,7 +18,7 @@ class PhplistViewSubscriptions extends PhplistViewBase
 	
 	function _defaultToolbar()
 	{
-		JToolBarHelper::deleteList( JText::_( 'DELETE SUBSCRIBTIONS' ) );
+		JToolBarHelper::deleteList( JText::_( 'DELETE_SUBSCRIBTIONS' ) );
 	}
 }
 

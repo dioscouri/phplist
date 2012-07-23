@@ -29,7 +29,7 @@
 			<br/>
 			<?php echo JText::_( "Version" ); ?>: <?php echo $defines->getVersion(); ?>
 			<br/>
-			<?php echo sprintf( JText::_('PHPLIST_VERSION_LINE'), Phplist::getPHPListRecomendedVersion(), Phplist::getPHPListVersion());?>
+			<?php // echo sprintf( JText::_('PHPLIST_VERSION_LINE'), Phplist::getPHPListRecomendedVersion(), Phplist::getPHPListVersion());?>
 			<br/>
 			<?php echo sprintf( JText::_('PHP_VERSION_LINE'), $defines->getMinPhp(), $defines->getServerPhp() );?>
 			<br/>

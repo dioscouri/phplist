@@ -30,68 +30,68 @@
 					<tbody>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'SEND ACTIVATION EMAIL' ); ?>
+								<?php echo JText::_( 'SEND_ACTIVATION_EMAIL' ); ?>
 							</th>
 			                <td>
 								<?php echo JHTML::_('select.booleanlist', 'activation_email', 'class="inputbox"', $this->row->get('activation_email', '1') ); ?>
 			                </td>
 			                <td width="35%">
-			                	<?php echo JText::_( 'SEND ACTIVATION EMAIL DESC' ); ?>
+			                	<?php echo JText::_( 'SEND_ACTIVATION_EMAIL_DESC' ); ?>
 			                </td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'HTML FORMAT EMAILS' ); ?>
+								<?php echo JText::_( 'HTML_FORMAT_EMAILS' ); ?>
 							</th>
 			                <td>
 								<?php echo JHTML::_('select.booleanlist', 'default_html', 'class="inputbox"', $this->row->get('default_html', '1') ); ?>
 			                </td>
 			                <td width="35%">
-			                	<?php echo JText::_( 'HTML FORMAT EMAILS DESC' ); ?>
+			                	<?php echo JText::_( 'HTML_FORMAT_EMAILS_DESC' ); ?>
 			                </td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'AUTO CREATE JOOMLA USERS' ); ?>
+								<?php echo JText::_( 'AUTO_CREATE_JOOMLA_USERS' ); ?>
 							</th>
 							<td>
 								<?php echo JHTML::_('select.booleanlist', 'users_autocreate', 'class="inputbox"', $this->row->get('users_autocreate', '0') ); ?>
 							</td>
 							<td width="35%">
-								<?php echo JText::_( 'AUTO CREATE JOOMLA USERS DESC' ); ?>
+								<?php echo JText::_( 'AUTO_CREATE_JOOMLA_USERS_DESC' ); ?>
 							</td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DISPLAY ATTRIBUTES IN FRONT END' ); ?>
+								<?php echo JText::_( 'DISPLAY_ATTRIBUTES_IN_FRONT_END' ); ?>
 							</th>
 							<td>
 			                	<?php echo PhplistSelect::attributes( explode(',',$this->row->get('frontend_attribs', '1')), 'frontend_attribs[]', ' multiple="multiple" size="5" ', 'id', true, JText::_('No Attributes') );?>
 							</td>
 							<td width="35%">
-								<?php echo JText::_( 'DISPLAY ATTRIBUTES IN FRONT END DESC' ); ?>
+								<?php echo JText::_( 'DISPLAY_ATTRIBUTES_IN_FRONT_END_DESC' ); ?>
 							</td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DEFAULT TEMPLATE FOR MESSAGES' ); ?>
+								<?php echo JText::_( 'DEFAULT_TEMPLATE_FOR_MESSAGES' ); ?>
 							</th>
 							<td>
 			                	<?php echo PhplistSelect::templates( $this->row->get('default_template', '1'), 'default_template', '', 'id', true );?>
 							</td>
 							<td width="35%">
-								<?php echo JText::_( 'DEFAULT TEMPLATE FOR MESSAGES DESC' ); ?>
+								<?php echo JText::_( 'DEFAULT_TEMPLATE_FOR_MESSAGES_DESC' ); ?>
 							</td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DEFAULT FROM EMAIL ADDRESS' ); ?>
+								<?php echo JText::_( 'DEFAULT_FROM_EMAIL_ADDRESS' ); ?>
 							</th>
 							<td>
 			               		<input name="default_fromemail" type="text" class="text_area" size='20' value="<?php echo $this->row->get('default_fromemail', ''); ?>" />
 							</td>
 							<td width="35%">
-								<?php echo JText::_( 'DEFAULT FROM EMAIL ADDRESS DESC' ); ?>
+								<?php echo JText::_( 'DEFAULT_FROM_EMAIL_ADDRESS_DESC' ); ?>
 							</td>
 						</tr>
 					</tbody>
@@ -99,7 +99,7 @@
 					<?php	
 					echo $this->sliders->endPanel();
 					
-					$legend = JText::_( "FRONT END DISPLAY" );
+					$legend = JText::_( "FRONT_END_DISPLAY" );
 					echo $this->sliders->startPanel( JText::_( $legend ), 'general' );
 					?>
 					
@@ -107,46 +107,46 @@
 					<tbody>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DISPLAY TOP MENU' ); ?>
+								<?php echo JText::_( 'DISPLAY_TOP_MENU' ); ?>
 							</th>
 			                <td>
 								<?php echo JHTML::_('select.booleanlist', 'display_submenu', 'class="inputbox"', $this->row->get('display_submenu', '1') ); ?>
 			                </td>
 			                <td width="35%">
-			                	<?php echo JText::_( 'DISPLAY TOP MENU DESC' ); ?>
+			                	<?php echo JText::_( 'DISPLAY_TOP_MENU_DESC' ); ?>
 			                </td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DISPLAY SEARCH INPUT' ); ?>
+								<?php echo JText::_( 'DISPLAY_SEARCH_INPUT' ); ?>
 							</th>
 			                <td>
 								<?php echo JHTML::_('select.booleanlist', 'display_search', 'class="inputbox"', $this->row->get('display_search', '1') ); ?>
 			                </td>
 			                <td width="35%">
-			                	<?php echo JText::_( 'DISPLAY SEARCH INPUT DESC' ); ?>
+			                	<?php echo JText::_( 'DISPLAY_SEARCH_INPUT_DESC' ); ?>
 			                </td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'NEWSLETTER ORDERING' ); ?>
+								<?php echo JText::_( 'NEWSLETTER_ORDERING' ); ?>
 							</th>
 			                <td>
 			                	<?php echo PhplistSelect::newsletters_orderby( $this->row->get('display_newsletter_order', '1'), 'display_newsletter_order', '', 'id', true );?>
 			                </td>
 			                <td width="35%">
-			                	<?php echo JText::_( 'NEWSLETTER ORDERING DESC' ); ?>
+			                	<?php echo JText::_( 'NEWSLETTER_ORDERING_DESC' ); ?>
 			                </td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'NEWSLETTER ORDERING DIRECTION' ); ?>
+								<?php echo JText::_( 'NEWSLETTER_ORDERING_DIRECTION' ); ?>
 							</th>
 			                <td>
 			                	<?php echo PhplistSelect::newsletters_orderdir( $this->row->get('display_newsletter_order_dir', '1'), 'display_newsletter_order_dir', '', 'id', true );?>
 			                </td>
 			                <td width="35%">
-			                	<?php echo JText::_( 'NEWSLETTER ORDERING DIRECTION DESC' ); ?>
+			                	<?php echo JText::_( 'NEWSLETTER_ORDERING_DIRECTION_DESC' ); ?>
 			                </td>
 						</tr>		
 					</tbody>
@@ -155,7 +155,7 @@
 					echo $this->sliders->endPanel();
 					
 					
-					$legend = JText::_( "PHPLIST DATABASE CONNECTION" );
+					$legend = JText::_( "PHPLIST_DATABASE_CONNECTION" );
 					echo $this->sliders->startPanel( JText::_( $legend ), 'dashboard' );
 					?>
 					
@@ -163,90 +163,90 @@
 					<tbody>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DATABASE HOST' ); ?>
+								<?php echo JText::_( 'DATABASE_HOST' ); ?>
 							</th>
 							<td>
 		                       <input name="phplist_host" type="text" class="text_area" size='50' value="<?php echo $this->row->get('phplist_host', 'localhost'); ?>" />
 							</td>
 							<td width="35%">
-			                	<?php echo JText::_( 'DATABASE HOST DESC' ); ?>
+			                	<?php echo JText::_( 'DATABASE_HOST_DESC' ); ?>
 			                </td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DATABASE NAME' ); ?>
+								<?php echo JText::_( 'DATABASE_NAME' ); ?>
 							</th>
 							<td>
 		                        <input name="phplist_database" type="text" class="text_area" size='50' value="<?php echo $this->row->get('phplist_database', 'phplist'); ?>" />				
 							</td>
 							<td>
-								<?php echo JText::_( 'DATABASE NAME DESC' ); ?>
+								<?php echo JText::_( 'DATABASE_NAME_DESC' ); ?>
 							</td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DATABASE USER' ); ?>
+								<?php echo JText::_( 'DATABASE_USER' ); ?>
 							</th>
 							<td>
                             	<input name="phplist_user" type="text" class="text_area" size='50' value="<?php echo $this->row->get('phplist_user', 'phplist'); ?>" />			
 							</td>
 							<td>
-								<?php echo JText::_( 'DATABASE USER DESC' ); ?>
+								<?php echo JText::_( 'DATABASE_USER_DESC' ); ?>
 							</td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DATABASE PASSWORD' ); ?>
+								<?php echo JText::_( 'DATABASE_PASSWORD' ); ?>
 							</th>
 							<td>
 								<input name="phplist_password" type="password" class="text_area" size='50' value="<?php echo $this->row->get('phplist_password', ''); ?>" />
 							</td>
 							<td>
-								<?php echo JText::_( 'DATABASE PASSWORD DESC' ); ?>
+								<?php echo JText::_( 'DATABASE_PASSWORD_DESC' ); ?>
 							</td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DATABASE PREFIX' ); ?>
+								<?php echo JText::_( 'DATABASE_PREFIX' ); ?>
 							</th>
 							<td>
                             	<input name="phplist_prefix" type="text" class="text_area" size='50' value="<?php echo $this->row->get('phplist_prefix', 'phplist'); ?>" />
 							</td>
 							<td>
-								<?php echo JText::_( 'DATABASE PREFIX DESC' ); ?>
+								<?php echo JText::_( 'DATABASE_PREFIX_DESC' ); ?>
 							</td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DATABASE USER TABLE PREFIX' ); ?>
+								<?php echo JText::_( 'DATABASE_USER_TABLE_PREFIX' ); ?>
 							</th>
 							<td>
                             	<input name="phplist_user_prefix" type="text" class="text_area" size='50' value="<?php echo $this->row->get('phplist_user_prefix', 'phplist'); ?>" />
 							</td>
 							<td>
-								<?php echo JText::_( 'DATABASE USER TABLE PREFIX DESC' ); ?>
+								<?php echo JText::_( 'DATABASE_USER_TABLE_PREFIX_DESC' ); ?>
 							</td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DATABASE DRIVER' ); ?>
+								<?php echo JText::_( 'DATABASE_DRIVER' ); ?>
 							</th>
 							<td>
                             	<input name="phplist_driver" type="text" class="text_area" size='50' value="<?php echo $this->row->get('phplist_driver', 'mysql'); ?>" />
 							</td>
 							<td>
-								<?php echo JText::_( 'DATABASE DRIVER DESC' ); ?>
+								<?php echo JText::_( 'DATABASE_DRIVER_DESC' ); ?>
 							</td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'DATABASE PORT' ); ?>
+								<?php echo JText::_( 'DATABASE_PORT' ); ?>
 							</th>
 							<td>
                             	<input name="phplist_port" type="text" class="text_area" size='10' value="<?php echo $this->row->get('phplist_port', '3600'); ?>" />
 							</td>
 							<td>
-								<?php echo JText::_( 'DATABASE PORT DESC' ); ?>
+								<?php echo JText::_( 'DATABASE_PORT_DESC' ); ?>
 							</td>
 						</tr>
 					</tbody>
@@ -262,24 +262,24 @@
 					<tbody>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'SHOW PHPLIST LINK IN FOOTER' ); ?>
+								<?php echo JText::_( 'SHOW_PHPLIST_LINK_IN_FOOTER' ); ?>
 							</th>
 			                <td>
 								<?php echo JHTML::_('select.booleanlist', 'show_linkback_phplist', 'class="inputbox"', $this->row->get('show_linkback_phplist', '1') ); ?>
 			                </td>
 			                <td width="35%">
-			                	<?php echo JText::_( 'SHOW PHPLIST LINK IN FOOTER DESC' ); ?>
+			                	<?php echo JText::_( 'SHOW_PHPLIST_LINK_IN_FOOTER_DESC' ); ?>
 			                </td>
 						</tr>
 						<tr>
 			            	<th style="width: 25%;">
-								<?php echo JText::_( 'SHOW DIOSCOURI LINK IN FOOTER' ); ?>
+								<?php echo JText::_( 'SHOW_DIOSCOURI_LINK_IN_FOOTER' ); ?>
 							</th>
 			                <td>
 								<?php echo JHTML::_('select.booleanlist', 'show_linkback', 'class="inputbox"', $this->row->get('show_linkback', '1') ); ?>
 			                </td>
 			                <td width="35%">
-			                	<?php echo JText::_( 'SHOW DIOSCOURI LINK IN FOOTER DESC' ); ?>
+			                	<?php echo JText::_( 'SHOW_DIOSCOURI_LINK_IN_FOOTER_DESC' ); ?>
 			                </td>
 						</tr>
 					</tbody>

@@ -113,7 +113,7 @@
 					echo $sliders->startPanel( JText::_( "NEWSLETTERS" ), 'newsletters' );
 					JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
 					?>
-					<div class="note" style="margin: 5px;"><?php echo JText::_( 'SELECT NEWSLETTERS' ); ?></div>
+					<div class="note" style="margin: 5px;"><?php echo JText::_( 'SELECT_NEWSLETTERS' ); ?></div>
 					<table class="admintable">
 					<?php 					$newsletters = @$this->newsletters;					
 					foreach (@$newsletters as $d) 
@@ -159,14 +159,14 @@
 						<tr>
 						<td width="100" align="right" class="key">
 								<label for="template">
-								<?php echo JText::_( 'SELECT TEMPLATE' ); ?>:
+								<?php echo JText::_( 'SELECT_TEMPLATE' ); ?>:
 								</label>
 							</td>	
 							<td>
 							<?php
 							if (!$this->templates)
 							{
-								echo JText::_( 'SET UP YOUR TEMPLATES IN PHPLIST' );
+								echo JText::_( 'SET_UP_YOUR_TEMPLATES_IN_PHPLIST' );
 								echo '<input type="hidden" name="template" value="0" />';
 							} else
 							echo PhplistSelect::templates( @$row->template, 'template' );  ?>
@@ -175,7 +175,7 @@
 						<tr>
 							<td width="100" align="right" class="key">
 								<label for="sendstart">
-								<?php echo JText::_( 'START SENDING' ); ?>:
+								<?php echo JText::_( 'START_SENDING' ); ?>:
 								</label>
 							</td>
 							<td>
@@ -185,7 +185,7 @@
 						<tr>
 							<td width="100" align="right" valign="top" class="key">
 								<label for="notify_start">
-								<?php echo JText::_( 'EMAIL TO NOTIFY UPON START' ); ?>:
+								<?php echo JText::_( 'EMAIL_TO_NOTIFY_UPON_START' ); ?>:
 								</label>
 							</td>
 							<td>
@@ -195,7 +195,7 @@
 						<tr>
 							<td width="100" align="right" valign="top" class="key">
 								<label for="notify_end">
-								<?php echo JText::_( 'EMAIL TO NOTIFY UPON COMPLETION' ); ?>:
+								<?php echo JText::_( 'EMAIL_TO_NOTIFY_UPON_COMPLETION' ); ?>:
 								</label>
 							</td>
 							<td>
@@ -206,7 +206,7 @@
 					<?php 
 					echo $sliders->endPanel();
 					
-					echo $sliders->startPanel( JText::_( "MESSAGE FOOTER" ), 'options' );
+					echo $sliders->startPanel( JText::_( "MESSAGE_FOOTER" ), 'options' );
 					?>	
 					<table class="admintable">
 						<tr>

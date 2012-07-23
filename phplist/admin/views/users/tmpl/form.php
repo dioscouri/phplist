@@ -12,7 +12,7 @@
 		}
 		// do field validation
 		if (form.email.value == ""){
-			alert( "<?php echo JText::_( 'You must enter an email address', true ); ?>" );
+			alert( "<?php echo JText::_( 'EMAIL_VALIDATION', true ); ?>" );
 		} else {
 			submitform( pressbutton );
 		}
@@ -22,11 +22,11 @@
 
 <fieldset><legend><?php if ($this->new == false)
 						{
-							echo JText::_('EDIT USER') . " : " . @$row->email; 
+							echo JText::_('EDIT_USER') . " : " . @$row->email; 
 						}
 						else
 						{
-							echo JText::_('NEW USER');
+							echo JText::_('NEW_USER');
 						}?></legend>
 <table style="width: 100%;">
 	<tbody>
@@ -42,7 +42,7 @@
 						<?php }
 						else
 						{ ?>
-						<div class="note" style="margin: 5px;"><?php echo JText::_( 'JOOMLA EMAIL' ); ?></div>
+						<div class="note" style="margin: 5px;"><?php echo JText::_( 'JOOMLA_EMAIL' ); ?></div>
 						<?php
 							echo @$row->email; ?>
 							<input type="hidden" name="email" id="email" value="<?php echo @$row->email; ?>" />
@@ -52,7 +52,7 @@
 					
 					
 					<tr>
-						<th style="width: 25%;"><label for="id"> <?php echo JText::_( 'HTML EMAILS' ); ?>:
+						<th style="width: 25%;"><label for="id"> <?php echo JText::_( 'HTML_EMAILS' ); ?>:
 						</label></th>
 						<td><?php 
 						if ($this->new == false)
@@ -84,14 +84,14 @@
 						<?php if ($this->new == false)
 						{ ?>
 					<tr>
-						<th style="width: 25%;"><label for="id"> <?php echo JText::_( 'PHPLIST ID' ); ?>:
+						<th style="width: 25%;"><label for="id"> <?php echo JText::_( 'PHPLIST_ID' ); ?>:
 						</label></th>
 						<td><?php echo @$row->id; ?>
 						<input type="hidden" name="id" id="id" value="<?php echo @$row->id; ?>" />
 						</td>
 					</tr>
 					<tr>
-						<th style="width: 25%;"><label for="id"> <?php echo JText::_( 'Unique ID' ); ?>:
+						<th style="width: 25%;"><label for="id"> <?php echo JText::_( 'Unique_ID' ); ?>:
 						</label></th>
 						<td><?php echo @$row->uniqid; ?>
 						<input type="hidden" name="id" id="id" value="<?php echo @$row->uniqid; ?>" />
@@ -148,11 +148,11 @@
 						<div class="note" style="margin: 5px;">
 							<?php  if ($this->new == false)
 							{
-								echo JText::_( 'NEWSLETTERS THIS USER IS SUBSCRIBED TO' ) . ':'; 
+								echo JText::_( 'NEWSLETTERS_THIS_USER_IS_SUBSCRIBED_TO' ) . ':'; 
 							}
 							else
 							{
-								echo JText::_( 'Select Newsletters to subscribe user to' ) . ':';
+								echo JText::_( 'SELECT_NEWSLETTERS_TO_SUBSCRIBE_USER_TO' ) . ':';
 							}
 							?></div>
 						</td>

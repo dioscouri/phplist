@@ -10,7 +10,7 @@
 		}
 		// do field validation
 		if (form.name.value == ""){
-			alert( "<?php echo JText::_( 'Newsletter must have a name', true ); ?>" );
+			alert( "<?php echo JText::_( 'NEWSLETTER_NAME_VALIDATION', true ); ?>" );
 		} else {
 			submitform( pressbutton );
 		}

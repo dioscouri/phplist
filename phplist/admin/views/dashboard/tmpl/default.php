@@ -12,7 +12,7 @@
             $tabs = JPane::getInstance( 'tabs' );
 
             echo $tabs->startPane("tabone");
-            echo $tabs->startPanel( JText::_( 'NEW SUBSCRIPTIONS' ), "subscriptions" );
+            echo $tabs->startPanel( JText::_( 'NEW_SUBSCRIPTIONS' ), "subscriptions" );
 
                 echo "<h2>".@$this->lastThirty->title."</h2>";
                 echo @$this->lastThirty->image;
@@ -37,7 +37,7 @@
         <table class="adminlist" style="margin-bottom: 5px;">
         <thead>
             <tr>
-                <th colspan="2"><?php echo JText::_( "SUBSCRIPTIONS PER NEWSLETTER" ); ?></th>
+                <th colspan="2"><?php echo JText::_( "SUBSCRIPTIONS_PER_NEWSLETTER" ); ?></th>
             </tr>
         </thead>
         <tbody>

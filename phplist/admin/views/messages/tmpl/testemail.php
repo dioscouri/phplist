@@ -19,7 +19,7 @@
 <form action="<?php echo JRoute::_( @$form['action'] ) ?>" method="post" class="adminform" name="adminForm" >
 
 	<fieldset>
-		<legend><?php echo JText::_('SEND TEST EMAIL'); ?></legend>
+		<legend><?php echo JText::_('SEND_TEST_EMAIL'); ?></legend>
 		<table style="width: 100%;">
 		<tbody>
 			<tr>
@@ -38,7 +38,7 @@
 						<tr>
 							<td width="100" align="right" class="key">
 								<label for="email">
-								<?php echo JText::_( 'EMAIL ADDRESS' ); ?>:
+								<?php echo JText::_( 'EMAIL_ADDRESS' ); ?>:
 								</label>
 							</td>
 							<td>

@@ -144,20 +144,20 @@
 					<?php 	switch (strtolower($item->status))
 						{
 						case "sent": ?>
-							<strong><?php echo JText::_( "TIME TO SEND" ); ?></strong>: <?php echo $item->timetosend; ?><br/>
+							<strong><?php echo JText::_( "TIME_TO_SEND" ); ?></strong>: <?php echo $item->timetosend; ?><br/>
 							<strong><?php echo JText::_( "PROCESSED" ); ?></strong>: <?php echo $item->sent_processed; ?><br/>
 							<strong><?php echo JText::_( "TEXT" ); ?></strong>: <?php echo $item->sent_text; ?><br/>
 							<strong><?php echo JText::_( "HTML" ); ?></strong>: <?php echo $item->sent_html; ?><br/>
 							<strong><?php echo JText::_( "PDF" ); ?></strong>: <?php echo $item->sent_pdf; ?><br/>
-							<strong><?php echo JText::_( "TOTAL SENT" ); ?></strong>: <?php echo $item->sent_total; ?><br/>
+							<strong><?php echo JText::_( "TOTAL_SENT" ); ?></strong>: <?php echo $item->sent_total; ?><br/>
 						  <?php break;
 						case "inprocess": ?>
-							<strong><?php echo JText::_( "STILL TO PROCESS" ); ?></strong>: <?php echo $item->to_process; ?><br/>
+							<strong><?php echo JText::_( "STILL_TO_PROCESS" ); ?></strong>: <?php echo $item->to_process; ?><br/>
 							<strong><?php echo JText::_( "ETA" ); ?></strong>: <?php echo $item->eta; ?><br/>
-							<strong><?php echo JText::_( "MESSAGES PER HOUR" ); ?></strong>: <?php echo $item->mph; ?><br/>
+							<strong><?php echo JText::_( "MESSAGES_PER_HOUR" ); ?></strong>: <?php echo $item->mph; ?><br/>
 						  <?php break;
 						case "submitted": ?>
-							<?php echo JText::_( "Awaiting queue to be processed by cronjob" ); ?>
+							<?php echo JText::_( "AWAITING_CRON" ); ?>
 						<?php break;
 						default:
 						  break;
@@ -170,7 +170,7 @@
 			<?php if (!count(@$items)) : ?>
 			<tr>
 				<td colspan="10" align="center">
-					<?php echo JText::_('NO ITEMS FOUND'); ?>
+					<?php echo JText::_('NO_ITEMS_FOUND'); ?>
 				</td>
 			</tr>
 			<?php endif; ?>

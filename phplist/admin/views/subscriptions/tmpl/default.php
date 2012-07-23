@@ -133,7 +133,7 @@
                 </td>
 				<td style="text-align: center;">
 					<?php echo $item->user_email; ?><br/>
-					[ <a href="<?php echo $item->edit_link; ?>"><?php echo JText::_( 'EDIT USER' ); ?></a> | <a href="<?php echo $item->veiw_link; ?>"><?php echo JText::_( 'VIEW USER' ); ?></a> ]
+					[ <a href="<?php echo $item->edit_link; ?>"><?php echo JText::_( 'EDIT_USER' ); ?></a> | <a href="<?php echo $item->veiw_link; ?>"><?php echo JText::_( 'VIEW USER' ); ?></a> ]
 				</td>
 				<td style="text-align: center;">
 					<?php echo JText::_( $item->newsletter_name ); ?>
@@ -141,11 +141,11 @@
 				<td style="text-align: center;">
 					<?php if ($item->user_confirmed == '1')
 					{ 
-						echo '<img border="0" alt="Enabled" src="images/tick.png"/>';
+						echo '<img border="0" alt="Enabled" src="media/dioscouri/images/tick.png"/>';
 					}
 					else
 					{
-						echo '<img border="0" alt="Disabled" src="images/publish_x.png"/>';
+						echo '<img border="0" alt="Disabled" src="media/dioscouri/images/publish_x.png"/>';
 					}
 					?>
 				</td>
@@ -164,7 +164,7 @@
 			<?php if (!count(@$items)) : ?>
 			<tr>
 				<td colspan="10" align="center">
-					<?php echo JText::_('NO ITEMS FOUND'); ?>
+					<?php echo JText::_('NO_ITEMS_FOUND'); ?>
 				</td>
 			</tr>
 			<?php endif; ?>

@@ -60,12 +60,12 @@ class PhplistViewUsers extends PhplistViewBase
 
 	function _defaultToolbar()
 	{
-		JToolBarHelper::custom('sync', "refresh_window.png", "refresh_window.png", JText::_( 'SYNC USERS' ), false);
+		JToolBarHelper::custom('sync', "refresh_window.png", "refresh_window.png", JText::_( 'SYNC_USERS' ), false);
 		JToolBarHelper::custom('confirmed.enable', "publish.png", "icon-32-publish.png", JText::_( 'CONFIRM' ), true);
 		JToolBarHelper::custom('confirmed.disable', "unpublish.png", "icon-32-unpublish.png", JText::_( 'UNCONFIRM' ), true);
 		JToolBarHelper::custom('enroll_flex', "book_add.png", "book_add.png", JText::_( 'FLEX' )." +", true);
 		JToolBarHelper::custom('withdraw_flex', "book_remove.png", "book_remove.png", JText::_( 'FLEX' )." -", true);
-		JToolBarHelper::custom('withdraw_all', "paste_remove.png", "paste_remove.png", JText::_( 'WITHDRAW ALL' ), true);
+		JToolBarHelper::custom('withdraw_all', "paste_remove.png", "paste_remove.png", JText::_( 'WITHDRAW_ALL' ), true);
 		JToolBarHelper::editList();
 		JToolBarHelper::custom('delete', "delete.png", "icon-32-delete.png", JText::_( 'DELETE' ), true);
 		JToolBarHelper::addnew();

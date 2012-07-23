@@ -116,7 +116,7 @@
 			<?php if (!count(@$items)) : ?>
 			<tr>
 				<td colspan="10" align="center">
-					<?php echo JText::_('NO ITEMS FOUND'); ?>
+					<?php echo JText::_('NO_ITEMS_FOUND'); ?>
 				</td>
 			</tr>
 			<?php endif; ?>
