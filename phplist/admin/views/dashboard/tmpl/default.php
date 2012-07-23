@@ -7,6 +7,8 @@
 <tr>
 	<td style="width: 70%; max-width: 70%; vertical-align: top; padding: 0px 5px 0px 5px;">
 	
+			<?php DSC::loadHighcharts(); ?>
+            
             <?php
             jimport('joomla.html.pane');
             $tabs = JPane::getInstance( 'tabs' );

@@ -75,7 +75,7 @@ class PhplistHelperAttribute extends PhplistHelperBase
 		Phplist::load( 'PhplistQuery', 'library.query' );
 		JTable::addIncludePath( JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_phplist' . DS . 'tables' );
 		
-		$table = JTable::getInstance( 'Attributes', 'Table' );
+		$table = JTable::getInstance( 'Attributes', 'PhplistTable' );
 		$query = new PhplistQuery( );
 		$query->select( "*" );
 		$query->from( $table->getTableName( ) . " AS tbl" );

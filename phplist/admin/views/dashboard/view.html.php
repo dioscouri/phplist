@@ -12,14 +12,13 @@
 defined('_JEXEC') or die('Restricted access');
 
 Phplist::load( 'PhplistViewBase', 'views.base' );
+Phplist::load( 'PhplistHelperBase', 'helpers._base' );
 
 class PhplistViewDashboard extends PhplistViewBase  
 {
-	/*
+	
 	function display($tpl=null) 
 	{
-		Phplist::load( 'PhplistHelperBase', 'helpers.base');
-		JLoader::import( 'com_phplist.library.grid', JPATH_ADMINISTRATOR.DS.'components' );
 		if (empty($this->hidestats))
 		{
 			// TODO Update the stats method to get phplist-appropriate statistics
@@ -47,7 +46,7 @@ class PhplistViewDashboard extends PhplistViewBase
     /**
      *
      * @return unknown_type
-     
+     */
     function _lastThirty()
     {
         $database = JFactory::getDBO();
@@ -118,7 +117,7 @@ class PhplistViewDashboard extends PhplistViewBase
      * @param unknown_type $chart_title
      * @param unknown_type $variable_name
      * @return unknown_type
-     
+    */ 
     function getChartBarDaily( $data, $chart_title, $variable_name, $chart_type='Column' )
     {
         $args = array();
@@ -131,7 +130,7 @@ class PhplistViewDashboard extends PhplistViewBase
          *  }
          */
         //$args['data'] = array();
-/*
+
         $datasets = array();
         
         if (!empty($data)) 
@@ -175,7 +174,7 @@ class PhplistViewDashboard extends PhplistViewBase
     /**
      * Get some basic stats about the extension
      *
-     
+     */
     function _statistics()
     {
     	$object = new JObject();
@@ -184,7 +183,7 @@ class PhplistViewDashboard extends PhplistViewBase
     	$model->setState( 'order', 'tbl.name' );
     	$list = $model->getList();
     	$this->assign('newsletters', $list);
-    }*/
+    }
 }
 
 ?>
