@@ -15,10 +15,13 @@ Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelTools extends PhplistModelBase 
 {	
-    protected function _buildQueryWhere(&$query)
+ protected function _buildQueryWhere(&$query)
     {
        	$filter     = $this->getState('filter');
-
+        $filter_id_from = $this->getState('filter_id_from');
+        $filter_id_to   = $this->getState('filter_id_to');
+        $filter_name    = $this->getState('filter_name');
+       	
        	if ($filter) 
        	{
 			$key	= $this->_db->Quote('%'.$this->_db->getEscaped( trim( strtolower( $filter ) ) ).'%');
@@ -31,17 +34,40 @@ class PhplistModelTools extends PhplistModelBase
 			$query->where('('.implode(' OR ', $where).')');
        	}
        	
-		$query->where("LOWER(tbl.folder) = 'phplist'");
+        if (strlen($filter_id_from))
+        {
+            if (strlen($filter_id_to))
+            {
+                $query->where('tbl.id >= '.(int) $filter_id_from);
+            }
+                else
+            {
+                $query->where('tbl.id = '.(int) $filter_id_from);
+            }
+        }
+        
+        if (strlen($filter_id_to))
+        {
+            $query->where('tbl.id <= '.(int) $filter_id_to);
+        }
+        if ($filter_name) 
+        {
+            $key    = $this->_db->Quote('%'.$this->_db->getEscaped( trim( strtolower( $filter_name ) ) ).'%');
+            $where = array();
+            $where[] = 'LOWER(tbl.name) LIKE '.$key;
+            $query->where('('.implode(' OR ', $where).')');
+        }
+       	
+		$query->where("LOWER(tbl.folder) = 'sample'");
+		$query->where("tbl.element LIKE 'tool_%'");
     }
     	
-	public function getList($refresh = false)
+	public function getList()
 	{
-		$list = parent::getList($refresh);
-		if(empty($list)) { return array(); }
-		
+		$list = parent::getList(); 
 		foreach($list as $item)
 		{
-			$item->link = 'index.php?option=com_phplist&controller=tools&view=tools&task=view&id='.$item->id;
+			$item->link = 'index.php?option=com_sample&view=tools&task=view&id='.$item->id;
 		}
 		return $list;
 	}
