@@ -15,9 +15,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-jimport( 'joomla.application.component.helper');
-jimport( 'joomla.application.component.model');
-
 /**
  * Content Component Article Model
  *
@@ -25,7 +22,7 @@ jimport( 'joomla.application.component.model');
  * @subpackage	Content
  * @since		1.5
  */
-class PhplistModelElementArticle extends JModel
+class PhplistModelElementArticle extends DSCModelElement
 {
 	/**
 	 * Content data in category array
@@ -35,7 +32,13 @@ class PhplistModelElementArticle extends JModel
 	var $_list = null;
 
 	var $_page = null;
-
+	
+	public function getTable($name='Elementarticle', $prefix='PhplistTable', $options = array())
+	{
+		JTable::addIncludePath( JPATH_ADMINISTRATOR . '/components/com_phplist/tables' );
+		return parent::getTable($name, $prefix, $options);
+	}
+	
 	/**
 	 * Method to get content article data for the frontpage
 	 *
@@ -43,7 +46,7 @@ class PhplistModelElementArticle extends JModel
 	 */
 	function getList()
 	{
-		global $mainframe;
+		$mainframe = JFactory::getApplication();
 
 		if (!empty($this->_list)) {
 			return $this->_list;

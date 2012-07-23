@@ -27,9 +27,12 @@ class PhplistViewMessages extends PhplistViewBase
 		$items = $model->getList();
 		$this->assign( 'newsletters', $items );
 		
-		//content article
-		$elementArticle = $this->_fetchElement( 'articleid', '' );
+		// content article
+		$elementmodel 	= JModel::getInstance( 'ElementArticle', 'PhplistModel' );
+		$elementArticle 	= $elementmodel->fetchElement( 'articleid', '', '',  array('onClose'=>'\function(){onCloseModal();}') );
 		$this->assign('elementArticle', $elementArticle);
+		$resetArticle 		= $elementmodel->clearElement( 'articleid', '0' );
+		$this->assign('resetArticle', $resetArticle);
 		
 		//get templates
 		$model = JModel::getInstance( 'Templates', 'PhplistModel' );
@@ -37,7 +40,6 @@ class PhplistViewMessages extends PhplistViewBase
 		$this->assign( 'templates', $templates );
 		
 		//get default footer if one hasn't been entered.
-		JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
 		$footer = PhplistHelperMessage::getDefaultFooter();
 		$this->assign( 'footer', $footer );
 		
@@ -60,9 +62,9 @@ class PhplistViewMessages extends PhplistViewBase
 	 */
 	function _fetchElement($name, $value='', $node='', $control_name='')
 	{		
-		global $mainframe;
+		$mainframe =JFactory::getApplication();
 
-		$db			=& JFactory::getDBO();
+		$db			= JFactory::getDBO();
 		$doc 		=& JFactory::getDocument();
 		$template 	= $mainframe->getTemplate();
 		$fieldName	= $control_name ? $control_name.'['.$name.']' : $name;

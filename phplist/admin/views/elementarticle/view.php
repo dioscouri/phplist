@@ -31,7 +31,7 @@ class PhplistViewElementArticle extends JView
 		global $mainframe;
 
 		// Initialize variables
-		$db			= &JFactory::getDBO();
+		$db			= JFactory::getDBO();
 		$nullDate	= $db->getNullDate();
 
 		$document	= & JFactory::getDocument();
@@ -55,17 +55,16 @@ class PhplistViewElementArticle extends JView
 
 		$object = JRequest::getVar( 'object' );
 		$link = 'index.php?option=com_phplist&task=elementArticle&tmpl=component&object='.$object;
-				// index.php?option=com_phplist&amp;task=elementArticle&amp;tmpl=component&amp;object=articleid
 		?>
 		<form action="<?php echo $link; ?>" method="post" name="adminForm">
 
 			<table>
 				<tr>
 					<td width="100%">
-						<?php echo JText::_( 'Filter' ); ?>:
+						<?php echo JText::_('COM_PHPLIST_FILTER'); ?>:
 						<input type="text" name="search" id="search" value="<?php echo $lists['search'];?>" class="text_area" onchange="document.adminForm.submit();" />
-						<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
-						<button onclick="getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+						<button onclick="this.form.submit();"><?php echo JText::_('COM_PHPLIST_GO'); ?></button>
+						<button onclick="getElementById('search').value='';this.form.submit();"><?php echo JText::_('COM_PHPLIST_RESET'); ?></button>
 					</td>
 					<td nowrap="nowrap">
 						<?php
@@ -80,7 +79,7 @@ class PhplistViewElementArticle extends JView
 			<thead>
 				<tr>
 					<th width="5">
-						<?php echo JText::_( 'Num' ); ?>
+						<?php echo JText::_('COM_PHPLIST_NUM'); ?>
 					</th>
 					<th class="title">
 						<?php echo JHTML::_('grid.sort',   'Title', 'c.title', @$lists['order_Dir'], @$lists['order'] ); ?>
@@ -125,8 +124,8 @@ class PhplistViewElementArticle extends JView
 						<?php echo $page->getRowOffset( $i ); ?>
 					</td>
 					<td>
-						<a style="cursor: pointer;" onclick="window.parent.phplistInsertArticle('index.php?option=com_phplist&controller=messages&task=insertArticle&format=raw','<?php echo $row->id; ?>');">
-												<?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?></a>
+						<a style="cursor: pointer;" onclick="window.parent.jSelectArticle('<?php echo $row->id; ?>', '<?php echo str_replace(array("'", "\""), array("\\'", ""),$row->title); ?>', '<?php echo JRequest::getVar('object'); ?>');">
+							<?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?></a>
 					</td>
 					<td align="center">
 						<?php echo $row->groupname;?>
@@ -163,7 +162,7 @@ class PhplistViewElementArticle extends JView
 		global $mainframe;
 
 		// Initialize variables
-		$db		= &JFactory::getDBO();
+		$db		= JFactory::getDBO();
 
 		// Get some variables from the request
 		$sectionid			= JRequest::getVar( 'sectionid', -1, '', 'int' );
