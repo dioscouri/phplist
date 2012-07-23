@@ -97,7 +97,6 @@ class PhplistModelMessages extends PhplistModelBase
 	protected function _buildQueryJoins(&$query)
 	{
 		parent::_buildQueryJoins($query);
-        JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
         $listid_tablename = PhplistHelperNewsletter::getTableNameListmessage();
         $query->join('LEFT', "{$listid_tablename} AS m2n ON tbl.id = m2n.messageid");
 	}

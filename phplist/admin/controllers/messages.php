@@ -122,9 +122,6 @@ class PhplistControllerMessages extends PhplistController
 	function save() 
 	{
 		$model 	= $this->getModel( $this->get('suffix') );
-		
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
 			
 	    $row = $model->getTable();
 	    $row->load( $model->getId() );
@@ -324,9 +321,6 @@ class PhplistControllerMessages extends PhplistController
 		// send out test email
 		function sendTestEmail()
 		{
-			JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
-			JLoader::import( 'com_phplist.helpers.email', JPATH_ADMINISTRATOR.DS.'components' );
-		
 			$model  = $this->getModel( 'messages' );
 			$message = $model->getTable();
 		

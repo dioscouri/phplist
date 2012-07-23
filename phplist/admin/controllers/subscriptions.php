@@ -67,10 +67,7 @@ class PhplistControllerSubscriptions extends PhplistController
 	 * @param $msg Object
 	 */	
 	function unsubscribe() 
-	{
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-		
+	{	
 		$error = false;
 		$this->messagetype	= '';
 		$this->message 		= '';
@@ -114,7 +111,6 @@ class PhplistControllerSubscriptions extends PhplistController
      */
     function delete()
     {
-    	JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
         $error = false;
         $this->messagetype  = '';
         $this->message      = '';

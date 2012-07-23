@@ -51,7 +51,6 @@ class PhplistHelperNewsletter extends PhplistHelperBase
 		$database = PhplistHelperPhplist::getDBO();
 		$tablename_newsletters = PhplistHelperNewsletter::getTableName();
 		$tablename_listmessages = PhplistHelperNewsletter::getTableNameListmessage();
-		JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
 		$tablename_msg = PhplistHelperMessage::getTableName();
 		
 		$query = new PhplistQuery( );
@@ -112,7 +111,6 @@ class PhplistHelperNewsletter extends PhplistHelperBase
 	{
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
 		$tablename_subs = PhplistHelperSubscription::getTableName();
 
 		$query = new PhplistQuery( );

@@ -21,7 +21,6 @@ class PhplistHelperEmail extends PhplistHelperBase
 	 */
 	function getTableName_forward()
 	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' ); 
 		$success = false;
 		$phplist_user_prefix = PhplistHelperPhplist::getUserTablePrefix();
 		$success = "{$phplist_user_prefix}_message_forward";
@@ -110,7 +109,6 @@ class PhplistHelperEmail extends PhplistHelperBase
 	function _sendConfirmationEmail($details, $newsletters = 'cids')
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		if ($newsletters != 'cids')
 		{

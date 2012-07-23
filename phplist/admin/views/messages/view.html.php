@@ -33,7 +33,6 @@ class PhplistViewMessages extends PhplistViewBase
 		$this->assign( 'templates', $templates );
 		
 		//get default footer if one hasn't been entered.
-		JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
 		$footer = PhplistHelperMessage::getDefaultFooter();
 		$this->assign( 'footer', $footer->value );
     }

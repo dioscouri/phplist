@@ -15,4 +15,5 @@ Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelConfig extends PhplistModelBase 
 {
+	
 }

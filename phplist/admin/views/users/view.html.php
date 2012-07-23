@@ -18,9 +18,7 @@ class PhplistViewUsers extends PhplistViewBase
 	function _form($tpl=null)
     {
     	parent::_form($tpl);
-    	
-    	JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-    	
+    	    	
     	/// get newsletters list
 		$model = JModel::getInstance( 'Newsletters', 'PhplistModel' );
 		$model->setState( 'order', 'name' );

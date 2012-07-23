@@ -114,11 +114,9 @@ class PhplistModelSubscriptions extends PhplistModelBase
 	{
 		parent::_buildQueryJoins($query);
 		
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		$user_tablename = PhplistHelperUser::getTableName();
 		$query->join('LEFT', "{$user_tablename} AS user ON user.id = tbl.userid");
 		
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
 		$newsletter_tablename = PhplistHelperNewsletter::getTableName();
 		$query->join('LEFT', "{$newsletter_tablename} AS newsletter ON newsletter.id = tbl.listid");
 	}

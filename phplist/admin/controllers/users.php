@@ -70,9 +70,6 @@ class PhplistControllerUsers extends PhplistController
 	 */
 	function enroll_flex()
 	{
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-
 		$details = new JObject();
 		$details->listid = JRequest::getVar('flex_list', '0', 'post', 'int');
 
@@ -127,9 +124,6 @@ class PhplistControllerUsers extends PhplistController
 	 */
 	function withdraw_flex()
 	{
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-
 		$details = new JObject();
 		$details->listid = JRequest::getVar('flex_list', '0', 'post', 'int');
 
@@ -184,8 +178,6 @@ class PhplistControllerUsers extends PhplistController
 	 */
 	function withdraw_all()
 	{
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		JModel::addIncludePath( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'models' );
 
 		$details = new JObject();
@@ -238,7 +230,6 @@ class PhplistControllerUsers extends PhplistController
 	 */
 	function synchronizeUsers()
 	{
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		$this->messagetype	= 'message';
 		$this->message 		= '';
 		$redirect = 'index.php?option=com_phplist&view='.$this->get('suffix');
@@ -264,8 +255,6 @@ class PhplistControllerUsers extends PhplistController
 	 */
 	function delete()
 	{
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-
 		$model = JModel::getInstance( 'Newsletters', 'PhplistModel' );
 		$users= $model->getList();
 
@@ -302,10 +291,6 @@ class PhplistControllerUsers extends PhplistController
 	function save()
 	{
 		$error = false;
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		$this->messagetype	= '';
 		$this->message 		= '';
 		$model 	= $this->getModel( $this->get('suffix') );

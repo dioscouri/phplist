@@ -75,9 +75,6 @@ class PhplistModelNewsletters extends PhplistModelBase
         $field = array();
 
         // load the date of the last sent message for the newsletter
-        JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
-        JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-
         $tablename_lettermsg = PhplistHelperNewsletter::getTableNameListmessage();
         $tablename_msg = PhplistHelperMessage::getTableName();
         

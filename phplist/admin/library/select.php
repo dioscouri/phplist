@@ -175,7 +175,6 @@ class PhplistSelect extends DSCSelect
  	
 	public static function AttribSelect( $id, $value, $name )
  	{
- 		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		$data = PhplistHelperAttribute::getAttributeListValues($id);
 		foreach (@$data as $option)
         {	
@@ -186,7 +185,6 @@ class PhplistSelect extends DSCSelect
  	
 	public static function AttribRadio( $id, $value, $name )
  	{
- 		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		$data = PhplistHelperAttribute::getAttributeListValues($id);
 		foreach (@$data as $option)
         {	
@@ -212,7 +210,6 @@ class PhplistSelect extends DSCSelect
 			$list[] =  self::option('', "- ".JText::_( $title )." -", 'id', 'title' );
 		}
 
-		JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
         $items = PhplistHelperMessage::getStates();
         foreach (@$items as $item)
         {

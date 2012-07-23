@@ -105,7 +105,6 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	
 	function saveAttributes( $userid )
 	{
-			JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 			$attributes = PhplistHelperAttribute::getAttributes();
 	        if ($attributes)
 	        {                   
@@ -245,8 +244,6 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	function formInput( $id, $value, $type='textline', $name )
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.select', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$newname = $name;
 		//remove spaces from name
@@ -337,7 +334,6 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	 */
 	function AttribCheckboxgroup( $id, $value, $name )
 	{
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		$data = PhplistHelperAttribute::getAttributeListValues($id);
 		$cids = explode( ',', trim($value) );
 		$checkboxes = '';
@@ -361,7 +357,6 @@ class PhplistHelperAttribute extends PhplistHelperBase
 	 */
 	function AttribCheckbox( $id, $value, $name )
 	{
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		$checkbox = "";
 		$checked = "";
         if ($value == 'on')

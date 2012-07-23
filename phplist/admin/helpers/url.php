@@ -97,7 +97,6 @@ class PhplistHelperUrl extends PhplistHelperBase
 	
 	function appendURL( $url, $logout='0' )
 	{
-	 JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 	 /// add itemid to url
 	 $return = PhplistUrl::addItemid($url);
 

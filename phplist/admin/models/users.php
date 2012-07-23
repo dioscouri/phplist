@@ -170,7 +170,6 @@ class PhplistModelUsers extends PhplistModelBase
 			}
 	
 			// Get User Attributes
-			JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 			$attributes_list = "";
 			$attributes = array();
 			if (isset($item->id))

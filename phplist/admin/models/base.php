@@ -13,6 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 
 class PhplistModelBase extends DSCModel
 {
+
     public function getTable($name='', $prefix='PhplistTable', $options = array())
     {
         JTable::addIncludePath( JPATH_ADMINISTRATOR . '/components/com_phplist/tables' );

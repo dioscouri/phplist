@@ -21,7 +21,6 @@ class PhplistHelperLog extends PhplistHelperBase
 	 */
 	function getTableName() 
 	{
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' ); 
 		$success = false;
 		$phplist_prefix = PhplistHelperPhplist::getPrefix();
 		$success = "{$phplist_prefix}_eventlog";

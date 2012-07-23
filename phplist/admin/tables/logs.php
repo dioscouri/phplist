@@ -21,7 +21,7 @@ class PhplistTableLogs extends DSCTable
 		$tbl_suffix = 'logs';
 		$this->set( '_suffix', $tbl_suffix );
 		
-		$tablename = PhplistHelperMessage::getTableName();
+		$tablename = PhplistHelperLog::getTableName();
 		
 		parent::__construct( $tablename, $tbl_key, $database );			
 	}

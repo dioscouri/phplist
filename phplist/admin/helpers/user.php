@@ -163,9 +163,7 @@ class PhplistHelperUser extends PhplistHelperBase
 	{
 		$success = false;
 		$database = PhplistHelperPhplist::getDBO();
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
 		$tablename = PhplistHelperSubscription::getTableName();
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
 		$tablename_letter = PhplistHelperNewsletter::getTableName();
 		
 		$query = "
@@ -475,9 +473,7 @@ class PhplistHelperUser extends PhplistHelperBase
 	 * @return array
 	 */
 	function &createNewUser( $details, $useractivation='0' ) {
-		
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-		
+				
 		global $mainframe;
 		$success = false;
 
@@ -640,7 +636,6 @@ class PhplistHelperUser extends PhplistHelperBase
 	function deleteUser( $id, $source='foreignkey' )
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$phplist_prefix = PhplistHelperPhplist::getPrefix();
 		$phplist_user_prefix = PhplistHelperPhplist::getUserTablePrefix();
@@ -740,7 +735,6 @@ class PhplistHelperUser extends PhplistHelperBase
 	function deleteForeignkey( $foreignkey )
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$phplist_user_prefix = PhplistHelperPhplist::getUserTablePrefix();
 		$phplist_prefix = PhplistHelperPhplist::getPrefix();
@@ -770,7 +764,6 @@ class PhplistHelperUser extends PhplistHelperBase
 	function syncJoomlaUsers($returnObject = '1')
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		// Get the list of all foreignkeys
 		$phplist_user_prefix = PhplistHelperPhplist::getUserTablePrefix();

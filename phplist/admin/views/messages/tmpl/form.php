@@ -111,7 +111,6 @@
 					echo $sliders->startPane( "pane_$pane" );
 
 					echo $sliders->startPanel( JText::_( "NEWSLETTERS" ), 'newsletters' );
-					JLoader::import( 'com_phplist.helpers.message', JPATH_ADMINISTRATOR.DS.'components' );
 					?>
 					<div class="note" style="margin: 5px;"><?php echo JText::_( 'SELECT_NEWSLETTERS' ); ?></div>
 					<table class="admintable">

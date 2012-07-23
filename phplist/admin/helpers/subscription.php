@@ -75,7 +75,6 @@ class PhplistHelperSubscription extends PhplistHelperBase
 		*/
 	function storeUserTo( $details )
 	{
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
 
 		$success = false;
 
@@ -138,8 +137,6 @@ class PhplistHelperSubscription extends PhplistHelperBase
 		*/
 	function removeUserFrom( $details )
 	{
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-
 		$success = false;
 
 		if (!is_object($details) || empty($details->userid) || empty($details->listid) )
@@ -215,7 +212,6 @@ class PhplistHelperSubscription extends PhplistHelperBase
 	function switchSubscriptions ($details, $returnObject = '0')
 	{
 		$success = false;
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
 		$task = JRequest::getVar( 'task' );
 
 		$cids = JRequest :: getVar('cid', array(0), 'request', 'array');

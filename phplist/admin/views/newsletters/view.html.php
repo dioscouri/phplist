@@ -19,7 +19,6 @@ class PhplistViewNewsletters extends PhplistViewBase
 	function _default($tpl=null)
     {
     	parent::_default($tpl);
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );	
     }
 	
 	function _defaultToolbar()
