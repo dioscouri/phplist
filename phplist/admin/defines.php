@@ -18,6 +18,7 @@ class Phplist extends DSC
 	protected $_versiontype    = '';
 	protected $_copyrightyear  = '2012';
 	protected $_min_php		= '5.2';
+	protected $_phplistrecommended = '2.10.12';
 
 	public $show_linkback					= '1';
 	public $show_linkback_phplist			= '1';
@@ -51,20 +52,17 @@ class Phplist extends DSC
 	public $page_tooltip_tools_disabled  			= '0';
 	public $page_tooltip_phplistconfig_disabled  	= '0';
 	
-	//TODO Tooltips should be here...
-
-	
 	/**
 	 * Get recomended PHPList Version
-	 */
-	public static function getPHPListRecomendedVersion()
+	
+	public function getPHPListRecomendedVersion()
 	{
-		return self::$_phplistrecommended;
+		return $this->get('_phplistrecommended');
 	}
 	
 	/**
 	 * Get actual PHPList Version
-	 */
+	 
 	public static function getPHPListVersion()
 	{
 		$database = PhplistHelperPhplist::getDBO();
@@ -155,7 +153,7 @@ class Phplist extends DSC
 		return parent::load( $classname, $filepath, $options  );
 	}
 }
-class PhplistConfigPhplist extends Phplist
+class PhplistConfigPhplist extends DSC
 {
 	//TODO set up phplist config vars
 	var $show_linkback					= '1';
@@ -177,7 +175,6 @@ class PhplistConfigPhplist extends Phplist
 	 * @return string The query to be used to retrieve the rows from the database
 	 */
 	function _buildQuery() {
-		JLoader::import( 'com_phplist.helpers.configphplist', JPATH_ADMINISTRATOR.DS.'components' );
 		$tablename = PhplistHelperConfigPhplist::getTableName();
 		$query = "SELECT * FROM {$tablename}";
 
