@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.views._base', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistViewBase', 'views.base' );
 
 class PhplistViewConfigPhplist extends PhplistViewBase 
 {

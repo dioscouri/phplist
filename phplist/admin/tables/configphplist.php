@@ -11,19 +11,17 @@
 /** ensure this file is being included by a parent file */
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-JLoader::import( 'com_phplist.tables._base', JPATH_ADMINISTRATOR.DS.'components' );
-
-class TableConfigPhplist extends PhplistTable 
+class PhplistTableConfigPhplist extends DSCTable 
 {
 
-	function TableConfigPhplist( &$db ) 
+	function PhplistTableConfigPhplist( &$db ) 
 	{
+		$database = PhplistHelperPhplist::getDatabase();
+		
 		$tbl_key 	= 'item';
 		$tbl_suffix = 'config';
 		$this->set( '_suffix', $tbl_suffix );
 		
-		JLoader::import( 'com_phplist.helpers.configphplist', JPATH_ADMINISTRATOR.DS.'components' );
-		$database = PhplistHelperPhplist::getDatabase();
 		$tablename = PhplistHelperConfigPhplist::getTableName();
 				
 		parent::__construct( $tablename, $tbl_key, $database );			
