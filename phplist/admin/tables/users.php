@@ -14,18 +14,17 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 class PhplistTableUsers extends DSCTable 
 {
 
-	function TableUsers( &$db ) 
+	function PhplistTableUsers( &$db ) 
 	{
+		$database = PhplistHelperPhplist::getDatabase();
+		
 		$tbl_key 	= 'id';
 		$tbl_suffix = 'users';
 		$this->set( '_suffix', $tbl_suffix );
 		
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-		$database = PhplistHelperPhplist::getDatabase();
 		$tablename = PhplistHelperUser::getTableName();
 		
-		parent::__construct( $tablename, $tbl_key, $db );	
+		parent::__construct( $tablename, $tbl_key, $database );	
 	}
 	
 	 /**
