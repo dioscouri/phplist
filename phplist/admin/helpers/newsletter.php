@@ -53,6 +53,7 @@ class PhplistHelperNewsletter extends PhplistHelperBase
 		$tablename_listmessages = PhplistHelperNewsletter::getTableNameListmessage();
 		$tablename_msg = PhplistHelperMessage::getTableName();
 		
+		Phplist::load( 'PhplistQuery', 'library.query' );
 		$query = new PhplistQuery( );
 		$query->select( "msg.*" );
 		$query->from( $tablename_msg . " AS msg" );		

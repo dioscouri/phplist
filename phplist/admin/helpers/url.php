@@ -22,7 +22,7 @@ class PhplistHelperUrl extends PhplistHelperBase
 	 *
 	 */
 	function &_( $url, $text, $params='', $xhtml=true, $ssl=null, $addItemid='1' ) {
-		if ($addItemid == '1') { $url = PhplistUrl::addItemid($url); }
+		if ($addItemid == '1') { $url = PhplistHelperUrl::addItemid($url); }
 		$return = "<a href='".JRoute::_($url, $xhtml, $ssl)."' ".addslashes($params)." >".$text."</a>";
 		return $return;			
 	}
@@ -98,7 +98,7 @@ class PhplistHelperUrl extends PhplistHelperBase
 	function appendURL( $url, $logout='0' )
 	{
 	 /// add itemid to url
-	 $return = PhplistUrl::addItemid($url);
+	 $return = PhplistHelperUrl::addItemid($url);
 
 	 if ($logout == '0')
 	 {

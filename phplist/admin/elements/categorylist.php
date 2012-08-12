@@ -8,9 +8,24 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
-/** Check to ensure this file is within the rest of the framework */
-defined('JPATH_BASE') or die();
+/** ensure this file is being included by a parent file */
+defined('_JEXEC') or die('Restricted access');
 
+if ( !class_exists('Phplist') ) {
+    JLoader::register( "Phplist", JPATH_ADMINISTRATOR.DS."components".DS."com_phplist".DS."defines.php" );
+}
+
+if(!class_exists('JFakeElementBase')) {
+	if(version_compare(JVERSION,'1.6.0','ge')) {
+		class JFakeElementBase extends JFormField {
+			// This line is required to keep Joomla! 1.6/1.7 from complaining
+			public function getInput() {
+			}
+		}
+	} else {
+		class JFakeElementBase extends JElement {}
+	}
+}
 /**
  * Renders a category element
  *
@@ -19,14 +34,8 @@ defined('JPATH_BASE') or die();
  * @since		1.5
  */
 
-class JElementCategorylist extends JElement
+class JFakeElementCategorylist extends JFakeElementBase
 {
-	/**
-	* Element name
-	*
-	* @access	protected
-	* @var		string
-	*/
 	var	$_name = 'Categorylist';
 
 	function fetchElement($name, $value, &$node, $control_name)
@@ -70,3 +79,11 @@ class JElementCategorylist extends JElement
 		return JHTML::_('select.genericlist',  $options, ''.$control_name.'['.$name.'][]', ' multiple="multiple" size="' . $size . '" ', 'id', 'title', $value, $control_name.$name );
 	}
 }
+
+if(version_compare(JVERSION,'1.6.0','ge')) {
+	class JFormFieldCategorylist extends JFakeElementCategorylist {}
+} else {
+	class JElementCategorylist extends JFakeElementCategorylist {}
+}
+
+?>

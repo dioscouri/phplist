@@ -11,12 +11,6 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 // Import library dependencies
 jimport('joomla.plugin.plugin');
-jimport( 'joomla.filesystem.file' );
-
-//get PHPList language file for confirmation email text
-$element = 'com_phplist';
-$lang =& JFactory::getLanguage();
-$lang->load( $element, JPATH_BASE );
 
 /**
  * Phplist User Plugin
@@ -28,19 +22,20 @@ $lang->load( $element, JPATH_BASE );
 class plgUserPhplist extends JPlugin 
 {
 	/**
-	 * Constructor 
-	 *
-	 * For php4 compatability we must not use the __constructor as a constructor for plugins
-	 * because func_get_args ( void ) returns a copy of all passed arguments NOT references.
-	 * This causes problems with cross-referencing necessary for the observer design pattern.
-	 *
-	 * @param object $subject The object to observe
-	 * @param 	array  $config  An array that holds the plugin configuration
-	 * @since 1.5
+	 * @var $_element  string  Should always correspond with the plugin's filename,
+	 *                         forcing it to be unique
 	 */
-	function plgUserPhplist(& $subject, $config)
+	var $_element    = 'user_phplist';
+	
+	function __construct(& $subject, $config)
 	{
-		parent::__construct($subject, $config);		
+		parent::__construct($subject, $config);
+		$this->loadLanguage( '', JPATH_ADMINISTRATOR );
+		$this->loadLanguage('com_phplist');
+		$language = JFactory::getLanguage();
+		$language -> load('plg_'.$this->_element, JPATH_ADMINISTRATOR, 'en-GB', true);
+		$language -> load('plg_'.$this->_element, JPATH_ADMINISTRATOR, null, true);
+		
 	}
 
 	/**
@@ -52,16 +47,22 @@ class plgUserPhplist extends JPlugin
 		$success = false;
 		
 		jimport('joomla.filesystem.file');
-		if (JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'helpers'.DS.'_base.php')) 
-		{
-			require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'defines.php' );
-			JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-			JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-			JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-			JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-			JLoader::import( 'com_phplist.helpers.email', JPATH_ADMINISTRATOR.DS.'components' );
+		if (JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'defines.php' )) 
+		{	
+			if ( !class_exists('Phplist') ) {
+				JLoader::register( "Phplist", JPATH_ADMINISTRATOR.DS."components".DS."com_phplist".DS."defines.php" );
+			}
+			Phplist::load( 'PhplistHelperUser', 'helpers.user' );
+			Phplist::load( 'PhplistHelperSubscription', 'helpers.subscription' );
+			Phplist::load( 'PhplistHelperPhplist', 'helpers.phplist' );
+			Phplist::load( 'PhplistHelperAttribute', 'helpers.attribute' );
+			Phplist::load( 'PhplistHelperEmail', 'helpers.email' );
+			
 			$success = true;
-
+			
+		}
+		
+		if ($success == true) {
 			// Also check that DB is setup
 			$database = PhplistHelperPhplist::getDBO();
 			if (!isset($database->error)) 

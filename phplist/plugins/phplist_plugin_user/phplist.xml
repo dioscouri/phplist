@@ -14,10 +14,22 @@
 		<file plugin="phplist">phplist.php</file>
 	</files>
 	
-	<languages folder="languages">
-		<language tag="en-GB">en-GB.plg_user_phplist.ini</language>
+	<languages>
+		<language tag="en-GB">languages/en-GB.plg_user_phplist.ini</language>
 	</languages>
-	
+	<config>
+		<fields name="params">
+			<fieldset name="basic" label="basic">
+				<field name="newsletterids" type="text" default="" label="NEWSLETTERIDS_TITLE" description="NEWSLETTERIDS_DESC" size="30" ></field>		
+				<field name="enable_autodelete" type="radio" default="0" label="ENABLE_AUTODELETE_TITLE" description="ENABLE_AUTODELETE_DESC" >
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="nameattribid" type="text" default="" label="NAMEATTRIBID_TITLE" description="NAMEATTRIBID_DESC" size="30" ></field>		
+				<field name="usernameattribid" type="text" default="" label="USERNAMEATTRIBID_TITLE" description="USERNAMEATTRIBID_DESC" size="30" ></field>		
+			</fieldset>
+		</fields>
+	</config>
 	<params>
 		<param name="newsletterids" type="text" default="" label="NEWSLETTERIDS_TITLE" description="NEWSLETTERIDS_DESC" size="30" ></param>		
 		<param name="enable_autodelete" type="radio" default="0" label="ENABLE_AUTODELETE_TITLE" description="ENABLE_AUTODELETE_DESC" >
