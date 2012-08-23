@@ -38,8 +38,10 @@
 	<property name="cfg.adminLangDir" location="${cfg.comDir}/languages/admin" />
 	<property name="cfg.siteLangDir" location="${cfg.comDir}/languages/site" />
 	<property name="cfg.siteSubModuleDir" location="${cfg.comDir}/mod_phplist_subscribe" />
-	<property name="cfg.siteUserPluginDir" location="${cfg.comDir}/phplist_plugin_user" />
-	<property name="cfg.plgBatchModifyDir" location="${cfg.comDir}/phplist_plugin_batchmodify" />
+	<property name="cfg.siteUserPluginDir" location="${cfg.comDir}/plugins/phplist_plugin_user" />
+	<property name="cfg.plgBatchModifyDir" location="${cfg.comDir}/plugins/phplist_plugin_batchmodify" />
+	<property name="cfg.plgAutoMessages" location="${cfg.comDir}/plugins/phplist_plugin_automessages" />
+
 
 	<!-- <property name="cfg.syspluginFilesDir" location="${cfg.comDir}/juga_plugin_system" /> -->
 	
@@ -114,18 +116,15 @@
 		<copy todir="${cfg.localhostRoot}/language/en-GB" overwrite="true">
 			<fileset dir="${cfg.siteLangDir}" />
 		</copy>
-		<copy todir="${cfg.localhostRoot}/modules/mod_phplist_subscribe" overwrite="true">
+		<!--<copy todir="${cfg.localhostRoot}/modules/mod_phplist_subscribe" overwrite="true">
 			  <fileset dir="${cfg.siteSubModuleDir}" />
-		</copy>
+		</copy>-->
 		<copy todir="${cfg.localhostRoot}/plugins/user" overwrite="true">
 			  <fileset dir="${cfg.siteUserPluginDir}" />
 		</copy>
-        <copy todir="${cfg.localhostRoot}/plugins/phplist" overwrite="true">
-              <fileset dir="${cfg.plgBatchModifyDir}" />
-        </copy>
-        <copy todir="${cfg.localhostRoot}/plugins/phplist" overwrite="true">
-              <fileset dir="${cfg.plgAmbrasubs}" />
-        </copy>
+		<copy todir="${cfg.localhostRoot}/plugins/content" overwrite="true">
+					  <fileset dir="${cfg.plgAutoMessages}" />
+				</copy>
 		<copy todir="${cfg.localhostRoot}/administrator/components/com_${cfg.comName}" overwrite="true">
 			<fileset file="${cfg.comDir}/manifest.xml"></fileset>
 		</copy>
