@@ -11,6 +11,6 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.models.messages', JPATH_ADMINISTRATOR.DS.'components' );
+Phplist::load( 'PhplistModelMessages', 'models.messages' );
 
 ?>

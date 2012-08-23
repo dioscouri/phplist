@@ -1,6 +1,5 @@
 <?php
 /**
- * @version	1.5
  * @package	Phplist
  * @author 	Dioscouri Design
  * @link 	http://www.dioscouri.com
@@ -11,6 +10,9 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-Phplist::load( 'PhplistModelTemplates', 'models.templates' );
+Phplist::load( 'PhplistViewBase', "views._base", array( 'site'=>'site', 'type'=>'components', 'ext'=>'com_phplist' ) );
 
-?>
+class PhplistViewDashboard extends DSCViewSite  
+{
+
+}

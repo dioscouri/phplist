@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="PHPLIST MESSAGES LAYOUT">
+	<layout title="PHPLIST_MESSAGES_LAYOUT">
 		<message>
-			<![CDATA[PHPLIST MESSAGES LAYOUT DESC]]>
+			<![CDATA[PHPLIST_MESSAGES_LAYOUT_DESC]]>
 		</message>
 	</layout>
 	<state>
-		<name>PHPLIST MESSAGES LAYOUT</name>
-		<description>PHPLIST MESSAGES LAYOUT DESC</description>
+		<name>PHPLIST_MESSAGES_LAYOUT</name>
+		<description>PHPLIST_MESSAGES_LAYOUT_DESC</description>
 		<url addpath="/administrator/components/com_phplist/elements">
-			<param name="id" type="phplistnewsletter" section="com_phplist" default="0" label="SELECT NEWSLETTER" description="SELECT NEWSLETTER DESC" />
+			<param name="id" type="phplistnewsletter" section="com_phplist" default="0" label="SELECT_NEWSLETTER" description="SELECT_NEWSLETTER_DESC" />
 		</url>
 	</state>
 	

@@ -43,7 +43,7 @@ if ($this->phplistuser)
 			       <div style="vertical-align: middle;">
 			       	<b><?php echo JText::_( "Your Email"). ': '; ?></b> <?php echo $this->phplistuser->email; ?>
 			       	<?php if ($this->joomlauserID == '0') { ?>
-			       		[<a href="<?php echo PhplistUrl::appendUrl('index.php?option=com_phplist&controller=newsletters&task=list', $logout = '1'); ?>" alt="logout" title="logout"><?php echo JText::_("Logout"); ?></a>]
+			       		[<a href="<?php echo PhplistUrl::appendUrl('index.php?option=com_phplist&view=newsletters&task=list', $logout = '1'); ?>" alt="logout" title="logout"><?php echo JText::_("Logout"); ?></a>]
 			       <?php } ?>
 			       <br/><br/>
 			       	<?php echo JText::_( "WITH SELECTED" ); ?>
@@ -132,10 +132,10 @@ if ($this->phplistuser)
                 	<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
                 </th>
                 <th>
-                	<?php echo PhplistGrid::sort( 'Title', "tbl.name", @$state->direction, @$state->order ); ?>
+                	<?php echo DSCGrid::sort( 'Title', "tbl.name", @$state->direction, @$state->order ); ?>
                 </th>
                 <th>
-                	<?php echo PhplistGrid::sort( 'Last Message Sent', "lastsent", @$state->direction, @$state->order ); ?>
+                	<?php echo DSCGrid::sort( 'Last Message Sent', "lastsent", @$state->direction, @$state->order ); ?>
                 </th>
                 <?php if ($this->phplistuser) : ?>
 				<th>

@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.views._base', JPATH_SITE.DS.'components' );
+Phplist::load( 'PhplistViewBase', 'views._base', array( 'site'=>'site', 'type'=>'components', 'ext'=>'com_phplist' ) );
 
 class PhplistViewPreferences extends PhplistViewBase 
 {
@@ -40,12 +40,10 @@ class PhplistViewPreferences extends PhplistViewBase
 	function _default($tpl = null) 
 	{
 		parent::_default($tpl);
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$model = JModel::getInstance( 'Preferences', 'PhplistModel' );
 		$row = $model->getTable();
 
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$redirect = PhplistUrl::addItemid("index.php?option=com_phplist&view=newsletter");
 		$this->messagetype  = 'notice';

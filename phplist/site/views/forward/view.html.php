@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.views._base', JPATH_SITE.DS.'components' );
+Phplist::load( 'PhplistViewBase', 'views._base', array( 'site'=>'site', 'type'=>'components', 'ext'=>'com_phplist' ) );
 
 class PhplistViewForward extends PhplistViewBase
 {
@@ -22,14 +22,7 @@ class PhplistViewForward extends PhplistViewBase
 	 */
 	function display($tpl=null) 
 	{
-		$layout = $this->getLayout();
-		switch(strtolower($layout))
-		{
-			case "default":
-			default:
-				$this->_default($tpl);
-			  break;
-		}
 		parent::display($tpl);
+		$layout = $this->getLayout();
     }
 }

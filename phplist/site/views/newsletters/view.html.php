@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.views._base', JPATH_SITE.DS.'components' );
+Phplist::load( 'PhplistViewBase', 'views._base', array( 'site'=>'site', 'type'=>'components', 'ext'=>'com_phplist' ) );
 
 class PhplistViewNewsletters extends PhplistViewBase 
 {
@@ -40,11 +40,6 @@ class PhplistViewNewsletters extends PhplistViewBase
     function _default($tpl=null)
     {
     	parent::_default($tpl);
-    	
-    	// get the phplist user
-    	JLoader::import( 'com_phplist.library.grid', JPATH_ADMINISTRATOR.DS.'components' );
-        JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-        JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
         
         $user = JFactory::getUser();
         $phplistUser = null;
@@ -65,7 +60,6 @@ class PhplistViewNewsletters extends PhplistViewBase
 		$this->assign( 'phplistuser', $phplistUser );
 		$this->assign('joomlauserID', $user->id);
 
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		$attributes = PhplistHelperAttribute::getAttributes($frontend = '1');
 		$this->assign( 'attributes', $attributes );
 		

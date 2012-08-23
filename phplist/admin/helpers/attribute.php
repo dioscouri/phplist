@@ -83,7 +83,7 @@ class PhplistHelperAttribute extends PhplistHelperBase
 		if ($frontend)
 		{
 			// get csv of front end attribute id's from config
-			$config = &PhplistConfig::getInstance();
+			$config = &Phplist::getInstance();
 			$frontendAttribs = $config->get( 'frontend_attribs', '1' );
 			
 			if ($frontendAttribs  != '' && $frontendAttribs  != '0')
@@ -155,7 +155,7 @@ class PhplistHelperAttribute extends PhplistHelperBase
 		if ($frontend)
 		{
 			// get csv of front end attribute id's from config
-			$config = &PhplistConfig::getInstance();
+			$config = &Phplist::getInstance();
 			$frontendAttribs = $config->get( 'frontend_attribs', '1' );
 
 			if ($frontendAttribs  != '' && $frontendAttribs  != '0')

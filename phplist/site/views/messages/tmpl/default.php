@@ -39,10 +39,10 @@
 		<thead>
             <tr>
 				<th>
-                	<?php echo PhplistGrid::sort( 'Subject', "tbl.subject", @$state->direction, @$state->order ); ?>
+                	<?php echo DSCGrid::sort( 'Subject', "tbl.subject", @$state->direction, @$state->order ); ?>
                 </th>
                 <th>
-                	<?php echo PhplistGrid::sort( 'Sent', "tbl.sendstart", @$state->direction, @$state->order ); ?>
+                	<?php echo DSCGrid::sort( 'Sent', "tbl.sendstart", @$state->direction, @$state->order ); ?>
                 </th>
             </tr>
 		</thead>

@@ -15,6 +15,11 @@ Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelUnsubscribe extends PhplistModelBase 
 {
+	function __construct($config = array())
+	{
+		parent::__construct($config);
+		$database = PhplistHelperPhplist::setPhplistDatabase();
+	}
 	/**
 	 * This model's default table is the listuser table
 	 * @return unknown_type
@@ -25,27 +30,9 @@ class PhplistModelUnsubscribe extends PhplistModelBase
         $table = JTable::getInstance( 'Subscriptions', 'Table' );
         return $table;
     }
-    
-	/**
-	 * Constructor needs to set the DBO for the whole model
-	 * @param $config
-	 * @return unknown_type
-	 */
-	function __construct($config = array())
-	{
-		parent::__construct($config);
-		
-		// get the phplist DBO
-			JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-			$database = PhplistHelperPhplist::getDatabase();
-			// set the model's database object to the phplist db
-			$this->setDBO( $database );
-
-	}
 	
 	protected function _buildQueryWhere(&$query)
     {				
-        JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
         $user = JFactory::getUser();
         $phplistUser = null;
         if ($user->id > '0') 
@@ -71,7 +58,6 @@ class PhplistModelUnsubscribe extends PhplistModelBase
 	{
 		parent::_buildQueryJoins($query);
 		
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
 		$newsletter_tablename = PhplistHelperNewsletter::getTableName();
 		$query->join('LEFT', "{$newsletter_tablename} AS newsletter ON newsletter.id = tbl.listid");
 	}

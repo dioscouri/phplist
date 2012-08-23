@@ -11,7 +11,7 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::import( 'com_phplist.views._base', JPATH_SITE.DS.'components' );
+Phplist::load( 'PhplistViewBase', 'views._base', array( 'site'=>'site', 'type'=>'components', 'ext'=>'com_phplist' ) );
 
 class PhplistViewUnsubscribe extends PhplistViewBase 
 {
@@ -41,7 +41,6 @@ class PhplistViewUnsubscribe extends PhplistViewBase
 	{	
 		parent::_default($tpl);
     	// get the phplist user
-        JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
         $user = JFactory::getUser();
         $phplistUser = null;
         if ($user->id > '0') 

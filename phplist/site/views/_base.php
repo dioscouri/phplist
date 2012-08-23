@@ -13,12 +13,17 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport( 'joomla.application.component.view' );
 
-class PhplistViewBase extends JView 
+class PhplistViewBase extends DSCViewSite 
 {
 	function display($tpl=null)
 	{
-		JLoader::import( 'com_phplist.library.menu', JPATH_ADMINISTRATOR.DS.'components' );
-		$this->displaySubmenu();
+		JHTML::_('stylesheet', 'menu.css', 'media/com_phplist/css/');
+		
+		$parentPath = JPATH_ADMINISTRATOR . '/components/com_phplist/helpers';
+		DSCLoader::discover('PhplistHelper', $parentPath, true);
+		
+		$parentPath = JPATH_ADMINISTRATOR . '/components/com_phplist/library';
+		DSCLoader::discover('Phplist', $parentPath, true);
 		
 		parent::display($tpl);
 	}
@@ -66,46 +71,11 @@ class PhplistViewBase extends JView
 	 */
 	function _default($tpl='')
 	{
-		JLoader::import( 'com_phplist.library.select', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.grid', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
-		
-		$model = $this->getModel();
-		
-		// set the model state
-			$this->assign( 'state', $model->getState() );
-			
-		// page-navigation
-			$this->assign( 'pagination', $model->getPagination() );
-		
-		// list of items
-			$this->assign('items', $model->getList());
-			
-		// form
-			$validate = JUtility::getToken();
-			$form = array();
-			$controller = strtolower( $this->get( '_controller', JRequest::getVar('controller', JRequest::getVar('view') ) ) );
-			$view = strtolower( $this->get( '_view', JRequest::getVar('view') ) );
-			$action = $this->get( '_action', "index.php?option=com_phplist&controller={$controller}&view={$view}" );
-			$form['action'] = PhplistUrl::appendURL($action);
-			$form['validate'] = "<input type='hidden' name='{$validate}' value='1' />";
-			$form['validation'] = $this->get( '_validation', "index.php?option=com_phplist&controller={$controller}&task=validate&format=raw" );
-			$this->assign( 'form', $form );
-				
-			//get user for plugins
-			$user = &JFactory::getUser();
-			$this->assign( 'user', $user );
+		parent::_default();
 
-			//get uid
-			$uid = JRequest::getVar( 'uid' );
-			$this->assign( 'uid', $uid );
-			
-			// set the required image
-			// TODO Fix this
-			$required = new stdClass();
-			$required->text = JText::_( 'Required' );
-			$required->image = "<img src='".JURI::root()."/media/com_phplist/images/required_16.png' alt='{$required->text}' />";
-			$this->assign('required', $required );
+		//get uid
+		$uid = JRequest::getVar( 'uid' );
+		$this->assign( 'uid', $uid );
 	}
 	
 	/**
@@ -115,41 +85,11 @@ class PhplistViewBase extends JView
 	 */
 	function _form($tpl='')
 	{
-		JLoader::import( 'com_phplist.library.select', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
-		
-		$model = $this->getModel();
-			
-		// get the data
-			$row = $model->getTable();
-			$row->load( (int) $model->getId() );
-			$this->assign('row', $row);
-		
-		// form
-			$validate = JUtility::getToken();
-			$form = array();
-			$controller = strtolower( $this->get( '_controller', JRequest::getVar('controller', JRequest::getVar('view') ) ) );
-			$view = strtolower( JRequest::getVar('view') );
-			$form['action'] = PhplistUrl::appendURL("index.php?option=com_phplist&controller={$view}&view={$view}&layout=form&id=".$model->getId());
-			$form['validate'] = "<input type='hidden' name='{$validate}' value='1' />";
-			$form['validation'] = $this->get( '_validation', "index.php?option=com_phplist&controller={$controller}&task=validate&format=raw" );
-			$form['id'] = $model->getId();
-			$this->assign( 'form', $form );
-			
-		// set the required image
-		// TODO Fix this
-			$required = new stdClass();
-			$required->text = JText::_( 'Required' );
-			$required->image = "<img src='".JURI::root()."/media/com_phplist/images/required_16.png' alt='{$required->text}'>";
-			$this->assign('required', $required );
-				
-			//get user for plugins
-			$user = &JFactory::getUser();
-			$this->assign( 'user', $user );
+		parent::_form();
 
-			//get uid
-			$uid = JRequest::getVar( 'uid' );
-			$this->assign( 'uid', $uid );
+		//get uid
+		$uid = JRequest::getVar( 'uid' );
+		$this->assign( 'uid', $uid );
 	}
 }
 

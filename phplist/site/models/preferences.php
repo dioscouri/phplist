@@ -15,6 +15,12 @@ Phplist::load( 'PhplistModelBase', 'models.base' );
 
 class PhplistModelPreferences extends PhplistModelBase 
 {
+	function __construct($config = array())
+	{
+		parent::__construct($config);
+		$database = PhplistHelperPhplist::setPhplistDatabase();
+	}
+	
 	/**
 	 * This model's default table is the phplistuser table
 	 * @return unknown_type
@@ -25,22 +31,6 @@ class PhplistModelPreferences extends PhplistModelBase
         $table = JTable::getInstance( 'PhplistUser', 'Table' );
         return $table;
     }
-    
-	/**
-	 * Constructor needs to set the DBO for the whole model
-	 * @param $config
-	 * @return unknown_type
-	 */
-	function __construct($config = array())
-	{
-		parent::__construct($config);
-		
-		// get the phplist DBO
-		JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		$database = PhplistHelperPhplist::getDatabase();
-		// set the model's database object to the phplist db
-		$this->setDBO( $database );
-	}
 }
 
 ?>
