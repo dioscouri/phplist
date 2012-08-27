@@ -244,9 +244,9 @@ class PhplistHelperSubscription extends PhplistHelperBase
 				case "subscribeModule":
 					if (!$action = PhplistHelperSubscription::addUserTo( $details ))
 					{
-						$this->message .= "<li>" . JText::_( "YOU_ARE_ALREADY_SUBSCRIBED_TO" )." <b>" . $newslettername. "</b></li>";
-					}
+						$this->message .= "<li>" . JText::_( 'YOU_ARE_ALREADY_SUBSCRIBED_TO' )." <b>" . $newslettername. "</b></li>";
 						$this->messagetype 	= 'notice';
+					}
 					else
 					{
 						$this->message  .= "<li>" . JText::_( 'SUBSCRIPTION_ADDED_FOR' )." <b>" . $newslettername. "</b></li>";
