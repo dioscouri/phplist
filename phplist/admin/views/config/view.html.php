@@ -25,7 +25,18 @@ class PhplistViewConfig extends PhplistViewBase
 		JLoader::import( 'com_phplist.library.tools', JPATH_ADMINISTRATOR.DS.'components' );
 		JLoader::import( 'com_phplist.library.select', JPATH_ADMINISTRATOR.DS.'components' );
 
-		// check config
+		$dbConnected = true;
+		// check phplist db connection
+		$database = Phplist::getClass( 'PhplistHelperPhplist', 'helpers.phplist' )->getDBO();
+		if (isset($database->error))
+		{
+			$dbConnected = false;
+			// if config view, display notice
+			JError::raiseNotice( 'Database Not Configured', JText::_( "PLEASE_CONFIGURE_PHPLIST_DATABASE_CONNECTION" ) );
+		}
+		
+		$this->assignRef( 'dbConnected', $dbConnected );
+		
 			$row = Phplist::getInstance();
 			$this->assignRef( 'row', $row );
 		

@@ -66,7 +66,13 @@
 								<?php echo JText::_( 'DISPLAY_ATTRIBUTES_IN_FRONT_END' ); ?>
 							</th>
 							<td>
-			                	<?php //echo PhplistSelect::attributes( explode(',',$this->row->get('frontend_attribs', '1')), 'frontend_attribs[]', ' multiple="multiple" size="5" ', 'id', true, JText::_('No Attributes') );?>
+			                	<?php 
+			                	if ($this->dbConnected) {
+			                		echo PhplistSelect::attributes( explode(',',$this->row->get('frontend_attribs', '1')), 'frontend_attribs[]', ' multiple="multiple" size="5" ', 'id', true, JText::_('No Attributes') );
+								} else {
+									echo JText::_( 'PLEASE_CONFIGURE_PHPLIST_DATABASE_CONNECTION');
+								}
+								?>
 							</td>
 							<td width="35%">
 								<?php echo JText::_( 'DISPLAY_ATTRIBUTES_IN_FRONT_END_DESC' ); ?>
@@ -77,7 +83,13 @@
 								<?php echo JText::_( 'DEFAULT_TEMPLATE_FOR_MESSAGES' ); ?>
 							</th>
 							<td>
-			                	<?php //echo PhplistSelect::templates( $this->row->get('default_template', '1'), 'default_template', '', 'id', true );?>
+			                	<?php 
+			                	if ($this->dbConnected) {
+			                		echo PhplistSelect::templates( $this->row->get('default_template', '1'), 'default_template', '', 'id', true );
+			                	} else {
+									echo JText::_( 'PLEASE_CONFIGURE_PHPLIST_DATABASE_CONNECTION');
+								}
+			                	?>
 							</td>
 							<td width="35%">
 								<?php echo JText::_( 'DEFAULT_TEMPLATE_FOR_MESSAGES_DESC' ); ?>

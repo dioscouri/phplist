@@ -26,6 +26,19 @@ $controller = JRequest::getWord('controller', JRequest::getVar( 'view' ) );
 if (!Phplist::load( 'PhplistController'.$controller, "controllers.$controller" ))
 	$controller = '';
 
+// check that PHPlist database is configured
+$database = Phplist::getClass( 'PhplistHelperPhplist', 'helpers.phplist' )->getDBO();
+if (isset($database->error))
+{	
+	if ($controller != 'config')
+	{	
+		// redirect to config
+		$redirect = 'index.php?option=com_phplist&view=config';
+		$redirect = JRoute::_( $redirect, false );
+		JFactory::getApplication()->redirect( $redirect );
+	}
+}
+
 if (empty($controller))
 {
 	// redirect to default
