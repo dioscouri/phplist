@@ -10,7 +10,7 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 <?php JHTML::_('stylesheet', 'phplist.css', 'media/com_phplist/css/'); ?>
 <?php JHTML::_('stylesheet', 'menu.css', 'media/com_phplist/css/'); ?>
-<?php JHTML::_('script', 'phplist.js', 'media/com_phplist/js/'); ?>
+<?php JHTML::_('script', 'common.js', 'media/com_phplist/js/'); ?>
 
 <div class="componentheading">
 	<span><?php echo JText::_( "THANK YOU" ); ?></span>

@@ -1,7 +1,7 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 <?php JHTML::_('stylesheet', 'phplist.css', 'media/com_phplist/css/'); ?>
 <?php JHTML::_('stylesheet', 'menu.css', 'media/com_phplist/css/'); ?>
-<?php JHTML::_('script', 'phplist.js', 'media/com_phplist/js/'); ?>
+<?php JHTML::_('script', 'common.js', 'media/com_phplist/js/'); ?>
 <?php JHTML::_('script', 'joomla.javascript.js', 'includes/js/'); ?>
 <?php $state = @$this->state; ?>
 <?php $form = @$this->form; ?>
@@ -32,7 +32,7 @@
 					<thead>
 						<tr>
 							<th style="text-align: left">
-								<?php echo JText::_( "YOUR EMAIL" ).":"; ?>
+								<?php echo JText::_( "YOUR_EMAIL" ).":"; ?>
 							</th>
 							<th style="text-align: left">
 								<?php //only allow email addess to be edited if not a joomla user
@@ -47,7 +47,7 @@
 					<tbody>
 						<tr>
 							<th width="20%" align="right">
-								<?php echo JText::_("WOULD YOU PREFER HTML EMAILS")."?"; ?>
+								<?php echo JText::_("WOULD_YOU_PREFER_HTML_EMAILS")."?"; ?>
 							</th>
 							<td width="80%">
 								<?php echo JHTML::_('select.booleanlist', 'htmlemail', 'class="inputbox"', $row->htmlemail ); ?>
@@ -89,13 +89,14 @@ $dispatcher->trigger( 'onAfterDisplayPreferencesForm', array( $this->row, $this-
 ?></div>
 
 <input type='button' class='button' onclick="submitform('cancel')" value='<?php echo JText::_( 'CANCEL' ); ?>' /> 
-<input type='button' class='button' onclick="submitform('save')" value='<?php echo JText::_( 'SAVE PREFERENCES' ); ?>' />
+<input type='button' class='button' onclick="submitform('save')" value='<?php echo JText::_( 'SAVE_PREFERENCES' ); ?>' />
 
 <p><?php  echo "*". JText::_( "or" )  . " " . $this->required->image . " " . JText::_( 'Required Field' ); ?></p>
 
 <input type="hidden" name="task" value="" /> 
 <input type="hidden" name="boxchecked" value="" /> 
 <input type="hidden" name="filter_order" value="<?php  echo @$state->order; ?>" /> 
-<input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" /> 
+<input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" />
+<input type="hidden" name="uid" value="<?php echo $this->uid; ?>"/>
 <?php echo $this->form['validate']; ?>
 </form>

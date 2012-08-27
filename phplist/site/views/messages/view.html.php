@@ -24,6 +24,20 @@ class PhplistViewMessages extends PhplistViewBase
 	{
 		parent::display($tpl);
 		$layout = $this->getLayout();
+		switch(strtolower($layout))
+		{
+			case "view":
+				$model = $this->getModel();
+				$row = $model->getItem();
+				break;
+			case "form":
+				$model = $this->getModel();
+				$row = $model->getItem();
+				break;
+			case "default":
+			default:
+				break;
+		}
     }
     
     function _default($tpl='')
@@ -34,7 +48,7 @@ class PhplistViewMessages extends PhplistViewBase
 		$row = $model->getTable();
 		$row->load(  $id );
 		$this->assign('row', $row);
-		$action = PhplistUrl::appendURL('index.php?option=com_phplist&view=messages&task=list&id='.$id);
+		$action = 'index.php?option=com_phplist&view=messages&task=list&id='.$id;
 		$this->assign('action', $action);
 	} 
 	

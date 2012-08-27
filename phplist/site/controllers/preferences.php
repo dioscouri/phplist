@@ -27,7 +27,7 @@ class PhplistControllerPreferences extends PhplistController
 		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
 		
-		$link = PhplistUrl::addItemid("index.php?option=com_phplist&view=newsletters");
+		$link = "index.php?option=com_phplist&view=newsletters";
 		$this->messagetype  = 'notice';
 		
 		if ($uid =  JRequest::getVar( 'uid' ))
@@ -41,7 +41,7 @@ class PhplistControllerPreferences extends PhplistController
 		}
 		if (!$phplistUser)
 		{
-			JError::raiseNotice( 'Invalid UID', JText::_( "INVALID UID ERROR PREFS" ) );
+			JError::raiseNotice( 'Invalid UID', JText::_( "INVALID_UID_ERROR_PREFS" ) );
 			$app = JFactory::getApplication();
 	    	$app->redirect( $link );
 		}
@@ -67,7 +67,7 @@ class PhplistControllerPreferences extends PhplistController
         	//load phplist user from uniqueid
         	$uid =  JRequest::getVar( 'uid' );
         	$row->load( $uid , 'uniqid' );
-        	$redirect = PhplistUrl::appendURL("index.php?option=com_phplist&view=newsletters") ;
+        	$redirect = "index.php?option=com_phplist&view=newsletters" ;
         }
         
         // Potentially could cause problems with hidden input of id, etc
@@ -80,7 +80,7 @@ class PhplistControllerPreferences extends PhplistController
         {
             $model->setId( $row->id );
             $this->messagetype  = 'message';
-            $this->message      = JText::_( 'PREFERENCES SAVED' );
+            $this->message      = JText::_( 'PREFERENCES_SAVED' );
             
             $dispatcher = JDispatcher::getInstance();
             $dispatcher->trigger( 'onAfterSave'.$this->get('suffix'), array( $row ) );
@@ -88,7 +88,7 @@ class PhplistControllerPreferences extends PhplistController
             else 
         {
             $this->messagetype  = 'notice';         
-            $this->message      = JText::_( 'SAVE FAILED' )." - ".$row->getError();
+            $this->message      = JText::_( 'SAVE_FAILED' )." - ".$row->getError();
         }
 		
         // update attributes
@@ -108,8 +108,8 @@ class PhplistControllerPreferences extends PhplistController
 		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$this->messagetype = 'message';
-		$this->message = JText::_( 'CANCEL PREFS MESSAGE' );
-		$redirect = PhplistUrl::appendURL("index.php?option=com_phplist&view=newsletters") ;
+		$this->message = JText::_( 'CANCEL_PREFS_MESSAGE' );
+		$redirect = "index.php?option=com_phplist&view=newsletters";
 		$redirect = JRoute::_( $redirect, false );
         $this->setRedirect( $redirect, $this->message, $this->messagetype );
 	}

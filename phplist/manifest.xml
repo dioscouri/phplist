@@ -22,6 +22,10 @@
 		<folder>views</folder>
 	</files>
 	
+	<languages folder="languages/site">
+			<language tag="en-GB">en-GB.com_phplist.ini</language>
+		</languages>
+	
 	<!-- Application/administrator -->
 	<administration>
 		<menu img="../media/com_phplist/images/phplist_16.png">COM_PHPLIST</menu>
@@ -47,9 +51,6 @@
 			<language tag="en-GB">en-GB.com_phplist.menu.ini</language>
 		</languages>
 		
-		<languages folder="languages/site">
-			<language tag="en-GB">en-GB.com_phplist.ini</language>
-		</languages>
 	</administration>
 	
 	<!-- Installation -->

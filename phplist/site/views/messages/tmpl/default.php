@@ -1,7 +1,7 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 <?php JHTML::_('stylesheet', 'phplist.css', 'media/com_phplist/css/'); ?>
 <?php JHTML::_('stylesheet', 'menu.css', 'media/com_phplist/css/'); ?>
-<?php JHTML::_('script', 'phplist.js', 'media/com_phplist/js/'); ?>
+<?php JHTML::_('script', 'common.js', 'media/com_phplist/js/'); ?>
 <?php $state = @$this->state; ?>
 <?php $form = @$this->form; ?>
 <?php $items = @$this->items; ?>
@@ -11,7 +11,7 @@
 	<span><?php echo JText::_( "MESSAGES" ); ?></span>
 </div>
 
-<?php echo PhplistMenu::display(); ?>
+<?php  echo DSCMenu::getInstance('submenu')->display(); ?>
 
 <div id='onBeforeDisplay_wrapper'>
 <?php 
@@ -64,7 +64,7 @@
 					</a>
 				</td>	
 				<td style="text-align: center;">
-					<?php echo JHTML::_( "date", @$item->sendstart, JText::_('SEND DATE FORMAT'), '0'); ?>
+					<?php echo JHTML::_( "date", @$item->sendstart, JText::_('DATE_FORMAT_LC1')); ?>
 				</td>
 			</tr>				
 			<?php $i=$i+1; $k = (1 - $k); ?>
@@ -73,7 +73,7 @@
 			<?php if (!count(@$items)) : ?>
 			<tr>
 				<td colspan="10" align="center">
-					<?php echo JText::_('NO ITEMS FOUND'); ?>
+					<?php echo JText::_('NO_ITEMS_FOUND'); ?>
 				</td>
 			</tr>
 			<?php endif; ?>
@@ -91,6 +91,7 @@
 	<input type="hidden" name="boxchecked" value="" />
 	<input type="hidden" name="filter_order" value="<?php echo @$state->order; ?>" />
 	<input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" />
+	<input type="hidden" name="uid" value="<?php echo $this->uid; ?>"/>
 	
 	<?php echo $this->form['validate']; ?>
 </form>

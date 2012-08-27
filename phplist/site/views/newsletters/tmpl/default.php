@@ -1,7 +1,7 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 <?php JHTML::_('stylesheet', 'phplist.css', 'media/com_phplist/css/'); ?>
 <?php JHTML::_('stylesheet', 'menu.css', 'media/com_phplist/css/'); ?>
-<?php JHTML::_('script', 'phplist.js', 'media/com_phplist/js/'); ?>
+<?php JHTML::_('script', 'common.js', 'media/com_phplist/js/'); ?>
 <?php JHTML::_('script', 'joomla.javascript.js', 'includes/js/'); ?>
 <?php $state = @$this->state; ?>
 <?php $form = @$this->form; ?>
@@ -9,9 +9,9 @@
 <?php $row = @$this->row; ?>
 <?php $attributes = @$this->attributes; ?>
 
-<?php $subscribed_src = Phplist::getURL('images')."accept.png"; ?>
-<?php $unsubscribed_src = Phplist::getURL('images')."remove.png"; ?>
-<?php $subscribe_src = Phplist::getURL('images')."add.png"; ?>
+<?php $subscribed_src = JURI::root()."/media/com_phplist/images/"."accept.png"; ?>
+<?php $unsubscribed_src = JURI::root()."/media/com_phplist/images/"."remove.png"; ?>
+<?php $subscribe_src = JURI::root()."/media/com_phplist/images/"."add.png"; ?>
 
 <?php $htmlemail = isset($this->phplistuser->htmlemail) ? $this->phplistuser->htmlemail : 1; ?>
 
@@ -23,7 +23,7 @@
 // menu not needed here at present if not logged in
 if ($this->phplistuser)
 {
-	echo PhplistMenu::display();
+	 echo DSCMenu::getInstance('submenu')->display(); 
 }
 ?>
 
@@ -43,10 +43,10 @@ if ($this->phplistuser)
 			       <div style="vertical-align: middle;">
 			       	<b><?php echo JText::_( "Your Email"). ': '; ?></b> <?php echo $this->phplistuser->email; ?>
 			       	<?php if ($this->joomlauserID == '0') { ?>
-			       		[<a href="<?php echo PhplistUrl::appendUrl('index.php?option=com_phplist&view=newsletters&task=list', $logout = '1'); ?>" alt="logout" title="logout"><?php echo JText::_("Logout"); ?></a>]
+			       		[<a href="<?php echo 'index.php?option=com_phplist&view=newsletters&task=list'; ?>" alt="logout" title="logout"><?php echo JText::_("Logout"); ?></a>]
 			       <?php } ?>
 			       <br/><br/>
-			       	<?php echo JText::_( "WITH SELECTED" ); ?>
+			       	<?php echo JText::_( "WITH_SELECTED" ); ?>
 			       	<img src="<?php echo $subscribe_src; ?>" style="max-height: 14px; padding-left:7px;" onclick="phplistSubmitForm('subscribe_selected')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" /> 
 					<a href="javascript:void(0);" style="padding-left:3px;" onclick="phplistSubmitForm('subscribe_selected')">
 						<?php echo JText::_("SUBSCRIBE"); ?>
@@ -90,7 +90,7 @@ if ($this->phplistuser)
 							<?php endif; ?>
 						<tr>
 							<th>
-								<?php echo JText::_("WOULD YOU PREFER HTML EMAILS")."? "; ?>
+								<?php echo JText::_("WOULD_YOU_PREFER_HTML_EMAILS")."? "; ?>
 							</th>
 							<td>
 								<?php echo JHTML::_('select.booleanlist', 'htmlemail', 'class="inputbox"', $htmlemail ); ?>
@@ -100,7 +100,7 @@ if ($this->phplistuser)
 							<td colspan="2">
 								<img src="<?php echo $subscribe_src; ?>" style="max-height: 24px; vertical-align: middle;" onclick="phplistSubmitForm('subscribe_new')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" />
 			  					<a href="javascript:void(0);" onclick="phplistSubmitForm('subscribe_new')">
-			  						<?php echo JText::_("SUBSCRIBE TO SELECTED"); ?>
+			  						<?php echo JText::_("SUBSCRIBE_TO_SELECTED"); ?>
 			  					</a>
 			  				</td>
 			  			</tr>
@@ -110,9 +110,9 @@ if ($this->phplistuser)
             <td valign="top">
             	<fieldset>
             		<legend>
-            			<?php echo JText::_("CHANGE YOUR SUBSCRIPTIONS"); ?>
+            			<?php echo JText::_("CHANGE_YOUR_SUBSCRIPTIONS"); ?>
             		</legend>
-            		<?php echo JText::_( "PLEASE LOGIN IF REGISTERED" ); ?>
+            		<?php echo JText::_( "PLEASE_LOGIN_IF_REGISTERED" ); ?>
             	</fieldset>
             <?php endif; ?>
             </td>
@@ -139,7 +139,7 @@ if ($this->phplistuser)
                 </th>
                 <?php if ($this->phplistuser) : ?>
 				<th>
-					<?php echo JText::_( 'SUBSCRIPTION STATUS' ); ?>
+					<?php echo JText::_( 'SUBSCRIPTION_STATUS' ); ?>
 				</th>
                    <?php endif; ?>
             </tr>
@@ -164,13 +164,13 @@ if ($this->phplistuser)
 				<td style="text-align: center;">
 					<?php echo JText::_(@$item->name); ?><br/>
 					[<a href="<?php echo @$item->link_messages; ?>">
-						<?php echo JText::_( 'READ MESSAGES' ); ?>
+						<?php echo JText::_( 'READ_MESSAGES' ); ?>
 					</a>]
 				</td>	
 				<td style="text-align: center;">				
 				<?php if (@$item->lastsent != '')
-						echo JHTML::_( "date", @$item->lastsent, JText::_('SEND DATE FORMAT'),'0' );
-						else echo JText::_( "NO MAILINGS SENT" ); ?>			
+						echo JHTML::_( "date", @$item->lastsent, JText::_('DATE_FORMAT_LC1') );
+						else echo JText::_( "NO_MAILINGS_SENT" ); ?>			
 				</td>
 				<?php
                 if ($this->phplistuser) :
@@ -191,7 +191,7 @@ if ($this->phplistuser)
 			<tr class='row<?php echo $k; ?>'>
 		       	<td style="vertical-align:top; white-space:nowrap;">
 					<span class='href' id='showhidedescription_<?php echo $item->id; ?>' onclick="displayDiv('description_<?php echo $item->id; ?>', 'showhidedescription_<?php echo $item->id; ?>', '<?php echo JText::_('SHOW DESCRIPTION'); ?>', '<?php echo JText::_('HIDE DESCRIPTION'); ?>')">
-		    			<?php echo JText::_('SHOW DESCRIPTION'); ?>
+		    			<?php echo JText::_('SHOW_DESCRIPTION'); ?>
 					</span>
 				</td>
 				<td style="vertical-align:top;" colspan='10'> 
@@ -208,7 +208,7 @@ if ($this->phplistuser)
 			<?php if (!count(@$items)) : ?>
 			<tr>
 				<td colspan="10" align="center">
-					<?php echo JText::_('NO ITEMS FOUND'); ?>
+					<?php echo JText::_('NO_ITEMS_FOUND'); ?>
 				</td>
 			</tr>
 			<?php endif;
@@ -216,7 +216,7 @@ if ($this->phplistuser)
 			<tr>
 				<td colspan="3">
 					<i>
-						<?php echo JText::_( "UNSUBSCRIBE FOOTER MESSAGE" ); ?>
+						<?php echo JText::_('UNSUBSCRIBE_FOOTER_MESSAGE'); ?>
 					</i>
 				</td>
 			</tr>
@@ -235,5 +235,6 @@ if ($this->phplistuser)
 	<input type="hidden" name="boxchecked" value="" />
 	<input type="hidden" name="filter_order" value="<?php echo @$state->order; ?>" />
 	<input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" />
+	<input type="hidden" name="uid" value="<?php echo $this->uid; ?>"/>
 	<?php echo $this->form['validate']; ?>
 </form>

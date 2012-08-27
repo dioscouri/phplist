@@ -45,7 +45,7 @@ class PhplistViewPreferences extends PhplistViewBase
 		$row = $model->getTable();
 
 		
-		$redirect = PhplistUrl::addItemid("index.php?option=com_phplist&view=newsletter");
+		$redirect = "index.php?option=com_phplist&view=newsletter";
 		$this->messagetype  = 'notice';
 		
 		if ($uid =  JRequest::getVar( 'uid' )) {

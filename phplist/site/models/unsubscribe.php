@@ -11,25 +11,26 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-Phplist::load( 'PhplistModelBase', 'models.base' );
+Phplist::load( 'PhplistModelSubscriptions', 'models.subscriptions' );
 
-class PhplistModelUnsubscribe extends PhplistModelBase 
+class PhplistModelUnsubscribe extends PhplistModelSubscriptions
 {
-	function __construct($config = array())
+	function getTable($name='', $prefix='PhplistTable', $options = array())
 	{
-		parent::__construct($config);
-		$database = PhplistHelperPhplist::setPhplistDatabase();
+		// default table for this model is not Unsubscribe, but rather Subscriptions
+		if (empty($name))
+		{
+			$name = 'Subscriptions';
+		}
+	
+		if($table = &$this->_createTable( $name, $prefix, $options ))  {
+			return $table;
+		}
+	
+		JError::raiseError( 0, 'Table ' . $prefix . $name . ' not supported. File not found.' );
+		$null = null;
+		return $null;
 	}
-	/**
-	 * This model's default table is the listuser table
-	 * @return unknown_type
-	 */
-    function getTable()
-    {
-        JTable::addIncludePath( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'tables' );
-        $table = JTable::getInstance( 'Subscriptions', 'Table' );
-        return $table;
-    }
 	
 	protected function _buildQueryWhere(&$query)
     {				
@@ -80,7 +81,7 @@ class PhplistModelUnsubscribe extends PhplistModelBase
 		$list = parent::getList();
 		foreach(@$list as $item)
 		{
-			$item->link = PhplistUrl::appendURL('index.php?option=com_phplist&amp;view=messages&amp;task=list&amp;id='.$item->listid);
+			$item->link = 'index.php?option=com_phplist&amp;view=messages&amp;task=list&amp;id='.$item->listid;
 		}
 		return $list;
 	}

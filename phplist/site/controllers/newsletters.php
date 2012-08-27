@@ -64,12 +64,9 @@ class PhplistControllerNewsletters extends PhplistController
 	 */
 	function subscribe() 
 	{
-	   	JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
-		
+
 		$uid = JRequest::getVar( 'uid', '0', 'request');
-	   	$redirect = PhplistUrl::appendUrl('index.php?option=com_phplist&controller=newsletters&task=list');
+	   	$redirect = 'index.php?option=com_phplist&controller=newsletters&task=list';
 	   	$redirect = JRoute::_( $redirect, false );
 	   	
 	   	// Validation is by JS validate() function in root site controller. Duplicated here as a backup.
@@ -77,7 +74,7 @@ class PhplistControllerNewsletters extends PhplistController
 		$cids = JRequest :: getVar('cid', array(0), 'request', 'array');
 		if (intval($cids['0']) == '0')
 		{
-			$this->message = JText::_( "PLEASE SELECT A NEWSLETTER" );
+			$this->message = JText::_( "PLEASE_SELECT_A_NEWSLETTER" );
 			$this->messagetype	= 'notice';
 			$this->setRedirect( $redirect, $this->message, $this->messagetype );
 			return false;
@@ -110,14 +107,8 @@ class PhplistControllerNewsletters extends PhplistController
 	 */
 	function subscribe_new()
 	{
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.email', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
-		
-		$redirect = PhplistUrl::appendUrl('index.php?option=com_phplist&view=newsletters');
+
+		$redirect = 'index.php?option=com_phplist&view=newsletters';
 		$redirect = JRoute::_( $redirect, false );
 		
 		// Validation is by JS validate() function in root site controller. Duplicated here as a backup.
@@ -125,7 +116,7 @@ class PhplistControllerNewsletters extends PhplistController
 		$cids = JRequest :: getVar('cid', array(0), 'request', 'array');
 		if (intval($cids['0']) == '0')
 		{
-			$this->message = JText::_( "PLEASE SELECT A NEWSLETTER" );
+			$this->message = JText::_( "PLEASE_SELECT_A_NEWSLETTER" );
 			$this->messagetype	= 'notice';
 			$this->setRedirect( $redirect, $this->message, $this->messagetype );
 			return false;
@@ -136,7 +127,7 @@ class PhplistControllerNewsletters extends PhplistController
 		jimport('joomla.mail.helper');
 		if (!$isEmailAddress = JMailHelper::isEmailAddress( $subscriber2add ))
 		{
-			$this->message .= JText::_( "PLEASE ENTER A VALID EMAIL ADDRESS" );
+			$this->message .= JText::_( "PLEASE_ENTER_A_VALID_EMAIL_ADDRESS" );
 			$this->messagetype	= 'notice';
 			$this->setRedirect( $redirect, $this->message, $this->messagetype );
 			return false;
@@ -145,7 +136,7 @@ class PhplistControllerNewsletters extends PhplistController
 		// If joomla user account exists for email address, ask them to login
 		if ($emailExists = PhplistHelperUser::emailExists( $subscriber2add, '1' ))
 		{
-			$this->message .= JText::_( "EMAIL IS JUSER" );
+			$this->message .= JText::_( "EMAIL_IS_JUSER" );
 			$this->setRedirect( $redirect, $this->message, $this->messagetype );
 			return false;
 		}
@@ -154,7 +145,7 @@ class PhplistControllerNewsletters extends PhplistController
 			
 			if ($user = PhplistHelperUser::getUser( $subscriber2add, '1', 'email' ))
 			{
-				$this->message .= JText::_( "EMAIL IS PHPLISTUSER" );
+				$this->message .= JText::_( "EMAIL_IS_PHPLISTUSER" );
 				$this->setRedirect( $redirect, $this->message, $this->messagetype );
 				return false;
 			} 
@@ -168,7 +159,7 @@ class PhplistControllerNewsletters extends PhplistController
 				
 				if (!$phplistUser = PhplistHelperUser::create( $details, '', 'true' ))
 				{
-					$this->message = JText::_( "COULD NOT CREATE NEW PHPLIST USER" );
+					$this->message = JText::_( "COULD_NOT_CREATE_NEW_PHPLIST_USER" );
 					$this->messagetype	= 'notice';
 					$this->setRedirect( $redirect, $this->message, $this->messagetype );
 					return false;
@@ -190,7 +181,7 @@ class PhplistControllerNewsletters extends PhplistController
 		$switch = PhplistHelperSubscription::switchSubscriptions($details);
 		$saveattributes = PhplistHelperAttribute::saveAttributes($details->userid);
 		
-		$redirect = PhplistUrl::appendURL('index.php?option=com_phplist&view=newsletters');
+		$redirect = 'index.php?option=com_phplist&view=newsletters';
 		//add uid to redirect so new users can see their subscriptions and edit prefs.
 		$redirect .= '&uid=' .$details->uid;
 		$redirect = JRoute::_( $redirect, false );
@@ -203,13 +194,11 @@ class PhplistControllerNewsletters extends PhplistController
 	 */
 	function confirm_user() 
 	{
-	   	JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$uid = JRequest::getVar( 'uid', '0', 'request');
-	   	$redirect = PhplistUrl::appendUrl('index.php?option=com_phplist&controller=newsletters&task=list');
+	   	$redirect = 'index.php?option=com_phplist&controller=newsletters&task=list';
 	   	$redirect = JRoute::_( $redirect, false );
-	   	$this->message = JText::_( "YOUR SUBSCRIPTION HAS BEEN ACTIVATED" );
+	   	$this->message = JText::_( "YOUR_SUBSCRIPTION_HAS_BEEN_ACTIVATED" );
 		
 		$phplistUser = PhplistHelperUser::confirmUser( $uid );
 		

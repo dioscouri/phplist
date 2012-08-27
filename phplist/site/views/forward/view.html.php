@@ -15,14 +15,4 @@ Phplist::load( 'PhplistViewBase', 'views._base', array( 'site'=>'site', 'type'=>
 
 class PhplistViewForward extends PhplistViewBase
 {
-	/**
-	 * 
-	 * @param $tpl
-	 * @return unknown_type
-	 */
-	function display($tpl=null) 
-	{
-		parent::display($tpl);
-		$layout = $this->getLayout();
-    }
 }

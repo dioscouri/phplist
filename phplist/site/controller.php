@@ -103,9 +103,6 @@ class PhplistController extends DSCControllerSite
 	 */
 	function validate()
 	{
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.json', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		$success = true;
 		$response = array();
@@ -177,24 +174,24 @@ class PhplistController extends DSCControllerSite
 					if (!$isEmailAddress = JMailHelper::isEmailAddress( $email ))
 						
 					{
-						$msg->message .= '<li>'.JText::_( 'PLEASE ENTER A VALID EMAIL ADDRESS' ).'</li>';
+						$msg->message .= '<li>'.JText::_( 'PLEASE_ENTER_A_VALID_EMAIL_ADDRESS' ).'</li>';
 						$msg->error = '1';
 					}
 					if ($emailExists = PhplistHelperUser::emailExists( $email, '1' ))
 					{
-						$msg->message .= '<li>'.JText::_( 'EMAIL IS JUSER' ).'</li>';
+						$msg->message .= '<li>'.JText::_( 'EMAIL_IS_JUSER' ).'</li>';
 						$msg->error = '1';
 					}
 					elseif ($user = PhplistHelperUser::getUser( $email, '1', 'email' ))
 					{
-						$msg->message .= '<li>'.JText::_( 'EMAIL IS PHPLISTUSER' ).'</li>';
+						$msg->message .= '<li>'.JText::_( 'EMAIL_IS_PHPLISTUSER' ).'</li>';
 						$msg->error = '1';
 					}
 				}
 			}
 			if ($cid == '' || $cid == '0')
 			{
-				$msg->message .= '<li>'.JText::_( 'PLEASE SELECT A NEWSLETTER' ).'</li>';
+				$msg->message .= '<li>'.JText::_( 'PLEASE_SELECT_A_NEWSLETTER' ).'</li>';
 				$msg->error = '1';
 			}
 			
@@ -211,7 +208,7 @@ class PhplistController extends DSCControllerSite
 						default:
 							if ($a->value == '')
 							{
-								$msg->message .= '<li>'.$a->name. ' ' .JText::_( 'IS REQUIRED' ).'</li>';
+								$msg->message .= '<li>'.$a->name. ' ' .JText::_( 'IS_REQUIRED' ).'</li>';
 								$msg->error = '1';
 							}
 							break;
@@ -219,7 +216,7 @@ class PhplistController extends DSCControllerSite
 						case 'radio':
 							if ($a->checked != '1')
 							{
-								$msg->message .= '<li>'.$a->name. ' ' .JText::_( 'IS REQUIRED' ).'</li>';
+								$msg->message .= '<li>'.$a->name. ' ' .JText::_( 'IS_REQUIRED' ).'</li>';
 								$msg->error = '1';
 							}
 							break;

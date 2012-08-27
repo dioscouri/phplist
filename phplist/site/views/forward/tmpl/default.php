@@ -60,3 +60,5 @@ defined('_JEXEC') or die('Restricted access');
 				$dispatcher->trigger( 'onAfterDisplayMessage', array( $this->row, $this->user ) );
 			?>
 		</div>
+		
+		<input type="hidden" name="uid" value="<?php echo $this->uid; ?>"/>

@@ -1,5 +1,5 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
-<?php JHTML::_('script', 'phplist.js', 'media/com_phplist/js/'); ?>
+<?php JHTML::_('script', 'common.js', 'media/com_phplist/js/'); ?>
 <?php $state = @$vars->state; ?>
 <?php $items = @$vars->items; ?>
 

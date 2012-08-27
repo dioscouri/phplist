@@ -36,16 +36,15 @@ class PhplistViewBase extends DSCViewSite
 		{
 			jimport('joomla.html.toolbar');
 			require_once( JPATH_ADMINISTRATOR.DS.'includes'.DS.'toolbar.php' );
-			JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 			$view = strtolower( JRequest::getVar('view') );
 			
 			if (JRequest::getVar('task') == 'view')
 			{
-				JSubMenuHelper::addEntry(JText::_('RETURN TO LIST OF MESSAGES'), PhplistUrl::appendURL('index.php?option=com_phplist&view=messages&task=list&id=' . JRequest::getVar('newsletterid')), $view == 'messages' ? true : false );
+				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_MESSAGES'), PhplistUrl::appendURL('index.php?option=com_phplist&view=messages&task=list&id=' . JRequest::getVar('newsletterid')), $view == 'messages' ? true : false );
 			}
 			if ($view != 'newsletters')
 			{
-				JSubMenuHelper::addEntry(JText::_('RETURN TO LIST OF NEWSLETTERS'), PhplistUrl::appendURL('index.php?option=com_phplist&view=newsletters'), $view == 'newsletters' ? true : false );
+				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_NEWSLETTERS'), 'index.php?option=com_phplist&view=newsletters', $view == 'newsletters' ? true : false );
 			}
 			$isUser = '';
 			//only display preferences link for logged in or valid uniqid users..
@@ -57,7 +56,7 @@ class PhplistViewBase extends DSCViewSite
 			{
 				if ($view != 'preferences')
 				{
-					JSubMenuHelper::addEntry(JText::_('EDIT PREFERENCES'), PhplistUrl::appendURL('index.php?option=com_phplist&view=preferences'), $view == 'preferences' ? true : false );	
+					JSubMenuHelper::addEntry(JText::_('EDIT_PREFERENCES'), 'index.php?option=com_phplist&view=preferences', $view == 'preferences' ? true : false );	
 				}
 			}			
 		}
@@ -74,7 +73,7 @@ class PhplistViewBase extends DSCViewSite
 		parent::_default();
 
 		//get uid
-		$uid = JRequest::getVar( 'uid' );
+		$uid = PhplistHelperUser::getUid();
 		$this->assign( 'uid', $uid );
 	}
 	
@@ -88,7 +87,7 @@ class PhplistViewBase extends DSCViewSite
 		parent::_form();
 
 		//get uid
-		$uid = JRequest::getVar( 'uid' );
+		$uid = PhplistHelperUser::getUid();
 		$this->assign( 'uid', $uid );
 	}
 }

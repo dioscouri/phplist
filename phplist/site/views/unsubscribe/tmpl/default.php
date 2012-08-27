@@ -1,13 +1,13 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 <?php JHTML::_('stylesheet', 'phplist.css', 'media/com_phplist/css/'); ?>
 <?php JHTML::_('stylesheet', 'menu.css', 'media/com_phplist/css/'); ?>
-<?php JHTML::_('script', 'phplist.js', 'media/com_phplist/js/'); ?>
+<?php JHTML::_('script', 'common.js', 'media/com_phplist/js/'); ?>
 <?php JHTML::_('script', 'joomla.javascript.js', 'includes/js/'); ?>
 <?php $items = @$this->items; ?>
 <?php $row = @$this->row; ?>
 
 <div class='componentheading'>
-	<?php echo JText::_( "UNSUBSCRIBE FROM NEWSLETTERS" ); ?>
+	<?php echo JText::_('UNSUBSCRIBE_FROM_NEWSLETTERS'); ?>
 </div>
 <?php echo PhplistMenu::display(); ?>
 
@@ -20,7 +20,7 @@
 	<table class="adminheading">
 		<tr>
 	        <th>
-	        	<?php echo JText::_( "YOUR EMAIL" ).":"; ?>
+	        	<?php echo JText::_( "YOUR_EMAIL" ).":"; ?>
 	        	 <span class="non_bold">
 					<?php echo $this->email; ?>
 				</span>
@@ -29,8 +29,8 @@
 		</tr>
 		<tr>
 			<td>
-				<?php if (!count(@$items)) echo JText::_('NOT SUBSCRIBED'); 
-				else echo JText::_( 'YOU ARE SUBSCRIBED TO THE FOLLOWING NEWSLETTERS' ); ?>
+				<?php if (!count(@$items)) echo JText::_('NOT_SUBSCRIBED'); 
+				else echo JText::_( 'YOU_ARE_SUBSCRIBED_TO_THE_FOLLOWING_NEWSLETTERS' ); ?>
 			</td>
 		</tr>
 		</table>
@@ -42,7 +42,7 @@
                 	<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
                 </th>
                 <th style="text-align:left">
-	                <?php echo JText::_('SELECT ALL'); ?>
+	                <?php echo JText::_('SELECT_ALL'); ?>
                 </th>
             </tr>
 		</thead>
@@ -77,5 +77,6 @@
 	<input type="hidden" name="boxchecked" value="" />
 	<input type="hidden" name="filter_order" value="<?php  echo @$state->order; ?>" />
 	<input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" />
+	<input type="hidden" name="uid" value="<?php echo $this->uid; ?>"/>
 	<?php echo $this->form['validate']; ?>
 </form>

@@ -27,7 +27,7 @@ class PhplistControllerUnsubscribe extends PhplistController
 		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
 		
-		$link = PhplistUrl::addItemid("index.php?option=com_phplist&view=newsletters");
+		$link = "index.php?option=com_phplist&view=newsletters";
 		$this->messagetype  = 'notice';
 		
 		if ($uid =  JRequest::getVar( 'uid' ))
@@ -36,7 +36,7 @@ class PhplistControllerUnsubscribe extends PhplistController
 			//if uid invalid, redirect to newsletters page with message.
 			if (!$phplistUser)
 			{
-			JError::raiseNotice( 'Invalid UID', JText::_( "INVALID UID ERROR UNSUBSCRIBE" ) );
+			JError::raiseNotice( 'Invalid UID', JText::_( "INVALID_UID_ERROR_UNSUBSCRIBE" ) );
 			$app = JFactory::getApplication();
 	    	$app->redirect( $link );
 			}	
@@ -44,7 +44,7 @@ class PhplistControllerUnsubscribe extends PhplistController
 		
 		if (!JFactory::getUser() || !$uid)
 		{
-			JError::raiseNotice( 'Invalid UID', JText::_( "MISSING UID ERROR UNSUBSCRIBE" ) );
+			JError::raiseNotice( 'Invalid UID', JText::_( "MISSING_UID_ERROR_UNSUBSCRIBE" ) );
 			$app = JFactory::getApplication();
 	    	$app->redirect( $link );
 		}
@@ -67,14 +67,11 @@ class PhplistControllerUnsubscribe extends PhplistController
         $phplistUser = PhplistHelperUser::getUser( $uid, '1', 'uid' );
 		
 		$redirect = "index.php?option=com_phplist&view=unsubscribe&uid={$uid}";
-		if ($id = PhplistUrl::getItemid()) {
-			$redirect .= "&Itemid={$id}";
-		}
 		$redirect = JRoute::_( $redirect, false );
 		
 		if (!$phplistUser) 
 			{
-				$this->message .= JText::_( $phplistUser->id ."UNSUBSCRIBED FAILED NO USER" );
+				$this->message .= JText::_( $phplistUser->id ."UNSUBSCRIBED_FAILED_NO_USER" );
 				$this->messagetype	= 'notice';
 				$this->setRedirect( $redirect, $this->message, $this->messagetype );
 				return false;
@@ -89,7 +86,7 @@ class PhplistControllerUnsubscribe extends PhplistController
 			$isSubscribed = PhplistHelperSubscription::isUser( $details->userid, $details->listid );
 			$newslettername = PhplistHelperNewsletter::getName ($details->listid)->name;
 			$unsubscribe = PhplistHelperSubscription::removeUserFrom($details);
-			$this->message .= JText::_( "YOU HAVE BEEN SUCESSFULLY UNSUBSCRIBED FROM" ). ": ". $newslettername ."<br/>";
+			$this->message .= JText::_( "YOU_HAVE_BEEN_SUCESSFULLY_UNSUBSCRIBED_FROM" ). ": ". $newslettername ."<br/>";
 		}
     
         $this->messagetype	= 'message';

@@ -27,6 +27,26 @@ class PhplistHelperUser extends PhplistHelperBase
 		return $success;
 	}
 	
+	/** Get phplist uid from url */
+	
+	function getUid() {
+		
+		$success = false;
+		
+		// add uid to hidden input 'uid' if valid user
+		$uid = JRequest::getVar( 'uid' );
+		$isUser = '';
+		if ($uid)
+		{
+			$isUser = PhplistHelperUser::getUser($uid, '0', 'uid');
+		}
+		if ($isUser)
+		{
+			$success = $uid;
+		}
+		return $success;
+	}
+	
 	/**
 	 * Creates a new PHPList user and Joomla user if auto-create set to yes.
 	 * @param $joomlaUserObject
@@ -875,3 +895,4 @@ class PhplistHelperUser extends PhplistHelperBase
 	}
 	
 }
+?>

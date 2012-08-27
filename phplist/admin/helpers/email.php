@@ -210,7 +210,7 @@ class PhplistHelperEmail extends PhplistHelperBase
   				$textmessage = eregi_replace("\[[A-Z\. ]+\]","",$textmessage);
 				
 				//set subscribe url placeholder to newsletter page
-				$subscribeurl = JURI::base().PhplistUrl::addItemid("index.php?option=com_phplist&view=newsletters");
+				$subscribeurl = JURI::base()."index.php?option=com_phplist&view=newsletters";
 				
 				//add breaks above footer (as phplist does)
 				$footer = "\n\n".$footer;

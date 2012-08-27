@@ -343,7 +343,7 @@ class PhplistControllerMessages extends PhplistController
 				$this->message      = JText::_( 'SENDING TEST MESSAGE FAILED' );
 			}
 		
-    	$redirect = PhplistUrl::appendURL("index.php?option=com_phplist&view=messages") ;
+    	$redirect = "index.php?option=com_phplist&view=messages";
 		$redirect = JRoute::_( $redirect, false );
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );  
 	}
