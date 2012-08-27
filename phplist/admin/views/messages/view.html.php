@@ -15,6 +15,30 @@ Phplist::load( 'PhplistViewBase', 'views.base' );
 
 class PhplistViewMessages extends PhplistViewBase
 {
+	/**
+	 * 
+	 * @param $tpl
+	 * @return unknown_type
+	 */
+	function getLayoutVars($tpl=null)
+	{
+		$layout = $this->getLayout();
+		switch(strtolower($layout))
+		{
+			case "view":
+				$this->_form($tpl);
+			  break;
+			case "form":
+			case "testemail":
+				JRequest::setVar('hidemainmenu', '1');
+				$this->_form($tpl);
+			  break;
+			case "default":
+			default:
+				$this->_default($tpl);
+			  break;
+		}
+	}
     
     function _form($tpl=null)
     {
@@ -87,7 +111,7 @@ class PhplistViewMessages extends PhplistViewBase
 	
 	function _defaultToolbar()
 	{
-		JToolBarHelper::custom('send_test', "send.png", "icon-32-send.png", JText::_( 'SEND TEST EMAIL' ), true);
+		JToolBarHelper::custom('send_test', "send.png", "icon-32-send.png", JText::_( 'SEND_TEST_EMAIL' ), true);
 		JToolBarHelper::divider();
 		parent::_defaultToolbar();
 	}
@@ -98,7 +122,7 @@ class PhplistViewMessages extends PhplistViewBase
 		if ($layout == 'testemail')
 		{
 			JToolBarHelper::cancel();
-			JToolBarHelper::custom('send_test_email', "forward.png", "icon-32-forward.png", JText::_( 'SEND TEST EMAIL' ), false);
+			JToolBarHelper::custom('send_test_email', "forward.png", "icon-32-forward.png", JText::_( 'SEND_TEST_EMAIL' ), false);
 		}
 		else
 		{

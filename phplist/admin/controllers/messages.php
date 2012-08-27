@@ -334,7 +334,7 @@ class PhplistControllerMessages extends PhplistController
 		
 			if ($testemail)
 			{
-				$this->messagetype  = 'notice';
+				$this->messagetype  = 'message';
 				$this->message      = JText::_( 'TEST_MESSAGE_SUCCESSFULLY_SENT_TO' ) .' '. $toemail;
 			}
 			else
