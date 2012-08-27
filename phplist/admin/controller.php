@@ -19,28 +19,4 @@ class PhplistController extends DSCControllerAdmin
 	public $default_view = 'dashboard';
 }
 
-/* TODO The check below needs putting somewhere..
- *
-*  // check that PHPlist database is configured
-JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-$database = PhplistHelperPhplist::getDBO();
-if (isset($database->error))
-{
-$view = JRequest::getVar('view');
-$controller = JRequest::getWord('controller', $view);
-if (!$controller || $controller == 'config'|| $view == '')
-{
-// if config view, display notice
-JError::raiseNotice( 'Database Not Configured', JText::_( "PLEASE CONFIGURE PHPLIST DATABASE CONNECTION" ) );
-}
-else
-{
-// redirect to config
-$link = 'index.php?option=com_phplist&view=config';
-$app = JFactory::getApplication();
-$app->redirect( $link );
-}
-}
-*/
-
 ?>
