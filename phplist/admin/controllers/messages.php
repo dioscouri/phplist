@@ -191,7 +191,7 @@ class PhplistControllerMessages extends PhplistController
 						elseif (isset($addtonewsletter[$d->id]))
 						{
 							$is = PhplistHelperMessage::isNewsletter( $messageid, $d->id );
-							if ($is != 'true')
+							if ($is == '')
 							{
 								PhplistHelperMessage::addToNewsletter( $messageid, $d->id );
 							}

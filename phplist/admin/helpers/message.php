@@ -318,8 +318,8 @@ class PhplistHelperMessage  extends PhplistHelperBase
 	
 	function _relToAbs($text)
 	{
-		global $mainframe;
-		$base = $mainframe->getSiteURL();
+		$uri = JFactory::getURI();
+		$base =  $uri->root();
 		$text = preg_replace("/(href|src)=\"(?!http|ftp|https|mailto)([^\"]*)\"/", "$1=\"$base\$2\"", $text);
 		return $text;
 	}

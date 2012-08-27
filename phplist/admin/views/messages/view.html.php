@@ -70,7 +70,7 @@ class PhplistViewMessages extends PhplistViewBase
    		//if new message, get config params and set defaults
     	if (!JRequest::getVar('id'))
     	{
-			$config = PhplistConfig::getInstance();
+			$config = Phplist::getInstance();
 			$this->row->fromfield = $config->get( 'default_fromemail', '1' );
 			$this->row->template = $config->get( 'default_template', '1' );
     	}
