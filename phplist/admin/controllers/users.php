@@ -100,18 +100,18 @@ class PhplistControllerUsers extends PhplistController
 
 		if (empty($details->listid))
 		{
-			$this->message = JText::_('FLEX+ NEWSLETTER NOT SELECTED ERROR');
+			$this->message = JText::_('FLEX+_NEWSLETTER_NOT_SELECTED_ERROR');
 			//TODO Keep selected user tickboxes checked after this error message
 		}
 		else
 		{
 			if (!empty($num_already))
 			{
-				$this->message .= $num_already. ' ' .JText::_('ALREADY SUBSCRIBED'). '</li><li>';
+				$this->message .= $num_already. ' ' .JText::_('ALREADY_SUBSCRIBED'). '</li><li>';
 			}
 			if (!empty($num_added))
 			{
-				$this->message .= $num_added. ' ' .JText::_('USERS SUCCESSFULLY SUBSCRIBED');
+				$this->message .= $num_added. ' ' .JText::_('USERS_SUCCESSFULLY_SUBSCRIBED');
 			}
 		}
 
@@ -154,18 +154,18 @@ class PhplistControllerUsers extends PhplistController
 
 		if (empty($details->listid))
 		{
-			$this->message = JText::_('FLEX- NEWSLETTER NOT SELECTED ERROR');
+			$this->message = JText::_('FLEX-_NEWSLETTER_NOT_SELECTED_ERROR');
 			// TODO keep selected checkboxes after this error
 		}
 		else
 		{
 			if (!empty($num_already))
 			{
-				$this->message .= $num_already. ' ' .JText::_('ALREADY UNSUBSCRIBED'). '</li><li>';
+				$this->message .= $num_already. ' ' .JText::_('ALREADY_UNSUBSCRIBED'). '</li><li>';
 			}
 			if (!empty($num_removed))
 			{
-				$this->message .= $num_removed. ' ' .JText::_('USERS SUCCESSFULLY UNSUBSCRIBED');
+				$this->message .= $num_removed. ' ' .JText::_('USERS_SUCCESSFULLY_UNSUBSCRIBED');
 			}
 		}
 
@@ -224,11 +224,11 @@ class PhplistControllerUsers extends PhplistController
 		$sync = PhplistHelperUser::syncJoomlaUsers('1');
 		if ($sync == false)
 		{
-			$this->message 	=  JText::_('NO SYNCHRONIZTION NEEDED');
+			$this->message 	=  JText::_('NO_SYNCHRONIZTION_NEEDED');
 		}
 		else
 		{
-			$this->message 	=  JText::_('USERS SUCCESSFULLY SYNCHRONIZED');
+			$this->message 	=  JText::_('USERS_SUCCESSFULLY_SYNCHRONIZED');
 				
 		}
 
@@ -265,7 +265,7 @@ class PhplistControllerUsers extends PhplistController
 		}
 		if (!$error)
 		{
-			$this->message 	=  JText::_('USERS SUCCESSFULLY DELETED');
+			$this->message 	=  JText::_('USERS_SUCCESSFULLY_DELETED');
 		}
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
 	}
@@ -299,7 +299,7 @@ class PhplistControllerUsers extends PhplistController
 		if (!$isValidEmail)
 		{
 			$this->messagetype = 'notice';
-			$this->message .= JText::_( "PLEASE ENTER A VALID EMAIL ADDRESS" );
+			$this->message .= JText::_( "PLEASE_ENTER_A_VALID_EMAIL_ADDRESS" );
 			$this->setRedirect( $redirect, $this->message, $this->messagetype );
 			return;
 		}
@@ -308,7 +308,7 @@ class PhplistControllerUsers extends PhplistController
 		if ($row->id <= 0 && PhplistHelperUser::getUserByEmail($email) == true)
 		{
 			$this->messagetype = 'notice';
-			$this->message .= JText::_( "EMAIL ALREADY EXISTS" );
+			$this->message .= JText::_( "EMAIL_ALREADY_EXISTS" );
 			$this->setRedirect( $redirect, $this->message, $this->messagetype );
 			return;
 		}
@@ -317,7 +317,7 @@ class PhplistControllerUsers extends PhplistController
 		{
 			$model->setId( $row->id );
 			$this->messagetype 	= 'message';
-			$this->message  	= JText::_( 'USER SAVED' );
+			$this->message  	= JText::_( 'USER_SAVED' );
 				
 
 			// update attributes
@@ -392,7 +392,7 @@ class PhplistControllerUsers extends PhplistController
 		else
 		{
 			$this->messagetype 	= 'notice';
-			$this->message 		= JText::_( 'SAVE FAILED' )." - ".$row->getError();
+			$this->message 		= JText::_( 'SAVE_FAILED' )." - ".$row->getError();
 		}
 
 		$redirect = "index.php?option=com_phplist";

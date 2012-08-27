@@ -115,7 +115,7 @@ class PhplistModelNewsletters extends PhplistModelBase
 			
 			// get last mailing
             unset($lastMailing);
-            $item->lastMailingDate = JText::_( "NO MESSAGES SENT" );
+            $item->lastMailingDate = JText::_( "NO_MESSAGES_SENT" );
             if ($lastMailing = PhplistHelperNewsletter::getLastMailing( $item->id)) 
             {
                 $item->lastMailingDate = JHTML::_( "date", $lastMailing->sendstart, JText::_('DATE_FORMAT_LC2') );

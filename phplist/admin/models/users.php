@@ -109,11 +109,11 @@ class PhplistModelUsers extends PhplistModelBase
 		{
 			if ($missingUsers->missingusers != '')
 			{
-				JError::raiseNotice(JText::_( 'INTEGRATION NOT COMPLETE' ), sprintf(JText::_( "MISSING USERS DESC"), $missingUsers->missingusers));
+				JError::raiseNotice(JText::_( 'INTEGRATION_NOT_COMPLETE' ), sprintf(JText::_( "MISSING_USERS_DESC"), $missingUsers->missingusers));
 			}
 			if ($missingUsers->nonexistantusers != '')
 			{
-				JError::raiseNotice(JText::_( 'INTEGRATION NOT COMPLETE'), sprintf(JText::_( "NOT IN SYNC DESC"), $missingUsers->nonexistantusers));
+				JError::raiseNotice(JText::_( 'INTEGRATION_NOT_COMPLETE'), sprintf(JText::_( "NOT_IN_SYNC_DESC"), $missingUsers->nonexistantusers));
 			}
 		}	
 		
@@ -150,7 +150,7 @@ class PhplistModelUsers extends PhplistModelBase
 				if (count($subscriptions) == 0)
 				{
 					$subscriptions_list = '<span style="color:red;">';
-					$subscriptions_list .= '--' . JText::_('NO SUBSCRIPTIONS') . '--';
+					$subscriptions_list .= '--' . JText::_('NO_SUBSCRIPTIONS') . '--';
 					$subscriptions_list .= '</span>';
 				}
 			}

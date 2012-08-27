@@ -38,7 +38,7 @@
 					$pane = '1';
 					echo $this->sliders->startPane( "pane_$pane" );
 					
-					$legend = JText::_( "WEBSITE AND DOMAIN" );
+					$legend = JText::_( "WEBSITE_AND_DOMAIN" );
 					echo $this->sliders->startPanel( JText::_( $legend ), 'general' );
 					?>
 					
@@ -75,7 +75,7 @@
 			            <?php
 						echo $this->sliders->endPanel();
 					
-						$legend = JText::_( "ADMIN EMAILS" );
+						$legend = JText::_( "ADMIN_EMAILS" );
 						echo $this->sliders->startPanel( JText::_( $legend ), 'general' );
 						?>
 					
@@ -158,7 +158,7 @@
 			            <?php
 						echo $this->sliders->endPanel();
 					
-						$legend = JText::_( "PHPLIST UI" );
+						$legend = JText::_( "PHPLIST_UI" );
 						echo $this->sliders->startPanel( JText::_( $legend ), 'general' );
 						?>
 					
@@ -245,7 +245,7 @@
 			            <?php
 					echo $this->sliders->endPanel();
 					
-					$legend = JText::_( "SUBSCRIPTION URLS" );
+					$legend = JText::_( "SUBSCRIPTION_URLS" );
 					echo $this->sliders->startPanel( JText::_( $legend ), 'general' );
 					?>
 					
@@ -335,7 +335,7 @@
 			            <?php
 					echo $this->sliders->endPanel();
 					
-					$legend = JText::_( "SUBSCRIPTION EMAILS TEXT" );
+					$legend = JText::_( "SUBSCRIPTION_EMAILS_TEXT" );
 					echo $this->sliders->startPanel( JText::_( $legend ), 'general' );
 					?>
 					
@@ -503,7 +503,7 @@
 			            <?php
 					echo $this->sliders->endPanel();
 					
-					$legend = JText::_( "CHARACTER SETS" );
+					$legend = JText::_( "CHARACTER_SETS" );
 					echo $this->sliders->startPanel( JText::_( $legend ), 'general' );
 					?>
 					
@@ -538,7 +538,7 @@
 			             <?php
 					echo $this->sliders->endPanel();
 					
-					$legend = JText::_( "CHARACTER SETS" );
+					$legend = JText::_( "Other" );
 					echo $this->sliders->startPanel( JText::_( $legend ), 'general' );
 					?>
 					

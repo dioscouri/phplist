@@ -229,12 +229,12 @@ class PhplistHelperSubscription extends PhplistHelperBase
 					if(!$action = PhplistHelperSubscription::removeUserFrom( $details ))
 					{
 						// TODO why isn't this error showing?
-						$this->message .= "<li>".JText::_( "YOU ARE NOT SUBSCRIBED TO" )." <b>" . $newslettername. "</b></li>";
+						$this->message .= "<li>".JText::_( "YOU_ARE_NOT_SUBSCRIBED_TO" )." <b>" . $newslettername. "</b></li>";
 						$this->messagetype 	= 'notice';
 					}
 					else
 					{
-						$this->message  .= "<li>" . JText::_( 'YOU HAVE BEEN UNSUBSCRIBED FROM' )." <b>" . $newslettername. "</b></li>";
+						$this->message  .= "<li>" . JText::_( 'YOU_HAVE_BEEN_UNSUBSCRIBED_FROM' )." <b>" . $newslettername. "</b></li>";
 						$this->messagetype 	= 'message';
 					}
 					break;
@@ -244,12 +244,12 @@ class PhplistHelperSubscription extends PhplistHelperBase
 				case "subscribeModule":
 					if (!$action = PhplistHelperSubscription::addUserTo( $details ))
 					{
-						$this->message .= "<li>" . JText::_( "YOU ARE ALREADY SUBSCRIBED TO" )." <b>" . $newslettername. "</b></li>";
-						$this->messagetype 	= 'notice';
+						$this->message .= "<li>" . JText::_( "YOU_ARE_ALREADY_SUBSCRIBED_TO" )." <b>" . $newslettername. "</b></li>";
 					}
+						$this->messagetype 	= 'notice';
 					else
 					{
-						$this->message  .= "<li>" . JText::_( 'SUBSCRIPTION ADDED FOR' )." <b>" . $newslettername. "</b></li>";
+						$this->message  .= "<li>" . JText::_( 'SUBSCRIPTION_ADDED_FOR' )." <b>" . $newslettername. "</b></li>";
 						$this->messagetype 	= 'message';
 					}
 					break;
@@ -259,13 +259,13 @@ class PhplistHelperSubscription extends PhplistHelperBase
 						// unsubscribe
 						if(!$action = PhplistHelperSubscription::removeUserFrom( $details ))
 						{
-							$this->message .= "<li>".JText::_( "UNSUBSCRIBE FROM NEWSLETTER FAILED:" ).": " . $cid . "</li>";
+							$this->message .= "<li>".JText::_( "UNSUBSCRIBE_FROM_NEWSLETTER_FAILED:" ).": " . $cid . "</li>";
 							$this->messagetype 	= 'notice';
 						}
 						else
 						{
 							$this->messagetype 	= 'message';
-							$this->message  .= "<li>" . JText::_( 'YOU HAVE BEEN UNSUBSCRIBED FROM' )." <b>" . $newslettername. "</b></li>";
+							$this->message  .= "<li>" . JText::_( 'YOU_HAVE_BEEN_UNSUBSCRIBED_FROM' )." <b>" . $newslettername. "</b></li>";
 						}
 					}
 					else
@@ -273,13 +273,13 @@ class PhplistHelperSubscription extends PhplistHelperBase
 						// subscribe
 						if (!$action = PhplistHelperSubscription::addUserTo( $details ))
 						{
-							$this->message .= "<li>".JText::_( "SUBSCRIBE TO NEWSLETTER FAILED" ).": " . $cid . "</li>";
+							$this->message .= "<li>".JText::_( "SUBSCRIBE_TO_NEWSLETTER_FAILED" ).": " . $cid . "</li>";
 							$this->messagetype 	= 'notice';
 						}
 						else
 						{
 							$this->messagetype 	= 'message';
-							$this->message  .= "<li>" . JText::_( 'SUBSCRIPTION ADDED FOR' )." <b>" . $newslettername. "</b></li>";
+							$this->message  .= "<li>" . JText::_( 'SUBSCRIPTION_ADDED_FOR' )." <b>" . $newslettername. "</b></li>";
 						}
 					}
 					break;

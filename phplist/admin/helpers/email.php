@@ -136,17 +136,17 @@ class PhplistHelperEmail extends PhplistHelperBase
 
 		$link = $siteURL . 'index.php?option=com_phplist&view=newsletters&task=confirm&uid='. $details->uid;
 
-		$subject 	= JText::_( 'PLEASE CONFIRM YOUR SUBSCRIPTION' ) . '-'. $sitename ;
+		$subject 	= JText::_( 'PLEASE_CONFIRM_YOUR_SUBSCRIPTION' ) . '-'. $sitename ;
 		$subject 	= html_entity_decode($subject, ENT_QUOTES);
 
-		$message = sprintf( JText::_( 'EMAIL MESSAGE CONFIRMATION' ), $name, $newsletter_names, $link, $sitename);
+		$message = sprintf( JText::_( 'EMAIL_MESSAGE_CONFIRMATION' ), $name, $newsletter_names, $link, $sitename);
 		$message = html_entity_decode($message, ENT_QUOTES);
 
 		$success = PhplistHelperEmail::_sendEmail($mailfrom, $fromname, $details->email, $subject, $message);
 		
 		if ($success == true)
 		{
-			$this->message .= JText::_( "CONFIRMATION EMAIL SENT" );
+			$this->message .= JText::_( "CONFIRMATION_EMAIL_SENT" );
 		}
 		return $success;
 	}
@@ -218,7 +218,7 @@ class PhplistHelperEmail extends PhplistHelperBase
 				if ($mode == 'html')
 				{
 					$subscribeurl = '<a href="'.$subscribeurl.'">';
-					$subscribeurl .= JText::_('CLICK HERE');
+					$subscribeurl .= JText::_('CLICK_HERE');
 					$subscribeurl .= '</a>';
 				}
 				// Replace placeholders in forwardfooter

@@ -216,7 +216,7 @@ class plgContentPhplist extends JPlugin
 			if ( $row->save() )
 			{
 				$this->messagetype 	= 'message';
-				$this->message  	= JText::_( 'MESSAGE SAVED' );
+				$this->message  	= JText::_( 'MESSAGE_SAVED' );
 
 				// Get the array of newsletters
 				$addtonewsletter = $this->params->get( 'newsletters', '1' );

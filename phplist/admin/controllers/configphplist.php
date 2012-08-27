@@ -59,7 +59,7 @@ class PhplistControllerConfigPhplist extends PhplistController
 		if ( !$error ) 
 		{
 			$this->messagetype 	= 'message';
-			$this->message  	= JText::_( 'CONFIGURATION SAVED' );
+			$this->message  	= JText::_( 'CONFIGURATION_SAVED' );
 			
 			$dispatcher = JDispatcher::getInstance();
 			$dispatcher->trigger( 'onAfterSave'.$this->get('suffix'), array( $row ) );
@@ -67,7 +67,7 @@ class PhplistControllerConfigPhplist extends PhplistController
 			else 
 		{
 			$this->messagetype 	= 'notice';			
-			$this->message 		= JText::_( 'SAVE FAILED' )." - ".$errorMsg;
+			$this->message 		= JText::_( 'SAVE_FAILED' )." - ".$errorMsg;
 		}
 		
     	$redirect = "index.php?option=com_phplist";

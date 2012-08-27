@@ -55,7 +55,7 @@ class PhplistHelperUser extends PhplistHelperBase
 	function create( $joomlaUserObject, $phplistUserDetails='', $UserLogin='false', $jactivation = '0' )
 	{
 		$success = false;
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 		$date = JFactory::getDate();
 		$date->setOffset($config->getValue('config.offset'));
 		//if the DBO fails, don't do anything

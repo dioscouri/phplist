@@ -258,7 +258,7 @@ class PhplistHelperMessage  extends PhplistHelperBase
 		
 		if ($diff == 0)
 		{
-			$return = JText::_( "VERY LITTLE TIME" );
+			$return = JText::_( "VERY_LITTLE_TIME" );
 			return $return;
 		}
     

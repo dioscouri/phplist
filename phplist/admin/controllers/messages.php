@@ -84,7 +84,7 @@ class PhplistControllerMessages extends PhplistController
 				break;
 			default:
 				$this->messagetype 	= 'notice';
-				$this->message 		= JText::_( "INVALID TASK" );
+				$this->message 		= JText::_( "INVALID_TASK" );
 				$this->setRedirect( $redirect, $this->message, $this->messagetype );
 				return;
 			  break;
@@ -105,11 +105,11 @@ class PhplistControllerMessages extends PhplistController
 		
 		if ($error)
 		{
-			$this->message = JText::_('MESSAGE STATUS CHANGE FAILED') . " - " . $this->message;
+			$this->message = JText::_('MESSAGE_STATUS_CHANGE_FAILED') . " - " . $this->message;
 		}
 			else
 		{
-			$this->message = JText::_('MESSAGE STATUS CHANGED');
+			$this->message = JText::_('MESSAGE_STATUS_CHANGED');
 		}
 		
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
@@ -202,7 +202,7 @@ class PhplistControllerMessages extends PhplistController
 			
 			
 			$this->messagetype 	= 'message';
-			$this->message  	= JText::_( 'MESSAGE SAVED'. $this->getError());
+			$this->message  	= JText::_( 'MESSAGE_SAVED'. $this->getError());
 			
 			$dispatcher = JDispatcher::getInstance();
 			$dispatcher->trigger( 'onAfterSave'.$this->get('suffix'), array( $row ) );
@@ -210,7 +210,7 @@ class PhplistControllerMessages extends PhplistController
 		else
 		{
 			$this->messagetype 	= 'notice';			
-			$this->message 		= JText::_( 'SAVE FAILED' )." - ".$row->getError();
+			$this->message 		= JText::_( 'SAVE_FAILED' )." - ".$row->getError();
 		}
 		
 		$redirect = "index.php?option=com_phplist";
@@ -335,12 +335,12 @@ class PhplistControllerMessages extends PhplistController
 			if ($testemail)
 			{
 				$this->messagetype  = 'notice';
-				$this->message      = JText::_( 'TEST MESSAGE SUCCESSFULLY SENT TO' ) .' '. $toemail;
+				$this->message      = JText::_( 'TEST_MESSAGE_SUCCESSFULLY_SENT_TO' ) .' '. $toemail;
 			}
 			else
 			{
 				$this->messagetype  = 'error';
-				$this->message      = JText::_( 'SENDING TEST MESSAGE FAILED' );
+				$this->message      = JText::_( 'SENDING_TEST_MESSAGE_FAILED' );
 			}
 		
     	$redirect = "index.php?option=com_phplist&view=messages";

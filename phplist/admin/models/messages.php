@@ -130,12 +130,12 @@ class PhplistModelMessages extends PhplistModelBase
 			if (strtolower($item->status) != 'submitted' && strtolower($item->status) != 'inprocess')
 			{
 				$item->link_status = 'index.php?option=com_phplist&controller=messages&task=addtoqueue&cid[]='.$item->id;
-				$item->link_status_text = JText::_('ADD TO QUEUE');
+				$item->link_status_text = JText::_('ADD_TO_QUEUE');
 			}
 
 			if (strtolower($item->status) == 'submitted' || strtolower($item->status) == 'inprocess') {
 				$item->link_status = 'index.php?option=com_phplist&controller=messages&task=suspend&cid[]='.$item->id;
-				$item->link_status_text = JText::_('SUSPEND SENDING');						
+				$item->link_status_text = JText::_('SUSPEND_SENDING');						
 			}
 			
 			// get message data

@@ -66,7 +66,7 @@
 								<?php echo JText::_( 'DISPLAY_ATTRIBUTES_IN_FRONT_END' ); ?>
 							</th>
 							<td>
-			                	<?php echo PhplistSelect::attributes( explode(',',$this->row->get('frontend_attribs', '1')), 'frontend_attribs[]', ' multiple="multiple" size="5" ', 'id', true, JText::_('No Attributes') );?>
+			                	<?php //echo PhplistSelect::attributes( explode(',',$this->row->get('frontend_attribs', '1')), 'frontend_attribs[]', ' multiple="multiple" size="5" ', 'id', true, JText::_('No Attributes') );?>
 							</td>
 							<td width="35%">
 								<?php echo JText::_( 'DISPLAY_ATTRIBUTES_IN_FRONT_END_DESC' ); ?>
@@ -77,7 +77,7 @@
 								<?php echo JText::_( 'DEFAULT_TEMPLATE_FOR_MESSAGES' ); ?>
 							</th>
 							<td>
-			                	<?php echo PhplistSelect::templates( $this->row->get('default_template', '1'), 'default_template', '', 'id', true );?>
+			                	<?php //echo PhplistSelect::templates( $this->row->get('default_template', '1'), 'default_template', '', 'id', true );?>
 							</td>
 							<td width="35%">
 								<?php echo JText::_( 'DEFAULT_TEMPLATE_FOR_MESSAGES_DESC' ); ?>
@@ -372,7 +372,7 @@
 							<td>
 		                        <?php echo JHTML::_('select.booleanlist', 'page_tooltip_phplistconfig_disabled', 'class="inputbox"', $this->row->get('page_tooltip_tools_disabled', '0') ); ?>
 							</td>
-						</tr>s
+						</tr>
 					</tbody>
 					</table>
 					<?php	

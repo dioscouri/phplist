@@ -85,11 +85,11 @@ class PhplistControllerAttributes extends PhplistController
 		
 		if ($error)
 		{
-			$this->message = JText::_('ORDERING FAILED') . " - " . $this->message;
+			$this->message = JText::_('ORDERING_FAILED') . " - " . $this->message;
 		}
 		else
 		{
-			$this->message = JText::_('ITEMS ORDERED');
+			$this->message = JText::_('ITEMS_ORDERED');
 		}
 		
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );

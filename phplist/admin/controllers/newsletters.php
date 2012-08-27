@@ -84,11 +84,11 @@ class PhplistControllerNewsletters extends PhplistController
 		
 		if ($error)
 		{
-			$this->message = JText::_('ORDERING FAILED') . " - " . $this->message;
+			$this->message = JText::_('ORDERING_FAILED') . " - " . $this->message;
 		}
 			else
 		{
-			$this->message = JText::_('ITEMS ORDERED');
+			$this->message = JText::_('ITEMS_ORDERED');
 		}
 		
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
@@ -130,7 +130,7 @@ class PhplistControllerNewsletters extends PhplistController
             else
         {
             $this->messagetype  = 'notice';
-            $this->message      = JText::_( 'SAVE FAILED' )." - ".$row->getError();
+            $this->message      = JText::_( 'SAVE_FAILED' )." - ".$row->getError();
         }
 
         $redirect = "index.php?option=com_phplist";
