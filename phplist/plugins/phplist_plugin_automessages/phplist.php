@@ -49,10 +49,18 @@ class plgContentPhplist extends JPlugin
 		jimport('joomla.filesystem.file');
 		if (JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'defines.php')) 
 		{
+			// Check the registry to see if our Tienda class has been overridden
+			if ( !class_exists('Phplist') )
+				JLoader::register( "Phplist", JPATH_ADMINISTRATOR.DS."components".DS."com_phplist".DS."defines.php" );
+			if ( !class_exists('PhplistConfigPhplist') )
+				JLoader::register( "PhplistConfigPhplist", JPATH_ADMINISTRATOR.DS."components".DS."com_phplist".DS."defines.php" );
+				
+			
 			Phplist::load( 'PhplistHelperNewsletter', 'helpers.newsletter' );
 			Phplist::load( 'PhplistHelperMessage', 'helpers.message' );
 			Phplist::load( 'PhplistHelperEmail', 'helpers.email' );
 			Phplist::load( 'PhplistHelperPhplist', 'helpers.phplist' );
+			Phplist::load( 'PhplistHelperConfigPhplist', 'helpers.configphplist' );
 			
 			$success = true;
 		}
@@ -88,10 +96,6 @@ class plgContentPhplist extends JPlugin
 		if ( !$this->_isInstalled() ) {
 			return $success;
 		}
-
-		//load controllers
-		$basecontroller = new PhplistController();
-		$controller = new PhplistControllerMessages();
 		
 		// get cat params array or convert to array if single values.
 		$categories = $this->params->get( 'contentcategory', '1' );
@@ -152,10 +156,10 @@ class plgContentPhplist extends JPlugin
 			}
 
 			// get defaults from phplist config
-			$config = &PhplistConfig::getInstance();
+			$config = &Phplist::getInstance();
 			$message->fromfield = $config->get( 'default_fromemail', '1' );
 			$message->template = $config->get( 'default_template', '1' );
-			$message->footer = PhplistHelperMessage::getDefaultFooter()->value;
+		//	$message->footer = PhplistHelperMessage::getDefaultFooter()->value;
 			$message->htmlformatted = $config->get('default_html', '1');
 			if ($config->get('default_html', '') == '1') $message->sendformat = 'HTML';
 			else $message->sendformat = 'text';
@@ -199,7 +203,8 @@ class plgContentPhplist extends JPlugin
 			else $message->embargo = $article->created;
 
 			//get model
-			$model 	= $controller->getModel( $controller->get('suffix') );
+			Phplist::load('PhplistModelMessages', 'models.messages');
+			$model = JModel::getInstance('Messages', 'PhplistModel');
 			$row = $model->getTable();
 			$row->load( $model->getId() );
 			$row->bind( $message );
