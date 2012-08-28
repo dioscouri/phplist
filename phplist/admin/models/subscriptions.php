@@ -144,9 +144,9 @@ class PhplistModelSubscriptions extends PhplistModelBase
 		
 		foreach(@$list as $item)
 		{
-			$item->link = 'index.php?option=com_phplist&controller=subscriptions&task=unsubscribe&listid='.$item->listid.'&phplistuserid='.$item->userid;
-			$item->edit_link = 'index.php?option=com_phplist&controller=users&view=users&task=edit&id=' . $item->user_id;
-			$item->veiw_link = 'index.php?option=com_phplist&controller=users&view=users&filter_email=' . $item->user_email;
+			$item->link = JRoute::_('index.php?option=com_phplist&controller=subscriptions&task=unsubscribe&listid='.$item->listid.'&phplistuserid='.$item->userid, false);
+			$item->edit_link = JRoute::_('index.php?option=com_phplist&controller=users&view=users&task=edit&id=' . $item->user_id, false);
+			$item->veiw_link = JRoute::_('index.php?option=com_phplist&controller=users&view=users&filter_email=' . $item->user_email, false);
 			if ($item->foreignkey == '' || $item->foreignkey == 'NULL') 
 			{
 				$item->foreignkey = '---';

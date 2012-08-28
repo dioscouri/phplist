@@ -27,7 +27,7 @@ class PhplistControllerUnsubscribe extends PhplistController
 		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
 		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
 		
-		$link = "index.php?option=com_phplist&view=newsletters";
+		$link = JRoute::_("index.php?option=com_phplist&view=newsletters", false);
 		$this->messagetype  = 'notice';
 		
 		if ($uid =  JRequest::getVar( 'uid' ))

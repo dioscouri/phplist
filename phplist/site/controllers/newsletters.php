@@ -49,7 +49,7 @@ class PhplistControllerNewsletters extends PhplistController
     	
     	$state['direction'] = $app->getUserStateFromRequest($ns.'.filter_direction', 'filter_direction', $order_dir, 'word');
 			
-      	$state['filter_active'] 	= $app->getUserStateFromRequest($ns.'active', 'filter_active', '1', '');
+      	$state['filter_active'] 	= $app->getUserStateFromRequest($ns.'active', 'filter_active', '1', '');      	
 
     	foreach (@$state as $key=>$value)
 		{

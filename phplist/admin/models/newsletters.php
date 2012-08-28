@@ -108,10 +108,10 @@ class PhplistModelNewsletters extends PhplistModelBase
 		
 		foreach(@$list as $item)
 		{
-			$item->link = 'index.php?option=com_phplist&controller=newsletters&view=newsletters&task=edit&id='.$item->id;
-			$item->link_subscribers = 'index.php?option=com_phplist&view=subscriptions&filter_listid='.$item->id;
-			$item->link_messages = 'index.php?option=com_phplist&amp;view=messages&amp;task=list&amp;id='.$item->id;
-		    $item->link_switch = "index.php?option=com_phplist&controller=newsletters&task=switch_subscription&cid[]={$item->id}";
+			$item->link = JRoute::_('index.php?option=com_phplist&controller=newsletters&view=newsletters&task=edit&id='.$item->id, false);
+			$item->link_subscribers = JRoute::_('index.php?option=com_phplist&view=subscriptions&filter_listid='.$item->id, false);
+			$item->link_messages = JRoute::_('index.php?option=com_phplist&amp;view=messages&amp;task=list&amp;id='.$item->id, false);
+		    $item->link_switch = JRoute::_("index.php?option=com_phplist&controller=newsletters&task=switch_subscription&cid[]={$item->id}", false);
 			
 			// get last mailing
             unset($lastMailing);

@@ -134,7 +134,7 @@ class PhplistHelperEmail extends PhplistHelperBase
 		$fromname 		= $mainframe->getCfg( 'fromname' );
 		$siteURL		= JURI::base();
 
-		$link = $siteURL . 'index.php?option=com_phplist&view=newsletters&task=confirm&uid='. $details->uid;
+		$link = $siteURL . JRoute::_( 'index.php?option=com_phplist&view=newsletters&task=confirm&uid='. $details->uid , false );
 
 		$subject 	= JText::_( 'PLEASE_CONFIRM_YOUR_SUBSCRIPTION' ) . '-'. $sitename ;
 		$subject 	= html_entity_decode($subject, ENT_QUOTES);
@@ -210,7 +210,7 @@ class PhplistHelperEmail extends PhplistHelperBase
   				$textmessage = eregi_replace("\[[A-Z\. ]+\]","",$textmessage);
 				
 				//set subscribe url placeholder to newsletter page
-				$subscribeurl = JURI::base()."index.php?option=com_phplist&view=newsletters";
+				$subscribeurl = JURI::base().JRoute::_( "index.php?option=com_phplist&view=newsletters", false);
 				
 				//add breaks above footer (as phplist does)
 				$footer = "\n\n".$footer;

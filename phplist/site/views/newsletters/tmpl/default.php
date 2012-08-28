@@ -44,7 +44,7 @@ if ($this->phplistuser)
 			       <div style="vertical-align: middle;">
 			       	<b><?php echo JText::_( "Your Email"). ': '; ?></b> <?php echo $this->phplistuser->email; ?>
 			       	<?php if ($this->joomlauserID == '0') { ?>
-			       		[<a href="<?php echo 'index.php?option=com_phplist&view=newsletters&task=list'; ?>" alt="logout" title="logout"><?php echo JText::_("Logout"); ?></a>]
+			       		[<a href="<?php echo JRoute::_('index.php?option=com_phplist&view=newsletters&task=list', false); ?>" alt="logout" title="logout"><?php echo JText::_("Logout"); ?></a>]
 			       <?php } ?>
 			       <br/><br/>
 			       	<?php echo JText::_( "WITH_SELECTED" ); ?>

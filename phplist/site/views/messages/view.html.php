@@ -48,7 +48,7 @@ class PhplistViewMessages extends PhplistViewBase
 		$row = $model->getTable();
 		$row->load(  $id );
 		$this->assign('row', $row);
-		$action = 'index.php?option=com_phplist&view=messages&task=list&id='.$id;
+		$action = JRoute::_('index.php?option=com_phplist&view=messages&task=list&id='.$id, false);
 		$this->assign('action', $action);
 	} 
 	

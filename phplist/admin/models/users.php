@@ -123,7 +123,7 @@ class PhplistModelUsers extends PhplistModelBase
 		
 		foreach($list as $item)
 		{
-			$item->link = 'index.php?option=com_phplist&controller=users&view=users&task=edit&id='.$item->id;
+			$item->link = JRoute::_('index.php?option=com_phplist&controller=users&view=users&task=edit&id='.$item->id, false);
 			
 			// get email type (HTML or Text)
 			if ($item->htmlemail == '1')

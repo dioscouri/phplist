@@ -40,11 +40,11 @@ class PhplistViewBase extends DSCViewSite
 			
 			if (JRequest::getVar('layout') == 'view')
 			{
-				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_MESSAGES'), 'index.php?option=com_phplist&view=messages&task=list&id=' . JRequest::getVar('newsletterid'), $view == 'messages' ? true : false );
+				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_MESSAGES'), JRoute::_('index.php?option=com_phplist&view=messages&task=list&id=' . JRequest::getVar('newsletterid')), $view == 'messages' ? true : false );
 			}
 			if ($view != 'newsletters')
 			{
-				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_NEWSLETTERS'), 'index.php?option=com_phplist&view=newsletters', $view == 'newsletters' ? true : false );
+				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_NEWSLETTERS'), JRoute::_('index.php?option=com_phplist&view=newsletters'), $view == 'newsletters' ? true : false );
 			}
 			$isUser = '';
 			//only display preferences link for logged in or valid uniqid users..
@@ -56,7 +56,7 @@ class PhplistViewBase extends DSCViewSite
 			{
 				if ($view != 'preferences')
 				{
-					JSubMenuHelper::addEntry(JText::_('EDIT_PREFERENCES'), 'index.php?option=com_phplist&view=preferences', $view == 'preferences' ? true : false );	
+					JSubMenuHelper::addEntry(JText::_('EDIT_PREFERENCES'), JRoute::_('index.php?option=com_phplist&view=preferences'), $view == 'preferences' ? true : false );	
 				}
 			}			
 		}

@@ -81,7 +81,7 @@ class PhplistModelUnsubscribe extends PhplistModelSubscriptions
 		$list = parent::getList();
 		foreach(@$list as $item)
 		{
-			$item->link = 'index.php?option=com_phplist&amp;view=messages&amp;task=list&amp;id='.$item->listid;
+			$item->link = JRoute::_('index.php?option=com_phplist&amp;view=messages&amp;task=list&amp;id='.$item->listid, false);
 		}
 		return $list;
 	}
