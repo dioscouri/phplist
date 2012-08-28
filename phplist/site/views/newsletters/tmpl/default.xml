@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="PHPLIST NEWSLETTERS LAYOUT">
+	<layout title="PHPLIST_NEWSLETTERS_LAYOUT">
 		<message>
-			<![CDATA[PHPLIST NEWSLETTERS LAYOUT DESC]]>
+			<![CDATA[PHPLIST_NEWSLETTERS_LAYOUT_DESC]]>
 		</message>
 	</layout>
 	<state>
-		<name>PHPLIST NEWSLETTERS LAYOUT</name>
-		<description>PHPLIST NEWSLETTERS LAYOUT DESC</description>
+		<name>PHPLIST_NEWSLETTERS_LAYOUT</name>
+		<description>PHPLIST_NEWSLETTERS_LAYOUT_DESC</description>
 	</state>
 	
 </metadata>

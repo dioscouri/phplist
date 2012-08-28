@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="PHPLIST PREFERENCES DEFAULT LAYOUT">
+	<layout title="PHPLIST_PREFERENCES_DEFAULT_LAYOUT">
 		<message>
-			<![CDATA[PHPLIST PREFERENCES DEFAULT LAYOUT DESC]]>
+			<![CDATA[PHPLIST_PREFERENCES_DEFAULT_LAYOUT_DESC]]>
 		</message>
 	</layout>
 	<state>
-		<name>PHPLIST PREFERENCES DEFAULT LAYOUT</name>
-		<description>PHPLIST PREFERENCES DEFAULT LAYOUT DESC</description>
+		<name>PHPLIST_PREFERENCES_DEFAULT_LAYOUT</name>
+		<description>PHPLIST_PREFERENCES_DEFAULT_LAYOUT_DESC</description>
 	</state>
 </metadata>
