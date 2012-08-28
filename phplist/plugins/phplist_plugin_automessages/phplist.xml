@@ -21,9 +21,9 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic" label="basic">
-				<field name="contentcategory" type="categorylist" default="" label="CATEGORIES_TITLE" section="content" description="CATEGORIES_DESC" size="5" scope="com_phplist" addfieldpath="/administrator/components/com_phplist/elements" />
+				<field name="contentcategory" type="category" extension="com_content" label="CATEGORIES_TITLE" description="CATEGORIES_DESC" />
 				<field name="@spacer" type="spacer" default="" label="" description="" />
-				<field name="newsletters" type="phplistnewsletterlist" default="" label="NEWSLETTERS_TITLE" description="NEWSLETTERS_TITLE" size="5" scope="com_phplist" addfieldpath="/administrator/components/com_phplist/elements" />
+				<field name="newsletters" type="phplistnewsletter" default="" label="NEWSLETTERS_TITLE" description="NEWSLETTERS_TITLE" size="5" scope="com_phplist" addfieldpath="/administrator/components/com_phplist/elements" />
 				<field name="@spacer" type="spacer" default="" label="" description="" />
 				<field name="onlynewmessages" type="radio" default="0" label="ONLY_NEW_MESSAGES_TITLE" description="ONLY_NEW_MESSAGES_DESC" >
 					<option value="0">No</option>
@@ -58,7 +58,7 @@
 	<params addpath="/administrator/components/com_phplist/elements">
 		<param name="contentcategory" type="Categorylist" default="" label="CATEGORIES_TITLE" section="content" description="CATEGORIES_DESC" size="5" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-	 	<param name="newsletters" type="PhplistNewsletterlist" default="" label="NEWSLETTERS_TITLE" description="NEWSLETTERS_TITLE" size="5" />
+	 	<param name="newsletters" type="PhplistNewsletter" default="" label="NEWSLETTERS_TITLE" description="NEWSLETTERS_TITLE" size="5" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="onlynewmessages" type="radio" default="0" label="ONLY_NEW_MESSAGES_TITLE" description="ONLY_NEW_MESSAGES_DESC" >
 			<option value="0">No</option>

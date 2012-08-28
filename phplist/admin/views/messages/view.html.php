@@ -52,11 +52,8 @@ class PhplistViewMessages extends PhplistViewBase
 		$this->assign( 'newsletters', $items );
 		
 		// content article
-		$elementmodel 	= JModel::getInstance( 'ElementArticle', 'PhplistModel' );
-		$elementArticle 	= $elementmodel->fetchElement( 'articleid', '', '',  array('onClose'=>'\function(){onCloseModal();}') );
-		$this->assign('elementArticle', $elementArticle);
-		$resetArticle 		= $elementmodel->clearElement( 'articleid', '0' );
-		$this->assign('resetArticle', $resetArticle);
+		$elementArticleModel = JModel::getInstance( 'ElementArticle', 'PhplistModel' );
+		$this->assign( 'elementArticleModel', $elementArticleModel );
 		
 		//get templates
 		$model = JModel::getInstance( 'Templates', 'PhplistModel' );

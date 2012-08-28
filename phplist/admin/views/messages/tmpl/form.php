@@ -74,7 +74,8 @@
 								</label>
 							</td>
 							<td>
-		                        <?php  echo $this->elementArticle; ?><br/>
+		                      <?php echo $this->elementArticleModel->_fetchElement('test'); ?>
+                        		<?php echo $this->elementArticleModel->_clearElement('test'); ?>
 							</td>
 						</tr>
 						<tr>

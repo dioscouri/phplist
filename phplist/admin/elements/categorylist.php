@@ -76,7 +76,7 @@ class JFakeElementCategorylist extends JFakeElementBase
 		$options = $db->loadObjectList();
 		array_unshift($options, JHTML::_('select.option', '0', '- '.JText::_('All Categories').' -', 'id', 'title'));
 
-		return JHTML::_('select.genericlist',  $options, ''.$control_name.'['.$name.'][]', ' multiple="multiple" size="' . $size . '" ', 'id', 'title', $value, $control_name.$name );
+		return JHTML::_('select.genericlist',  $options, ''.$control_name.'['.$name.'][]', ' size="' . $size . '" ', 'id', 'title', $value, $control_name.$name );
 	}
 }
 
