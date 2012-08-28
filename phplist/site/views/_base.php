@@ -38,9 +38,9 @@ class PhplistViewBase extends DSCViewSite
 			require_once( JPATH_ADMINISTRATOR.DS.'includes'.DS.'toolbar.php' );
 			$view = strtolower( JRequest::getVar('view') );
 			
-			if (JRequest::getVar('task') == 'view')
+			if (JRequest::getVar('layout') == 'view')
 			{
-				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_MESSAGES'), PhplistUrl::appendURL('index.php?option=com_phplist&view=messages&task=list&id=' . JRequest::getVar('newsletterid')), $view == 'messages' ? true : false );
+				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_MESSAGES'), 'index.php?option=com_phplist&view=messages&task=list&id=' . JRequest::getVar('newsletterid'), $view == 'messages' ? true : false );
 			}
 			if ($view != 'newsletters')
 			{

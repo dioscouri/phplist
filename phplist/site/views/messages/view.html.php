@@ -58,7 +58,6 @@ class PhplistViewMessages extends PhplistViewBase
 		
 		$config = Phplist::getInstance();
 		$message_template = $config->get('display_messagetemplate', '1');
-		print_r($message_template);
 		
 		if ($this->row->template != 0 && $message_template == '1')
 		{

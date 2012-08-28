@@ -305,6 +305,10 @@ class PhplistHelperMessage  extends PhplistHelperBase
 	 */
 	function stripPlaceholders($message)
 	{
+		//convert entities 
+		$message = html_entity_decode($message);
+
+		//strip placeholders
 		$message = preg_replace('(\\[.*?\\])','' , $message);
 		return $message;
 	}

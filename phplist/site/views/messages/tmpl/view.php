@@ -30,12 +30,10 @@
 					</h1>
 					<h5>
 						<?php 
-						echo JText::_( 'MESSAGE_SENT_ON ' ); echo JHTML::_( "date", @$row->sendstart, JText::_( 'SEND DATE FORMAT' ), '0');
+						echo JText::_( 'MESSAGE_SENT_ON' ); echo JHTML::_( "date", @$row->sendstart, JText::_( 'DATE_FORMAT_LC1' ));
 						?>
 					</h5>
-					<?php 
-					echo PhplistHelperMessage::stripPlaceholders($row->message);
-					?>
+					<?php echo PhplistHelperMessage::stripPlaceholders($row->message); ?>
 				</td>
 				<td valign="top">
 					
