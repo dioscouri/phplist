@@ -5,6 +5,13 @@
 			<![CDATA[PHPLIST_MESSAGES_LAYOUT_DESC]]>
 		</message>
 	</layout>
+	<!-- Joomla 1.6+ only -->
+	<fields name="request">
+		<fieldset name="request" addfieldpath="/administrator/components/com_phplist/elements">
+			<field name="id" type="phplistnewsletter" section="com_phplist" default="0" label="SELECT_NEWSLETTER" description="SELECT_NEWSLETTER_DESC" />
+		</fieldset>
+	</fields>
+	<!-- Joomla 1.5 only -->
 	<state>
 		<name>PHPLIST_MESSAGES_LAYOUT</name>
 		<description>PHPLIST_MESSAGES_LAYOUT_DESC</description>

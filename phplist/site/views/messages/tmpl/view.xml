@@ -5,6 +5,13 @@
 			<![CDATA[PHPLIST_SINGLE_MESSAGE_LAYOUT_DESC]]>
 		</message>
 	</layout>
+	<!-- Joomla 1.6+ only -->
+	<fields name="request">
+		<fieldset name="request">
+			<field name="id" type="text" label="MESSAGE_ID" description="MESSAGE_ID_DESC" />
+		</fieldset>
+	</fields>
+	<!-- Joomla 1.5 only -->
 	<state>
 		<name>PHPLIST_SINGLE_MESSAGE_LAYOUT</name>
 		<description>PHPLIST_SINGLE_MESSAGE_LAYOUT_DESC</description>
