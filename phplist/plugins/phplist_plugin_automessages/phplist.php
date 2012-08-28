@@ -89,10 +89,19 @@ class plgContentPhplist extends JPlugin
 	
 	function onAfterContentSave( &$article, $isNew )
 	{
+		return saveMessage( &$article, $isNew );
+	}
+	
+	function onContentAfterSave($context, &$article, $isNew )
+	{
+		return $this->saveMessage( &$article, $isNew );
+	}
+
+	function saveMessage( &$article, $isNew ) {
 		global $mainframe;
-
+		
 		$success = false;
-
+		
 		if ( !$this->_isInstalled() ) {
 			return $success;
 		}
@@ -107,7 +116,7 @@ class plgContentPhplist extends JPlugin
 		if (!in_array($article->catid, $categories)) {
 			return $success;
 		}
-				
+		
 		//convert Article to Message
 		$message = '';
 		$message->subject = '';
@@ -119,9 +128,9 @@ class plgContentPhplist extends JPlugin
 			if ($appendSubject == 'before') {
 				$message->subject .= $article->title;
 			}
-			
+				
 			$message->subject .= $customSubject;
-			
+				
 			if ($appendSubject == 'after') {
 				$message->subject .= $article->title;
 			}
@@ -132,13 +141,13 @@ class plgContentPhplist extends JPlugin
 		switch ($this->params->get( 'articlecontent', '1' )) {
 			case 'intro':
 				$message->message = $article->introtext;
-			break;
+				break;
 			case 'main':
 				$message->message = $article->fulltext;
-			break;
+				break;
 			case 'both':
 				$message->message = $article->introtext . $article->fulltext;
-			break;
+				break;
 		}
 		
 		// convert relative links to absolute
@@ -146,118 +155,117 @@ class plgContentPhplist extends JPlugin
 		
 		//TODO remove html tags for text message
 		$message->textmessage = $message->message;
-
-			//save as draft or to queue
-			if ($this->params->get( 'autoqueue', '1' ) == '1') {
-				$message->status = 'submitted';
-			}
-			else {
-				$message->status = 'draft';
-			}
-
-			// get defaults from phplist config
-			$config = &Phplist::getInstance();
-			$message->fromfield = $config->get( 'default_fromemail', '1' );
-			$message->template = $config->get( 'default_template', '1' );
+		
+		//save as draft or to queue
+		if ($this->params->get( 'autoqueue', '1' ) == '1') {
+			$message->status = 'submitted';
+		}
+		else {
+			$message->status = 'draft';
+		}
+		
+		// get defaults from phplist config
+		$config = &Phplist::getInstance();
+		$message->fromfield = $config->get( 'default_fromemail', '1' );
+		$message->template = $config->get( 'default_template', '1' );
 		//	$message->footer = PhplistHelperMessage::getDefaultFooter()->value;
-			$message->htmlformatted = $config->get('default_html', '1');
-			if ($config->get('default_html', '') == '1') $message->sendformat = 'HTML';
-			else $message->sendformat = 'text';
-
-			//set message created date same as article created date
-			$message->entered = $article->created;
-				
-			$message->repeatuntil = $article->created;
+		$message->htmlformatted = $config->get('default_html', '1');
+		if ($config->get('default_html', '') == '1') $message->sendformat = 'HTML';
+		else $message->sendformat = 'text';
+		
+		//set message created date same as article created date
+		$message->entered = $article->created;
+		
+		$message->repeatuntil = $article->created;
 			
-			//check if re-saved content should be 
+		//check if re-saved content should be
 			
-			if ($isNew) {
-				$message->id = '';
-				$message->modified = $article->created;
-			} elseif ($this->params->get( 'autoupdate', '1' ) == '1') {
-				//check for existing phplist message to match article (!!based on created datetime!!)
-				$tablename = PhplistHelperMessage::getTableName();
-				$query = "SELECT * FROM {$tablename} WHERE {$tablename}.entered = '{$article->created}'";
-				$database = PhplistHelperPhplist::getDBO();
-				$data = $database->setQuery( $query );
-				if ($database->loadObject()) {
-					$message->id = $database->loadObject()->id;
-				} else {
-					// if onlynewmessages param set to 'no', create new phplist message
-					if ($this->params->get( 'onlynewmessages', '1' ) == '0') {
-						$message->id = '';
-					}
-					else {
-						return $success;
-					}
+		if ($isNew) {
+			$message->id = '';
+			$message->modified = $article->created;
+		} elseif ($this->params->get( 'autoupdate', '1' ) == '1') {
+			//check for existing phplist message to match article (!!based on created datetime!!)
+			$tablename = PhplistHelperMessage::getTableName();
+			$query = "SELECT * FROM {$tablename} WHERE {$tablename}.entered = '{$article->created}'";
+			$database = PhplistHelperPhplist::getDBO();
+			$data = $database->setQuery( $query );
+			if ($database->loadObject()) {
+				$message->id = $database->loadObject()->id;
+			} else {
+				// if onlynewmessages param set to 'no', create new phplist message
+				if ($this->params->get( 'onlynewmessages', '1' ) == '0') {
+					$message->id = '';
 				}
-				$message->modified = $article->modified;
-			}
-				
-			//set embargo time (add hours)
-			if ($this->params->get( 'emargotime', '1' ) != '0')
-			{
-				$message->embargo = strtotime( $message->modified .' + '.$this->params->get( 'embargotime', '1' ).' hours');
-				$message->embargo = date( 'Y-m-d H:i:s', $message->embargo );
-			}
-			else $message->embargo = $article->created;
-
-			//get model
-			Phplist::load('PhplistModelMessages', 'models.messages');
-			$model = JModel::getInstance('Messages', 'PhplistModel');
-			$row = $model->getTable();
-			$row->load( $model->getId() );
-			$row->bind( $message );
-
-			// Stripslashes - for magic quotes on
-			if (get_magic_quotes_gpc()) {
-				$row->message = stripslashes($row->message);
-				$row->subject = stripslashes($row->subject);
-				$row->textmessage = stripslashes($row->textmessage);
-				$row->footer = stripslashes($row->footer);
-			}
-
-			//save the Joomla! Article as a PHPList Message.
-			if ( $row->save() )
-			{
-				$this->messagetype 	= 'message';
-				$this->message  	= JText::_( 'MESSAGE_SAVED' );
-
-				// Get the array of newsletters
-				$addtonewsletter = $this->params->get( 'newsletters', '1' );
-				if (!is_array($addtonewsletter)) {
-					$addtonewsletter = array($addtonewsletter);
+				else {
+					return $success;
 				}
-				
-				$messageid = $row->id;
-				$newsletters = PhplistHelperNewsletter::getNewsletters();
-				if ($newsletters)
+			}
+			$message->modified = $article->modified;
+		}
+		
+		//set embargo time (add hours)
+		if ($this->params->get( 'emargotime', '1' ) != '0')
+		{
+			$message->embargo = strtotime( $message->modified .' + '.$this->params->get( 'embargotime', '1' ).' hours');
+			$message->embargo = date( 'Y-m-d H:i:s', $message->embargo );
+		}
+		else $message->embargo = $article->created;
+		
+		//get model
+		Phplist::load('PhplistModelMessages', 'models.messages');
+		$model = JModel::getInstance('Messages', 'PhplistModel');
+		$row = $model->getTable();
+		$row->load( $model->getId() );
+		$row->bind( $message );
+		
+		// Stripslashes - for magic quotes on
+		if (get_magic_quotes_gpc()) {
+			$row->message = stripslashes($row->message);
+			$row->subject = stripslashes($row->subject);
+			$row->textmessage = stripslashes($row->textmessage);
+			$row->footer = stripslashes($row->footer);
+		}
+		
+		//save the Joomla! Article as a PHPList Message.
+		if ( $row->save() )
+		{
+			$this->messagetype 	= 'message';
+			$this->message  	= JText::_( 'MESSAGE_SAVED' );
+		
+			// Get the array of newsletters
+			$addtonewsletter = $this->params->get( 'newsletters', '1' );
+			if (!is_array($addtonewsletter)) {
+				$addtonewsletter = array($addtonewsletter);
+			}
+		
+			$messageid = $row->id;
+			$newsletters = PhplistHelperNewsletter::getNewsletters();
+			if ($newsletters)
+			{
+				foreach ($newsletters as $d)
 				{
-					foreach ($newsletters as $d)
+					if ($d->id > 0)
 					{
-						if ($d->id > 0)
+						if (!in_array($d->id, $addtonewsletter))
 						{
-							if (!in_array($d->id, $addtonewsletter))
+							$remove = PhplistHelperMessage::removeFromNewsletter( $messageid, $d->id );
+						}
+						elseif (in_array($d->id, $addtonewsletter))
+						{
+							$is = PhplistHelperMessage::isNewsletter( $messageid, $d->id );
+							if ($is != 'true')
 							{
-								$remove = PhplistHelperMessage::removeFromNewsletter( $messageid, $d->id );
-							}
-							elseif (in_array($d->id, $addtonewsletter))
-							{
-								$is = PhplistHelperMessage::isNewsletter( $messageid, $d->id );
-								if ($is != 'true')
-								{
-									$add = PhplistHelperMessage::addToNewsletter( $messageid, $d->id );
-								}
+								$add = PhplistHelperMessage::addToNewsletter( $messageid, $d->id );
 							}
 						}
 					}
 				}
-
-				$dispatcher = JDispatcher::getInstance();
-				$dispatcher->trigger( 'onAfterSave'.$this->get('suffix'), array( $row ) );
 			}
+		
+			$dispatcher = JDispatcher::getInstance();
+			$dispatcher->trigger( 'onAfterSave'.$this->get('suffix'), array( $row ) );
+		}
 	}
-
 }
 
 ?>
