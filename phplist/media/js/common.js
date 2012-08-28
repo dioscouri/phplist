@@ -141,11 +141,12 @@
 				str[i] = postvar;
 			}
 			// execute Ajax request to server
-            var a=new Ajax(url,{
+            var a=new Request({
+            	url : url,
                 method:"post",
-				data:{"elements":Json.toString(str)},
-                onComplete: function(response){
-                    var resp=Json.evaluate(response);
+				data:{"elements":JSON.encode(str)},
+				onSuccess: function(response){
+                    var resp= JSON.decode(response, false);
                     $("message-container").removeClass("ajax-loading").setHTML(resp.msg);
 					if (resp.error != '1') {
 						// if no error, submit form
@@ -156,8 +157,8 @@
 						form.submit();
 					}
                 }
-            }).request();
-			
+            }).send();
+            
 		}	
 		else {
 			form.task.value = task;
@@ -218,11 +219,12 @@
             }
             
             // execute Ajax request to server
-            var a=new Ajax(url,{
+            var a=new Request({
+            	url : url,
                 method:"post",
-                data:{"elements":Json.toString(str)},
-                onComplete: function(response){
-                    var resp=Json.evaluate(response, false);
+                data:{"elements": JSON.encode(str)},
+                onSuccess: function(response){
+                    var resp=JSON.decode(response, false);
                     $(container).setHTML(resp.msg);
                     if (resp.error != '1') 
                     {
@@ -230,7 +232,8 @@
                         form.submit();
                     }
                 }
-            }).request();
+            }).send();
+            
         }
             else 
         {

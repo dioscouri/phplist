@@ -222,7 +222,7 @@ class PhplistHelperSubscription extends PhplistHelperBase
 		{
 			$details->listid = $cid;
 			$isSubscribed = PhplistHelperSubscription::isUser( $details->userid, $details->listid );
-			$newslettername = PhplistHelperNewsletter::getName ($details->listid)->name;
+			$newslettername = PhplistHelperNewsletter::getNewsletter ($details->listid)->name;
 			switch ($task) {
 				case "unsubscribe_selected":
 				case "unsubscribe":

@@ -3,6 +3,7 @@
 <?php JHTML::_('stylesheet', 'menu.css', 'media/com_phplist/css/'); ?>
 <?php JHTML::_('script', 'common.js', 'media/com_phplist/js/'); ?>
 <?php JHTML::_('script', 'joomla.javascript.js', 'includes/js/'); ?>
+<?php JHTML::_('behavior.mootools' );  ?>
 <?php $state = @$this->state; ?>
 <?php $form = @$this->form; ?>
 <?php $items = @$this->items; ?>
@@ -27,7 +28,7 @@ if ($this->phplistuser)
 }
 ?>
 
-<form action="<?php echo JRoute::_( @$form['action'] )?>" method="post" onsubmit="phplistFormValidation( '<?php echo @$form['validation']; ?>', 'validationmessage', document.adminForm.task.value, document.adminForm )" name="adminForm" enctype="multipart/form-data">
+<form action="<?php echo JRoute::_( @$form['action'] ) ?>" method="post" class="adminform" name="adminForm" id="adminForm" enctype="multipart/form-data" onsubmit="Dsc.formValidation( '<?php echo @$form['validation']; ?>', 'validationmessage', document.adminForm.task.value, document.adminForm )">
 
     <div id='onBeforeDisplay_wrapper'>
 	    <?php 
@@ -175,8 +176,8 @@ if ($this->phplistuser)
 				<?php
                 if ($this->phplistuser) :
 					if ($isUser = PhplistHelperSubscription::isUser( $this->phplistuser->id, $item->id ))
-						$img = Phplist::getURL('images')."accept.png";
-						else $img = Phplist::getURL('images')."remove.png";?>
+						$img = JURI::root()."/media/com_phplist/images/"."accept.png";
+						else $img = JURI::root()."/media/com_phplist/images/"."remove.png";?>
 				<td style="text-align: center;">
 					<span class="substatus-container">
 						<a href="<?php echo $item->link_switch; ?>" style='text-decoration: none;'>
