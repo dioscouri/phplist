@@ -16,6 +16,12 @@ require_once( dirname(__FILE__).DS.'helper.php' );
 
 $isInstalled = modPhplistSubscribeHelper::_isInstalled();
 
+// include lang files
+$element = strtolower( 'com_phplist' );
+$lang = JFactory::getLanguage();
+$lang->load( $element, JPATH_BASE );
+$lang->load( $element, JPATH_ADMINISTRATOR );
+
 // if not installed, do nothing
 if ( $isInstalled )
 {
@@ -70,7 +76,6 @@ if ( $isInstalled )
 		}
 		
 		// get attributes form fields
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
 		$attributes = PhplistHelperAttribute::getAttributes(true);
 		
 		// newlsetters page link

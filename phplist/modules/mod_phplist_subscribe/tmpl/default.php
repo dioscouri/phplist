@@ -18,6 +18,7 @@ $hide = false;
 JHTML::_('script', 'mod_phplist_subscribe.js', 'modules/mod_phplist_subscribe/');
 JHTML::_('script', 'common.js', 'media/com_phplist/js/');
 JHTML::_('script', 'joomla.javascript.js', 'includes/js/');
+JHTML::_('behavior.mootools' );
 
 $element = 'com_phplist';
 $lang =& JFactory::getLanguage();
@@ -65,7 +66,7 @@ $lang->load( $element, JPATH_BASE );
 
 if ($display_html) : ?>
 	<div class="<?php echo $moduleclass_sfx; ?>">
-		<?php echo JText::_("HTML Emails");
+		<?php echo JText::_("HTML_EMAILS");
 		echo JHTML::_('select.booleanlist', 'htmlemail', 'class="inputbox"', '1', JText::_("Yes"), JText::_("No"), 'modhtml' ); ?>
 	</div>		
 <?php endif;
@@ -73,7 +74,7 @@ if ($display_html) : ?>
 if (!$phplistUser) :
 	$submit_button = true;
 	// Display form for user not logged in ?>
-	<input type="text" name="subscriber2add" value="<?php echo JText::_( 'Email Address' ); ?>" onfocus="if(this.value=='<?php echo JText::_( 'Email Address' ); ?>') this.value=''" />
+	<input type="text" name="subscriber2add" value="<?php echo JText::_( 'EMAIL_ADDRESS' ); ?>" onfocus="if(this.value=='<?php echo JText::_( 'EMAIL_ADDRESS' ); ?>') this.value=''" />
 	<?php if ($attributes) : ?>
 	<table class="<?php echo $moduleclass_sfx; ?>">
 	<?php for ($r=0; $r<count($attributes); $r++) :
@@ -93,17 +94,17 @@ else :
 	// Display form for logged in Joomla! user or UID
 	if (!$isSubscribed || $can_subscribe) :
 		//display email address to add subscription for
-		echo JText::_( "Using this address" ).": ".$phplistUser->email; ?>
+		echo JText::_( "USING_THIS_ADDRESS" ).": ".$phplistUser->email; ?>
 		<input type="hidden" name="subscriberemail" value="<?php echo $phplistUser->email; ?>" />
 		<?php $submit_button = true;
 	elseif ($display_type == '0' && $display_already == '1') :
-			echo JText::_( "You are already subscribed to our newsletter" );
+			echo JText::_( "YOU_ARE_ALREADY_SUBSCRIBED_TO_OUR_NEWSLETTER" );
 	elseif (!$can_subscribe) :
-		echo JText::_( "You are already subscribed to our newsletters" );
+		echo JText::_( "YOU_ARE_ALREADY_SUBSCRIBED_TO_OUR_NEWSLETTERS" );
 	endif;
 endif;
 if ($submit_button) : ?>
-<img src="<?php echo Phplist::getURL('images')."add.png"; ?>" style="max-height: 24px; vertical-align: middle;" onclick="phplistSubmitModuleForm('subscribeModule')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" />
+<img src="<?php echo JURI::root()."/media/com_phplist/images/add.png"; ?>" style="max-height: 24px; vertical-align: middle;" onclick="phplistSubmitModuleForm('subscribeModule')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" />
 <a href="javascript:void(0);" style="padding-left:3px;" onclick="phplistSubmitModuleForm('subscribeModule')">
 						<?php echo JText::_("SUBSCRIBE"); ?>
 					</a>
@@ -125,7 +126,7 @@ if ($submit_button) : ?>
 if ($display_url == '1') : ?>
 	<div class="link<?php echo $moduleclass_sfx; ?>">
 		<a href="<?php echo $newsletters_link; ?>">
-			<?php echo JText::_( "NEWSLETTERS LINK TEXT" ); ?>
+			<?php echo JText::_( "NEWSLETTERS_LINK_TEXT" ); ?>
 		</a>
 	</div>
 <?php endif; ?>
@@ -133,7 +134,7 @@ if ($display_url == '1') : ?>
 if ($display_url_prefs == '1' && $phplistUser) : ?>
 	<div class="link<?php echo $moduleclass_sfx; ?>">
 		<a href="<?php echo $prefs_link; ?>">
-			<?php echo JText::_( "PREFS LINK TEXT" ); ?>
+			<?php echo JText::_( "PREFS_LINK_TEXT" ); ?>
 		</a>
 	</div>
 <?php endif; ?>

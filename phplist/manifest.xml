@@ -74,7 +74,7 @@
 	
 	<!-- Modules -->	
 	<modules>
-		<!--<module module="mod_phplist_subscribe" client="site" />-->
+		<module module="modules/mod_phplist_subscribe" client="site"  position="left"/>
 	</modules> 
 
 	<!-- Plugins -->

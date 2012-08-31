@@ -17,7 +17,7 @@ class modPhplistSubscribeHelper
 	 * 
 	 * @return unknown_type
 	 */
-	function _isInstalled()
+	public static function _isInstalled()
 	{
 		$success = false;
 		
@@ -26,11 +26,11 @@ class modPhplistSubscribeHelper
 		{
 			// Require Helpers
 			require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'defines.php' );
-			JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-			JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-			JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-			JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-			JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
+			Phplist::load( 'PhplistHelperPhplist', 'helpers.phplist' );
+			Phplist::load( 'PhplistHelperNewsletter', 'helpers.newsletter' );
+			Phplist::load( 'PhplistHelperUser', 'helpers.user' );
+			Phplist::load( 'PhplistHelperSubscription', 'helpers.subscription' );
+			Phplist::load( 'PhplistHelperAttribute', 'helpers.attribute' );
 			
 			// Also check that DB is setup
 			$database = PhplistHelperPhplist::getDBO();
@@ -48,7 +48,7 @@ class modPhplistSubscribeHelper
      *
      * @access public
      */
-	function getItemid( $link = "index.php?option=com_phplist&view=newsletters" ) 
+	public static function getItemid( $link = "index.php?option=com_phplist&view=newsletters" ) 
 	{
 		$id = "";
 		$database = JFactory::getDBO();
@@ -80,7 +80,7 @@ class modPhplistSubscribeHelper
 	 * @param $params
 	 * @return unknown_type
 	 */
-    function getReturnURL( $params )
+    public static function getReturnURL( $params )
     {
     	if ($params->get('result_page') == '1')
     	{
@@ -106,15 +106,9 @@ class modPhplistSubscribeHelper
      * 
      * @return unknown_type
      */
-    function processForm()
+    public static function processForm()
     {
     	JRequest::checkToken() or die( 'Invalid Token' );
-    	JLoader::import( 'com_phplist.helpers.phplist', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.newsletter', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.subscription', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.helpers.email', JPATH_ADMINISTRATOR.DS.'components' );
 		
 		jimport('joomla.mail.helper');
 		

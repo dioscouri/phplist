@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install version="1.5" type="module" method="upgrade">
+<install version="1.5" type="module" method="upgrade" position="left" client="site">
 	<name>Subscribe to Our Newsletter</name>
 	<creationDate>April 2010</creationDate>
 	<author>Dioscouri Design</author>
@@ -16,45 +16,85 @@
 		<filename>helper.php</filename>  
 		<folder>tmpl</folder> 
 	</files>
-	<languages folder="languages">
-		<language tag="en-GB">en-GB.mod_phplist_subscribe.ini</language>
+	<languages>
+		<language tag="en-GB">languages/en-GB.mod_phplist_subscribe.ini</language>
 	</languages>
-			
-	<params addpath="/administrator/components/com_phplist/elements">
-		<param name="header" type="text" default="" label="HEADER" description="HEADER DESC" size="45" />
-		<param name="footer" type="text" default="" label="FOOTER" description="FOOTER DESC" size="45" />
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+					<field name="header" type="text" default="" label="HEADER" description="HEADER_DESC" size="45" />
+					<field name="footer" type="text" default="" label="FOOTER" description="FOOTER_DESC" size="45" />
+					<field name="@spacer" type="spacer" default="" label="" description="" />
+					<field name="display_type" type="radio" default="1" label="ALL_NEWSLETTERS" description="ALL_NEWSLETTERS_DESC">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+					</field>
+					<field name="@spacer" type="spacer" default="" label="" description="" />
+					<field name="newsletterid" type="phplistnewsletterlist" section="com_phplist" default="0" label="HIDDEN_NEWSLETTER" description="HIDDEN_NEWSLETTER_DESC"  addfieldpath="/administrator/components/com_phplist/elements"/>
+					<field name="@spacer" type="spacer" default="" label="" description="" />
+					<field name="display_url" type="radio" default="1" label="INCLUDE_LINK" description="INCLUDE_LINK_DESC">
+						<option value="0">No</option>
+		  				<option value="1">Yes</option>
+					</field>
+					<field name="display_url_prefs" type="radio" default="1" label="INCLUDE_PREFS_LINK" description="INCLUDE_PREFS_LINK_DESC">
+						<option value="0">No</option>
+		 			 	<option value="1">Yes</option>
+					</field>
+				<field name="display_already" type="radio" default="0" label="DISPLAY_ALREADY" description="DISPLAY_ALREADY_DESC">
+		  			<option value="0">No</option>
+		  			<option value="1">Yes</option>
+				</field>
+				<field name="display_html" type="radio" default="0" label="DISPLAY_HTML_OPTION" description="DISPLAY_HTML_OPTION_DESC">
+		  			<option value="0">No</option>
+		 			 <option value="1">Yes</option>
+				</field>
+				<field name="@spacer" type="spacer" default="" label="" description="" />
+				<field name="result_page" type="radio" default="0" label="SEPERATE_RESULT_PAGE" description="SEPERATE_RESULT_PAGE_DESC">
+		  			<option value="0">No</option>
+		  			<option value="1">Yes</option>
+				</field>
+				<field name="redirect_url" type="text" default="" label="REDIRECT_URL" description="REDIRECT_URL_DESC" />
+		</fieldset>
+		<fieldset name="advanced">
+				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+		</fieldset>
+		</fields>
+	</config>
+	<params>
+		<param name="header" type="text" default="" label="HEADER" description="HEADER_DESC" size="45" />
+		<param name="footer" type="text" default="" label="FOOTER" description="FOOTER_DESC" size="45" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		
-		<param name="display_type" type="radio" default="1" label="ALL NEWSLETTERS" description="ALL NEWSLETTERS DESC">
+		<param name="display_type" type="radio" default="1" label="ALL_NEWSLETTERS" description="ALL_NEWSLETTERS_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="newsletterid" type="phplistnewsletterlist" section="com_phplist" default="0" label="HIDDEN NEWSLETTER" description="HIDDEN NEWSLETTER DESC" />
+		<param name="newsletterid" type="phplistnewsletterlist" section="com_phplist" default="0" label="HIDDEN_NEWSLETTER" description="HIDDEN_NEWSLETTER_DESC"/>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="display_url" type="radio" default="1" label="INCLUDE LINK" description="INCLUDE LINK DESC">
+		<param name="display_url" type="radio" default="1" label="INCLUDE_LINK" description="INCLUDE_LINK_DESC">
 			<option value="0">No</option>
 		  	<option value="1">Yes</option>
 		</param>
-		<param name="display_url_prefs" type="radio" default="1" label="INCLUDE PREFS LINK" description="INCLUDE PREFS LINK DESC">
+		<param name="display_url_prefs" type="radio" default="1" label="INCLUDE_PREFS_LINK" description="INCLUDE_PREFS_LINK_DESC">
 			<option value="0">No</option>
 		  	<option value="1">Yes</option>
 		</param>
-		<param name="display_already" type="radio" default="0" label="DISPLAY ALREADY" description="DISPLAY ALREADY DESC">
+		<param name="display_already" type="radio" default="0" label="DISPLAY_ALREADY" description="DISPLAY_ALREADY_DESC">
 		  	<option value="0">No</option>
 		  	<option value="1">Yes</option>
 		</param>
-		<param name="display_html" type="radio" default="0" label="DISPLAY HTML OPTION" description="DISPLAY HTML OPTION DESC">
+		<param name="display_html" type="radio" default="0" label="DISPLAY_HTML_OPTION" description="DISPLAY_HTML_OPTION_DESC">
 		  <option value="0">No</option>
 		  <option value="1">Yes</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		
-		<param name="result_page" type="radio" default="0" label="SEPERATE RESULT PAGE" description="SEPERATE RESULT PAGE DESC">
+		<param name="result_page" type="radio" default="0" label="SEPERATE_RESULT_PAGE" description="SEPERATE_RESULT_PAGE_DESC">
 		  	<option value="0">No</option>
 		  	<option value="1">Yes</option>
 		</param>
-		<param name="redirect_url" type="text" default="" label="REDIRECT URL" description="REDIRECT URL DESC" />
+		<param name="redirect_url" type="text" default="" label="REDIRECT_URL" description="REDIRECT_URL_DESC" />
 	</params>
 	<params group="advanced">
 		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
