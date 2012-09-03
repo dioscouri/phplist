@@ -1,64 +1,70 @@
-<?php
-/**
- * @version	1.5
- * @package	Phplist
- * @author 	Dioscouri Design
- * @link 	http://www.dioscouri.com
- * @copyright Copyright (C) 2007 Dioscouri Design. All rights reserved.
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-*/
-
-/** ensure this file is being included by a parent file */
-defined('_JEXEC') or die('Restricted access');
-?>
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+<?php JHTML::_('stylesheet', 'phplist.css', 'media/com_phplist/css/'); ?>
+<?php JHTML::_('stylesheet', 'menu.css', 'media/com_phplist/css/'); ?>
+<?php JHTML::_('script', 'phplist.js', 'media/com_phplist/js/'); ?>
+<?php JHTML::_('script', 'joomla.javascript.js', 'includes/js/'); ?>
+<?php $state = @$this->state; ?>
+<?php $form = @$this->form; ?>
+<?php $items = @$this->items; ?>
+<?php $row = @$this->row; ?>
 			
-		<div class='componentheading'>
-    		<?php echo $this->pagetitle; ?>
-		</div>
+<div class="componentheading">
+     <span><?php echo JText::_( "Forward a Message" ); ?></span>
+</div>
 
-		<div id='onBeforeDisplay_wrapper'>
-			<?php 
-				$dispatcher =& JDispatcher::getInstance();
-				$dispatcher->trigger( 'onBeforeDisplayMessage', array( $this->row, $this->user ) );
-			?>
-		</div>
+<?php  echo DSCMenu::getInstance('submenu')->display(); ?>
 
-		<table class="invisible">
-			<tbody>
-				<tr>
-			        <th colspan='2' style='border-bottom: 1px solid #e5e5e5;'>
-						<?php
-						if ($this->pagetitle_newsletter && $this->link_newsletter) {
-							echo "<< <a href='{$this->link_newsletter}'>".JText::_( 'Return to' )." {$this->pagetitle_newsletter}</a>"; 
-						}
+<div id='onBeforeDisplay_wrapper'>
+	<?php 
+		$dispatcher =& JDispatcher::getInstance();
+		$dispatcher->trigger( 'onBeforeDisplayForward', array( $this->row, @$this->user ) );
+	?>
+</div>
+
+<form action="<?php echo JRoute::_( @$form['action'] )?>" method="post" onsubmit="phplistFormValidation( '<?php echo @$form['validation']; ?>', 'validationmessage', document.adminForm.task.value, document.adminForm )" name="adminForm" enctype="multipart/form-data">
+	<div id="onBeforeDisplay_wrapper">
+	    <?php 
+	    $dispatcher = JDispatcher::getInstance();
+	    $dispatcher->trigger( 'onBeforeDisplayForward', array( @$this->row, @$this->user ) );
+	    ?>
+    </div>
+    <div id="validationmessage"></div>
+	<table width="100%" class="adminform">
+		<tbody>          
+			<tr>
+				<td valign="top">
+					<?php echo JText::_( 'Forward the message' ); ?>
+					<b><?php echo $this->subject; ?></b>
+					<?php echo JText::_( 'to someone' ); ?><br/><br/>
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<?php echo JText::_( 'Enter the email address you\'d like to forward the message to:' ); ?><br/>
+					<input type="text" name="email" value="" /><br/>
+					<input type="hidden" name="mid" id="mid" value="<?php echo $this->messageid; ?>" />
+					<input type="hidden" name="userid" id="userid" value="<?php echo $row->id; ?>" />
+					<input type="button" onclick="phplistSubmitForm('save')" value='<?php echo JText::_( 'Forward' ); ?>' />
+				</td>
+				<td valign="top">
+					<div id="onDisplayRightColumn_wrapper">
+						<?php 
+						$dispatcher =& JDispatcher::getInstance();
+						$dispatcher->trigger( 'onDisplayForwardRightColumn', array( $this->row, @$this->user ) );
 						?>
-			        </th>
-			    </tr>            
-                <tr>
-					<td valign="top">
-					<?php 
-						echo $this->text;
-					?>
-					</td>
-					<td valign="top">
-						
-						<div id='onDisplayRightColumn_wrapper'>
-							<?php 
-								$dispatcher =& JDispatcher::getInstance();
-								$dispatcher->trigger( 'onDisplayMessageRightColumn', array( $this->row, $this->user ) );
-							?>
-						</div>
-
-					</td>
-                </tr>
-            </tbody>
-		</table>
-
-		<div id='onAfterDisplay_wrapper'>
-			<?php 
-				$dispatcher =& JDispatcher::getInstance();
-				$dispatcher->trigger( 'onAfterDisplayMessage', array( $this->row, $this->user ) );
-			?>
-		</div>
-		
-		<input type="hidden" name="uid" value="<?php echo $this->uid; ?>"/>
+					</div>
+				</td>
+            </tr>
+        </tbody>
+	</table>
+	<div id="onAfterDisplay_wrapper">
+		<?php 
+			$dispatcher =& JDispatcher::getInstance();
+			$dispatcher->trigger( 'onAfterDisplayForward', array( $this->row, @$this->user ) );
+		?>
+	</div>
+	<input type="hidden" name="task" value="" /> 
+	<input type="hidden" name="filter_order" value="<?php  echo @$state->order; ?>" /> 
+	<input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" /> 
+	<?php echo $this->form['validate']; ?>
+</form>

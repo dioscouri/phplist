@@ -21,66 +21,34 @@ class PhplistControllerPreferences extends PhplistController
 		parent::__construct();
 		$this->set('suffix', 'preferences');
 	}
-	
-	function display()
-	{
-		JLoader::import( 'com_phplist.helpers.user', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
-		
-		$link = JRoute::_("index.php?option=com_phplist&view=newsletters", false);
-		$this->messagetype  = 'notice';
-		
-		if ($uid =  JRequest::getVar( 'uid' ))
-		{
-			$phplistUser = PhplistHelperUser::getUser( $uid, '1', 'uid' );
-		}
-		else
-		{
-			$juserid = JFactory::getUser()->id;
-			$phplistUser = PhplistHelperUser::getUser( $juserid, '1', 'foreignkey' );
-		}
-		if (!$phplistUser)
-		{
-			JError::raiseNotice( 'Invalid UID', JText::_( "INVALID_UID_ERROR_PREFS" ) );
-			$app = JFactory::getApplication();
-	    	$app->redirect( $link );
-		}
-		
-		parent::display();
-	} 
 	/**
 	 * save a record
 	 * @return void
 	 */
 	function save() 
 	{
-		JLoader::import( 'com_phplist.helpers.attribute', JPATH_ADMINISTRATOR.DS.'components' );
-		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
         $model  = $this->getModel( $this->get('suffix') );        
         $row = $model->getTable();
         if (JFactory::getUser()->id) {
         	//load logged-in joomla user
         	$row->load( JFactory::getUser()->id , 'foreignkey' );
-        	$redirect = "index.php?option=com_phplist&view=newsletters" ;
         }
         else {
-        	//load phplist user from uniqueid
-        	$uid =  JRequest::getVar( 'uid' );
-        	$row->load( $uid , 'uniqid' );
-        	$redirect = "index.php?option=com_phplist&view=newsletters" ;
-        }
+        	$uid = JRequest::getVar( 'uid' );
+			$phplistUser = PhplistHelperUser::getUser( $uid, '1', 'uid' );
+			$row->load( $phplistUser->id);
+		}
         
-        // Potentially could cause problems with hidden input of id, etc
-        // $row->bind( $_POST );
-        // manually setting values from form
+        $redirect = "index.php?option=com_phplist&view=newsletters" ;
+        
         $row->htmlemail = JRequest::getVar( 'htmlemail' );
         $row->email = JRequest::getVar( 'email' );
-        
+        $uid = JRequest::getVar( 'uid' );
         if ( $row->save() ) 
         {
             $model->setId( $row->id );
             $this->messagetype  = 'message';
-            $this->message      = JText::_( 'PREFERENCES_SAVED' );
+            $this->message      = JText::_( 'PREFERENCES_SAVED' . $uid);
             
             $dispatcher = JDispatcher::getInstance();
             $dispatcher->trigger( 'onAfterSave'.$this->get('suffix'), array( $row ) );
@@ -104,13 +72,12 @@ class PhplistControllerPreferences extends PhplistController
 	 * @return void
 	 */
 	function cancel() 
-	{
-		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
-		
+	{		
 		$this->messagetype = 'message';
 		$this->message = JText::_( 'CANCEL_PREFS_MESSAGE' );
 		$redirect = "index.php?option=com_phplist&view=newsletters";
 		$redirect = JRoute::_( $redirect, false );
+		//$redirect = PhplistUrl::siteLink($redirect);
         $this->setRedirect( $redirect, $this->message, $this->messagetype );
 	}
 }

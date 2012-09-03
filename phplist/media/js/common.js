@@ -224,12 +224,15 @@
                 method:"post",
                 data:{"elements": JSON.encode(str)},
                 onSuccess: function(response){
-                    var resp=JSON.decode(response, false);
-                    $(container).setHTML(resp.msg);
-                    if (resp.error != '1') 
+                	if (resp.error != '1')
                     {
+                        if (typeof onCompleteFunction == 'function') {
+                            onCompleteFunction();
+                        }
                         form.task.value = task;
                         form.submit();
+                    } else {
+                        if (document.id(container)) { document.id(container).set( 'html', resp.msg); }
                     }
                 }
             }).send();

@@ -164,7 +164,7 @@ if ($this->phplistuser)
 				</td>
 				<td style="text-align: center;">
 					<?php echo JText::_(@$item->name); ?><br/>
-					[<a href="<?php echo @$item->link_messages; ?>">
+					[<a href="<?php echo PhplistUrl::siteLink(@$item->link_messages); ?>">
 						<?php echo JText::_( 'READ_MESSAGES' ); ?>
 					</a>]
 				</td>	

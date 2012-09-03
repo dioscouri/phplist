@@ -89,7 +89,7 @@ class plgContentPhplist extends JPlugin
 	
 	function onAfterContentSave( &$article, $isNew )
 	{
-		return saveMessage( &$article, $isNew );
+		return $this->saveMessage( &$article, $isNew );
 	}
 	
 	function onContentAfterSave($context, &$article, $isNew )
@@ -168,7 +168,7 @@ class plgContentPhplist extends JPlugin
 		$config = &Phplist::getInstance();
 		$message->fromfield = $config->get( 'default_fromemail', '1' );
 		$message->template = $config->get( 'default_template', '1' );
-		//	$message->footer = PhplistHelperMessage::getDefaultFooter()->value;
+	//	$message->footer = PhplistHelperMessage::getDefaultFooter()->value;
 		$message->htmlformatted = $config->get('default_html', '1');
 		if ($config->get('default_html', '') == '1') $message->sendformat = 'HTML';
 		else $message->sendformat = 'text';
@@ -179,7 +179,7 @@ class plgContentPhplist extends JPlugin
 		$message->repeatuntil = $article->created;
 			
 		//check if re-saved content should be
-			
+		$message->footer = 'test1';
 		if ($isNew) {
 			$message->id = '';
 			$message->modified = $article->created;
@@ -191,16 +191,21 @@ class plgContentPhplist extends JPlugin
 			$data = $database->setQuery( $query );
 			if ($database->loadObject()) {
 				$message->id = $database->loadObject()->id;
+				$message->footer = 'test'.$tablename;
 			} else {
 				// if onlynewmessages param set to 'no', create new phplist message
 				if ($this->params->get( 'onlynewmessages', '1' ) == '0') {
 					$message->id = '';
+					$message->footer = 'test2';
 				}
 				else {
+					$message->footer = 'test2';
 					return $success;
 				}
 			}
 			$message->modified = $article->modified;
+		} else {
+			return $success;
 		}
 		
 		//set embargo time (add hours)
@@ -223,7 +228,7 @@ class plgContentPhplist extends JPlugin
 			$row->message = stripslashes($row->message);
 			$row->subject = stripslashes($row->subject);
 			$row->textmessage = stripslashes($row->textmessage);
-			$row->footer = stripslashes($row->footer);
+		//	$row->footer = stripslashes($row->footer);
 		}
 		
 		//save the Joomla! Article as a PHPList Message.

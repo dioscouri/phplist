@@ -15,24 +15,7 @@ Phplist::load( 'PhplistViewBase', 'views._base', array( 'site'=>'site', 'type'=>
 
 class PhplistViewPreferences extends PhplistViewBase 
 {
-	/**
-	 * 
-	 * @param $tpl
-	 * @return unknown_type
-	 */
-	function display($tpl=null) 
-	{
-		$layout = $this->getLayout();
-		switch(strtolower($layout))
-		{
-			case "default":
-			default:
-				$this->_default($tpl);
-			  break;
-		}
-		parent::display($tpl);
-	}
-
+	
 	/**
 	 * 
 	 * @return void
@@ -43,16 +26,14 @@ class PhplistViewPreferences extends PhplistViewBase
 		
 		$model = JModel::getInstance( 'Preferences', 'PhplistModel' );
 		$row = $model->getTable();
-
 		
 		$redirect = "index.php?option=com_phplist&view=newsletter";
 		$this->messagetype  = 'notice';
 		
-		if ($uid =  JRequest::getVar( 'uid' )) {
+		if ($uid = PhplistHelperUser::getUid()) {
 			$phplistUser = PhplistHelperUser::getUser( $uid, '1', 'uid' );
-
 			$this->assign('email',$phplistUser->email);
-			$row->load( $uid , 'uniqid' );
+			$row->load( $phplistUser->id);
 		}
 		else
 		{
@@ -60,9 +41,10 @@ class PhplistViewPreferences extends PhplistViewBase
 			$row->load(  JFactory::getUser()->id, 'foreignkey' );
 		}
 		$this->assign('row', $row);
-		
 		$attributes = PhplistHelperAttribute::getUserAttributes($row->id, $frontend='1');
 		$this->assign( 'attributes', $attributes );
+		$this->assign( 'uid', $uid );
+		
     }
 }
 

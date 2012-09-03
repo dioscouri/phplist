@@ -30,6 +30,7 @@ class modPhplistSubscribeHelper
 			Phplist::load( 'PhplistHelperNewsletter', 'helpers.newsletter' );
 			Phplist::load( 'PhplistHelperUser', 'helpers.user' );
 			Phplist::load( 'PhplistHelperSubscription', 'helpers.subscription' );
+			Phplist::load( 'PhplistHelperMessage', 'helpers.message' );
 			Phplist::load( 'PhplistHelperAttribute', 'helpers.attribute' );
 			
 			// Also check that DB is setup

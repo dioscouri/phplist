@@ -59,7 +59,7 @@
         <?php foreach (@$items as $item) : ?>
             <tr class='row<?php echo $k; ?>'>
 				<td style="text-align: left;">
-					<a href="<?php echo @$item->link_view; ?>">
+					<a href="<?php echo PhplistUrl::siteLink(@$item->link_view); ?>">
 						<?php echo @$item->subject; ?>
 					</a>
 				</td>	

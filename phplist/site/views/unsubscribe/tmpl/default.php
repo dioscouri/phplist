@@ -54,7 +54,7 @@
 					<?php echo JHTML::_( 'grid.id', $i, $item->listid ); ?>
 				</td>
 				<td>
-					<a href="<?php echo @$item->link; ?>">
+					<a href="<?php echo PhplistUrl::siteLink(@$item->link); ?>">
 					<?php echo @$item->newsletter_name; ?>
 					</a>
 				</td>	

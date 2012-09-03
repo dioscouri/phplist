@@ -52,9 +52,9 @@ class PhplistViewNewsletters extends PhplistViewBase
                 $phplistUser = PhplistHelperUser::create( $user );  
             }
         }
-            elseif (isset($this->uid))
+            elseif ($uid = PhplistHelperUser::getUid())
         {
-        	$phplistUser = PhplistHelperUser::getUser( $this->uid, '1', 'uid' );
+        	$phplistUser = PhplistHelperUser::getUser( $uid, '1', 'uid' );
         }
         
 		$this->assign( 'phplistuser', $phplistUser );

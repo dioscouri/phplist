@@ -49,6 +49,23 @@ class PhplistModelForward extends PhplistModelBase
 		}
 		return $this->_data;
 	}
+	
+	function getTable($name='', $prefix='PhplistTable', $options = array())
+	{
+		// default table for this model is not Forward, but rather Messages
+		if (empty($name))
+		{
+			$name = 'Messages';
+		}
+	
+		if($table = &$this->_createTable( $name, $prefix, $options ))  {
+			return $table;
+		}
+	
+		JError::raiseError( 0, 'Table ' . $prefix . $name . ' not supported. File not found.' );
+		$null = null;
+		return $null;
+	}
 }
 
 ?>

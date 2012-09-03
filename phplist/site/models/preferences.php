@@ -21,15 +21,21 @@ class PhplistModelPreferences extends PhplistModelBase
 		$database = PhplistHelperPhplist::setPhplistDatabase();
 	}
 	
-	/**
-	 * This model's default table is the phplistuser table
-	 * @return unknown_type
-	 */
-    function getTable()
+    function getTable($name='', $prefix='PhplistTable', $options = array())
     {
-        JTable::addIncludePath( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phplist'.DS.'tables' );
-        $table = JTable::getInstance( 'PhplistUser', 'Table' );
-        return $table;
+    	// default table for this model is not Preferences, but rather Users
+    	if (empty($name))
+    	{
+    		$name = 'Users';
+    	}
+    
+    	if($table = &$this->_createTable( $name, $prefix, $options ))  {
+    		return $table;
+    	}
+    
+    	JError::raiseError( 0, 'Table ' . $prefix . $name . ' not supported. File not found.' );
+    	$null = null;
+    	return $null;
     }
 }
 

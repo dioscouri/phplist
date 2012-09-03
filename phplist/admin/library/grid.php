@@ -13,6 +13,10 @@ defined('_JEXEC') or die('Restricted access');
 
 class PhplistGrid extends DSCGrid 
 { 
-   
+	public static function required()
+	{
+		$html = '<img src="'.Phplist::getUrl( 'images' ).'required_16.png" alt="'.JText::_('COM_PHPLIST_REQUIRED').'">';
+		return $html;
+	}
 }
 ?>

@@ -40,38 +40,37 @@ class PhplistViewBase extends DSCViewSite
 			
 			if (JRequest::getVar('layout') == 'view')
 			{
-				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_MESSAGES'), JRoute::_('index.php?option=com_phplist&view=messages&task=list&id=' . JRequest::getVar('newsletterid')), $view == 'messages' ? true : false );
+				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_MESSAGES'), PhplistUrl::siteLink('index.php?option=com_phplist&view=messages&task=list&id=' . JRequest::getVar('newsletterid')), $view == 'messages' ? true : false );
 			}
 			if ($view != 'newsletters')
 			{
-				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_NEWSLETTERS'), JRoute::_('index.php?option=com_phplist&view=newsletters'), $view == 'newsletters' ? true : false );
+				JSubMenuHelper::addEntry(JText::_('RETURN_TO_LIST_OF_NEWSLETTERS'), PhplistUrl::siteLink('index.php?option=com_phplist&view=newsletters'), $view == 'newsletters' ? true : false );
 			}
 			$isUser = '';
+			
 			//only display preferences link for logged in or valid uniqid users..
-			if ($this->uid)
-			{
-				$isUser = PhplistHelperUser::getUser($this->uid, '0', 'uid');
-			}
+			$isUser = PhplistHelperUser::getUid();
+			
 			if (JFactory::getUser()->id || $isUser)
 			{
 				if ($view != 'preferences')
 				{
-					JSubMenuHelper::addEntry(JText::_('EDIT_PREFERENCES'), JRoute::_('index.php?option=com_phplist&view=preferences'), $view == 'preferences' ? true : false );	
+					JSubMenuHelper::addEntry(JText::_('EDIT_PREFERENCES'), PhplistUrl::siteLink('index.php?option=com_phplist&view=preferences'), $view == 'preferences' ? true : false );	
 				}
 			}			
 		}
 	}
-
+	
 	/**
 	 * Basic commands for displaying a list
-	 * 
+	 *
 	 * @param $tpl
 	 * @return unknown_type
 	 */
 	function _default($tpl='')
 	{
 		parent::_default();
-
+	
 		//get uid
 		$uid = PhplistHelperUser::getUid();
 		$this->assign( 'uid', $uid );
@@ -85,7 +84,7 @@ class PhplistViewBase extends DSCViewSite
 	function _form($tpl='')
 	{
 		parent::_form();
-
+	
 		//get uid
 		$uid = PhplistHelperUser::getUid();
 		$this->assign( 'uid', $uid );

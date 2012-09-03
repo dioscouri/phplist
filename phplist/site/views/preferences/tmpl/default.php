@@ -13,12 +13,12 @@
      <span><?php echo JText::_( "PREFERENCES" ); ?></span>
 </div>
 
-<?php echo PhplistMenu::display(); ?>
+<?php  echo DSCMenu::getInstance('submenu')->display();  ?>
 
 <div id='onBeforeDisplay_wrapper'>
 <?php 
 	$dispatcher = JDispatcher::getInstance();
-	$dispatcher->trigger( 'onBeforeDisplayPreferencesForm', array( $this->row, $this->user ) );
+	$dispatcher->trigger( 'onBeforeDisplayPreferencesForm', array( $this->row, @$this->user ) );
 ?>
 </div>
 
@@ -38,9 +38,8 @@
 								<?php //only allow email addess to be edited if not a joomla user
 								if ($row->foreignkey == '') : ?>
 									<input type="text" name="email" value="<?php echo $this->email; ?>" />
-								<?php else : echo $this->email; ?>
+								<?php else : echo $row->email; endif; ?>
 									<input type="hidden" name="uid" value="<?php echo $this->uid; ?>" />
-								<?php endif; ?>
 							</th>
 						</tr>
 					</thead>
@@ -76,7 +75,7 @@
 			<td valign="top">
 				<div id='onDisplayRightColumn_wrapper'><?php
 					$dispatcher = JDispatcher::getInstance();
-					$dispatcher->trigger( 'onDisplayPreferencesFormRightColumn', array( $this->row, $this->user ) ); ?>
+					$dispatcher->trigger( 'onDisplayPreferencesFormRightColumn', array( $this->row, @$this->user ) ); ?>
 				</div>
 			</td>
 		</tr>
@@ -85,18 +84,16 @@
 
 <div id='onAfterDisplay_wrapper'><?php 
 $dispatcher = JDispatcher::getInstance();
-$dispatcher->trigger( 'onAfterDisplayPreferencesForm', array( $this->row, $this->user ) );
+$dispatcher->trigger( 'onAfterDisplayPreferencesForm', array( $this->row, @$this->user ) );
 ?></div>
 
 <input type='button' class='button' onclick="submitform('cancel')" value='<?php echo JText::_( 'CANCEL' ); ?>' /> 
 <input type='button' class='button' onclick="submitform('save')" value='<?php echo JText::_( 'SAVE_PREFERENCES' ); ?>' />
 
-<p><?php  echo "*". JText::_( "or" )  . " " . $this->required->image . " " . JText::_( 'Required Field' ); ?></p>
 
 <input type="hidden" name="task" value="" /> 
 <input type="hidden" name="boxchecked" value="" /> 
 <input type="hidden" name="filter_order" value="<?php  echo @$state->order; ?>" /> 
 <input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" />
-<input type="hidden" name="uid" value="<?php echo $this->uid; ?>"/>
 <?php echo $this->form['validate']; ?>
 </form>

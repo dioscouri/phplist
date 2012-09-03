@@ -154,10 +154,10 @@ class PhplistHelperAttribute extends PhplistHelperBase
 		
 		if ($frontend)
 		{
+			
 			// get csv of front end attribute id's from config
-			$config = &Phplist::getInstance();
+			$config = Phplist::getInstance();
 			$frontendAttribs = $config->get( 'frontend_attribs', '1' );
-
 			if ($frontendAttribs  != '' && $frontendAttribs  != '0')
 			{
 				$query->where( "attribs.id IN (" . $frontendAttribs .")");
@@ -167,6 +167,7 @@ class PhplistHelperAttribute extends PhplistHelperBase
 		$database->setQuery( ( string ) $query );
 		$data = $database->loadObjectList();
 		$success = $data;
+		
 		return $success;
 	}
 	

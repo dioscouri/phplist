@@ -13,5 +13,39 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 class PhplistUrl extends DSCUrl
 {
+	/**
+	 * Get the link to a menu by specifying it's ID
+	 *
+	 * @param $menu_id integer The menu's ID
+	 */
+	function getMenuLink($menu_id)
+	{
+	
+		Phplist::load('PhplistMenu', 'library.menu');
+		$menu =& PhplistMenu::getInstance( 'Menu' );
+	
+		if (!$menu->load($menu_id) || trim($menu->link) == '')
+		{
+			return 'index.php';
+		}
+	
+		return $menu->link;
+	}
+	
+	/**
+	 * Wrapper that adds the current Uid to the URL
+	 *
+	 * @param	string $string The string to translate
+	 *
+	 */
+	function siteLink( $url )
+	{
+		$return = DSCUrl::addItemid($url);
+		
+		if ($uid = PhplistHelperUser::getUid()) {
+			$return .= '&uid='.$uid;
+		}
+		return $return;
+	}
 
 }

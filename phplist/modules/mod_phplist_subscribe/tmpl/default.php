@@ -16,9 +16,9 @@ $submit_button = false;
 $boxchecked = '';
 $hide = false;
 JHTML::_('script', 'mod_phplist_subscribe.js', 'modules/mod_phplist_subscribe/');
-JHTML::_('script', 'common.js', 'media/com_phplist/js/');
 JHTML::_('script', 'joomla.javascript.js', 'includes/js/');
 JHTML::_('behavior.mootools' );
+JHTML::_('script', 'common.js', 'media/com_phplist/js/');
 
 $element = 'com_phplist';
 $lang =& JFactory::getLanguage();
