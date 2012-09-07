@@ -233,7 +233,27 @@ class plgUserPhplist extends JPlugin
 		}
 		return $success;
 	}
-
+	/**
+	 * for Joomla 2.5
+	 */
+	function onUserLogin( $user, $options )
+	{
+		$success = null;
+		// assign the userid to user['id'] (onLogin doesn't populate this field in the array)
+		$user['id'] = intval(JUserHelper::getUserId($user['username']));
+		$details = JFactory::getUser($user['id']);
+		$user['name'] = $details->name;
+	
+		//fix for clash with emailasusername plugin
+		$user['dontchangeemail'] = true;
+	
+		// then execute the auto-add
+		if ($run = plgUserPhplist::_runPlugin( $user ))
+		{
+			$success = true;
+		}
+		return $success;
+	}
 	/**
 	 * Example store user method
 	 *
@@ -246,6 +266,18 @@ class plgUserPhplist extends JPlugin
 	 */
 	function onAfterStoreUser($user, $isnew, $succes, $msg) 
 	{	
+		$success = null;
+		if ($run = plgUserPhplist::_runPlugin( $user, $isnew ))
+		{
+			$success = true;
+		}
+		return $success;
+	}
+	
+	/** for Joola 2.5
+	*/
+	function onUserAfterSave($user, $isnew, $succes, $msg)
+	{
 		$success = null;
 		if ($run = plgUserPhplist::_runPlugin( $user, $isnew ))
 		{
@@ -283,6 +315,31 @@ class plgUserPhplist extends JPlugin
 			$deleteuser = PhplistHelperUser::deleteUser( $user['id'] );
 		}
 
+		return $success;
+	}
+	/**
+	 for Joomla 2.5
+	 */
+	function onUserAfterDelete($user, $succes, $msg)
+	{
+		$success = null;
+		if ( !$this->_isInstalled() )
+		{
+			return $success;
+		}
+	
+		$joomlaUser = JFactory::getUser( $user['id'] );
+	
+		if (!$this->params->get( 'enable_autodelete', '1' ))
+		{
+			$deleteuser = PhplistHelperUser::deleteForeignkey( $user['id'] );
+			return $success;
+		}
+		else
+		{
+			$deleteuser = PhplistHelperUser::deleteUser( $user['id'] );
+		}
+	
 		return $success;
 	}
 	
