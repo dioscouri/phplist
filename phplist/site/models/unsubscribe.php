@@ -11,10 +11,16 @@
 /** ensure this file is being included by a parent file */
 defined('_JEXEC') or die('Restricted access');
 
-Phplist::load( 'PhplistModelSubscriptions', 'models.subscriptions' );
+Phplist::load( 'PhplistModelBase', 'models.base' );
 
-class PhplistModelUnsubscribe extends PhplistModelSubscriptions
+class PhplistModelUnsubscribe extends PhplistModelBase
 {
+	function __construct($config = array())
+	{
+		parent::__construct($config);
+		$database = PhplistHelperPhplist::setPhplistDatabase();
+	}
+	
 	function getTable($name='', $prefix='PhplistTable', $options = array())
 	{
 		// default table for this model is not Unsubscribe, but rather Subscriptions

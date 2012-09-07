@@ -84,7 +84,7 @@ class PhplistControllerUnsubscribe extends PhplistController
 		{
 			$details->listid = $cid;
 			$isSubscribed = PhplistHelperSubscription::isUser( $details->userid, $details->listid );
-			$newslettername = PhplistHelperNewsletter::getName ($details->listid)->name;
+			$newslettername = PhplistHelperNewsletter::getNewsletter ($details->listid)->name;
 			$unsubscribe = PhplistHelperSubscription::removeUserFrom($details);
 			$this->message .= JText::_( "YOU_HAVE_BEEN_SUCESSFULLY_UNSUBSCRIBED_FROM" ). ": ". $newslettername ."<br/>";
 		}
@@ -101,7 +101,7 @@ class PhplistControllerUnsubscribe extends PhplistController
 	{
 		$uid =  JRequest::getVar( 'uid' );
 		$redirect = "index.php?option=com_phplist&view=newsletters&uid=".$uid ;
-		$redirect = JRoute::_( $redirect, false );
+		$redirect = JRoute::_( PhplistUrl::siteLink($redirect), false );
         $this->setRedirect( $redirect, $this->message, $this->messagetype );
 	}
 }

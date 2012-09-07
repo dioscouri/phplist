@@ -48,7 +48,7 @@ class PhplistControllerPreferences extends PhplistController
         {
             $model->setId( $row->id );
             $this->messagetype  = 'message';
-            $this->message      = JText::_( 'PREFERENCES_SAVED' . $uid);
+            $this->message      = JText::_( 'PREFERENCES_SAVED');
             
             $dispatcher = JDispatcher::getInstance();
             $dispatcher->trigger( 'onAfterSave'.$this->get('suffix'), array( $row ) );
@@ -62,7 +62,7 @@ class PhplistControllerPreferences extends PhplistController
         // update attributes
 	    $saveattributes = PhplistHelperAttribute::saveAttributes($row->id);
         
-        $redirect = JRoute::_( $redirect, false );
+        $redirect = JRoute::_( PhplistUrl::siteLink($redirect), false );
         $this->setRedirect( $redirect, $this->message, $this->messagetype );
 
 	}
@@ -76,8 +76,7 @@ class PhplistControllerPreferences extends PhplistController
 		$this->messagetype = 'message';
 		$this->message = JText::_( 'CANCEL_PREFS_MESSAGE' );
 		$redirect = "index.php?option=com_phplist&view=newsletters";
-		$redirect = JRoute::_( $redirect, false );
-		//$redirect = PhplistUrl::siteLink($redirect);
+		$redirect = JRoute::_( PhplistUrl::siteLink($redirect), false );
         $this->setRedirect( $redirect, $this->message, $this->messagetype );
 	}
 }

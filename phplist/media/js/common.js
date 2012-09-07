@@ -106,18 +106,9 @@
      * @param task
      * @return
      */
-    function phplistSubmitForm(task)
+    function phplistSubmitForm(task, form)
     {
-        document.adminForm.task.value = task;
-
-        if (typeof document.adminForm.onsubmit == "function") 
-        {
-            document.adminForm.onsubmit();
-        }
-            else
-        {
-            document.adminForm.submit();
-        }
+    	Dsc.submitForm(task, form);
     }
 	/**
 	 * 

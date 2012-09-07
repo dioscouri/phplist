@@ -1,8 +1,9 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 <?php JHTML::_('stylesheet', 'phplist.css', 'media/com_phplist/css/'); ?>
 <?php JHTML::_('stylesheet', 'menu.css', 'media/com_phplist/css/'); ?>
-<?php JHTML::_('script', 'phplist.js', 'media/com_phplist/js/'); ?>
+<?php JHTML::_('script', 'common.js', 'media/com_phplist/js/'); ?>
 <?php JHTML::_('script', 'joomla.javascript.js', 'includes/js/'); ?>
+<?php JHTML::_('behavior.mootools' );  ?>
 <?php $state = @$this->state; ?>
 <?php $form = @$this->form; ?>
 <?php $items = @$this->items; ?>
@@ -17,11 +18,11 @@
 <div id='onBeforeDisplay_wrapper'>
 	<?php 
 		$dispatcher =& JDispatcher::getInstance();
-		$dispatcher->trigger( 'onBeforeDisplayForward', array( $this->row, @$this->user ) );
+		$dispatcher->trigger( 'onBeforeDisplayForward', array( @$this->row, @$this->user ) );
 	?>
 </div>
 
-<form action="<?php echo JRoute::_( @$form['action'] )?>" method="post" onsubmit="phplistFormValidation( '<?php echo @$form['validation']; ?>', 'validationmessage', document.adminForm.task.value, document.adminForm )" name="adminForm" enctype="multipart/form-data">
+<form action="<?php echo JRoute::_( @$form['action'] ) ?>" method="post" class="adminform" name="adminForm" id="adminForm" enctype="multipart/form-data" onsubmit="Dsc.formValidation( '<?php echo @$form['action']; ?>', 'validationmessage', document.adminForm.task.value, document.adminForm )">
 	<div id="onBeforeDisplay_wrapper">
 	    <?php 
 	    $dispatcher = JDispatcher::getInstance();
@@ -63,7 +64,7 @@
 			$dispatcher->trigger( 'onAfterDisplayForward', array( $this->row, @$this->user ) );
 		?>
 	</div>
-	<input type="hidden" name="task" value="" /> 
+	<input type="hidden" name="task" value="save" /> 
 	<input type="hidden" name="filter_order" value="<?php  echo @$state->order; ?>" /> 
 	<input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" /> 
 	<?php echo $this->form['validate']; ?>

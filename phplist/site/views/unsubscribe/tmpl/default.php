@@ -9,11 +9,11 @@
 <div class='componentheading'>
 	<?php echo JText::_('UNSUBSCRIBE_FROM_NEWSLETTERS'); ?>
 </div>
-<?php echo PhplistMenu::display(); ?>
+<?php 	 echo DSCMenu::getInstance('submenu')->display(); ?>
 
 <div id='onBeforeDisplay_wrapper'>
 	<?php $dispatcher = JDispatcher::getInstance();
-	$dispatcher->trigger( 'onBeforeDisplayUnsubscribe', array( $this->row, $this->user ) ); ?>
+	$dispatcher->trigger( 'onBeforeDisplayUnsubscribe', array( @$this->row, @$this->user ) ); ?>
 </div>
 
 <form action="<?php JRoute::_('index.php'); ?>" method="post" name="adminForm" id="adminForm">
@@ -69,7 +69,7 @@
 		
 	<div id='onAfterDisplay_wrapper'>
 		<?php $dispatcher = JDispatcher::getInstance();
-		$dispatcher->trigger( 'onAfterDisplayUnsubscribe', array( $this->row, $this->user ) ); ?>
+		$dispatcher->trigger( 'onAfterDisplayUnsubscribe', array( @$this->row, @$this->user ) ); ?>
 	</div>
 
 	<input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
@@ -77,6 +77,5 @@
 	<input type="hidden" name="boxchecked" value="" />
 	<input type="hidden" name="filter_order" value="<?php  echo @$state->order; ?>" />
 	<input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" />
-	<input type="hidden" name="uid" value="<?php echo $this->uid; ?>"/>
 	<?php echo $this->form['validate']; ?>
 </form>

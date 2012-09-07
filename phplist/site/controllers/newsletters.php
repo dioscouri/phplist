@@ -67,7 +67,7 @@ class PhplistControllerNewsletters extends PhplistController
 
 		$uid = JRequest::getVar( 'uid', '0', 'request');
 	   	$redirect = 'index.php?option=com_phplist&controller=newsletters&task=list';
-	   	$redirect = JRoute::_( $redirect, false );
+	   	$redirect = JRoute::_( PhplistUrl::siteLink($redirect), false );
 	   	
 	   	// Validation is by JS validate() function in root site controller. Duplicated here as a backup.
 		//check a newsletter is selected in list
@@ -109,7 +109,7 @@ class PhplistControllerNewsletters extends PhplistController
 	{
 
 		$redirect = 'index.php?option=com_phplist&view=newsletters';
-		$redirect = JRoute::_( $redirect, false );
+		$redirect = JRoute::_( PhplistUrl::siteLink($redirect), false );
 		
 		// Validation is by JS validate() function in root site controller. Duplicated here as a backup.
 		//check a newsletter is selected in list
@@ -182,9 +182,7 @@ class PhplistControllerNewsletters extends PhplistController
 		$saveattributes = PhplistHelperAttribute::saveAttributes($details->userid);
 		
 		$redirect = 'index.php?option=com_phplist&view=newsletters';
-		//add uid to redirect so new users can see their subscriptions and edit prefs.
-		$redirect .= '&uid=' .$details->uid;
-		$redirect = JRoute::_( $redirect, false );
+		$redirect = JRoute::_( PhplistUrl::siteLink($redirect), false );
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
 	}
 	
@@ -197,7 +195,7 @@ class PhplistControllerNewsletters extends PhplistController
 		
 		$uid = JRequest::getVar( 'uid', '0', 'request');
 	   	$redirect = 'index.php?option=com_phplist&controller=newsletters&task=list';
-	   	$redirect = JRoute::_( $redirect, false );
+	   	$redirect = JRoute::_( PhplistUrl::siteLink($redirect), false );
 	   	$this->message = JText::_( "YOUR_SUBSCRIPTION_HAS_BEEN_ACTIVATED" );
 		
 		$phplistUser = PhplistHelperUser::confirmUser( $uid );

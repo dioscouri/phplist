@@ -174,19 +174,19 @@ class PhplistHelperEmail extends PhplistHelperBase
 		
 		$domain = $phplistconfig->get('domain', '');
 		
-		$fromfield = $message->fromfield;
+		$fromfield = $message->fromfield;		
 		
-		//taken from phplist admin/sendmaillib.php 39, TODO replace depreciated ereg with preg.
-		if (ereg("([^ ]+@[^ ]+)",$fromfield,$regs)) {
+		//taken from phplist admin/sendmaillib.php 39, with depreciated ereg replaced with preg.
+		if (preg_match("([^ ]+@[^ ]+)",$fromfield,$regs)) {
 			# if there is an email in the from, rewrite it as "name <email>"
-			$fromfield = ereg_replace($regs[0],"",$fromfield);
+			$fromfield = preg_replace("/($regs[0])/i","",$fromfield);
 			$mailfrom = $regs[0];
 			# if the email has < and > take them out here
-			$mailfrom = ereg_replace("<","",$mailfrom);
-			$mailfrom = ereg_replace(">","",$mailfrom);
+			$mailfrom = preg_replace('/</',"",$mailfrom);
+			$mailfrom = preg_replace('/>/',"",$mailfrom);
 			# make sure there are no quotes around the name
-			$fromname = ereg_replace('"',"",ltrim(rtrim($fromfield)));
-		} elseif (ereg(" ",$fromfield,$regs)) {
+			$fromname = preg_replace('/"/',"",ltrim(rtrim($fromfield)));
+		} elseif (preg_match("/\\s/",$fromfield,$regs)) {
 			# if there is a space, we need to add the email
 			$fromname = $fromfield;
 			$mailfrom = "listmaster@$domain";
@@ -206,12 +206,11 @@ class PhplistHelperEmail extends PhplistHelperBase
 				
 				//remove placeholders
 				## remove any existing placeholders
-  				$htmlmessage = eregi_replace("\[[A-Z\. ]+\]","",$htmlmessage);
-  				$textmessage = eregi_replace("\[[A-Z\. ]+\]","",$textmessage);
+  				$htmlmessage = preg_replace("'/\[.*?\]/'","",$htmlmessage);
+  				$textmessage = preg_replace("'/\[.*?\]/'","",$textmessage);
 				
 				//set subscribe url placeholder to newsletter page
-				$subscribeurl = JURI::base().JRoute::_( "index.php?option=com_phplist&view=newsletters", false);
-				
+				$subscribeurl = JURI::base()."index.php?option=com_phplist&view=newsletters";
 				//add breaks above footer (as phplist does)
 				$footer = "\n\n".$footer;
 				
@@ -271,7 +270,6 @@ class PhplistHelperEmail extends PhplistHelperBase
 		{
 			$content = $textmessage.$footer;
 		}
-
 		$success = PhplistHelperEmail::_sendEmail($mailfrom, $fromname, $toemail, $subject, $content, NULL, $mode);
 		
 		return $success;
