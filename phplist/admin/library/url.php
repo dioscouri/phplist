@@ -40,7 +40,10 @@ class PhplistUrl extends DSCUrl
 	 */
 	function siteLink( $url )
 	{
-		$return = DSCUrl::addItemid($url);
+		$return = false;
+		if (stripos($url, "Itemid") == false) {
+			$return = DSCUrl::addItemid($url);
+		}
 		
 		if ($uid = PhplistHelperUser::getUid()) {
 			$return .= '&uid='.$uid;
