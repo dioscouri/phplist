@@ -69,7 +69,7 @@ class PhplistControllerNewsletters extends PhplistController
 	   	$redirect = 'index.php?option=com_phplist&controller=newsletters&task=list';
 	   	$redirect = JRoute::_( PhplistUrl::siteLink($redirect), false );
 	   	
-	   	// Validation is by JS validate() function in root site controller. Duplicated here as a backup.
+	   	// Validation is by JS validate() function . Duplicated here as a backup for if no JS.
 		//check a newsletter is selected in list
 		$cids = JRequest :: getVar('cid', array(0), 'request', 'array');
 		if (intval($cids['0']) == '0')
@@ -186,7 +186,7 @@ class PhplistControllerNewsletters extends PhplistController
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );
 	}
 	
-/**
+	/**
 	 * Confirms a user when they have clicked link in activation email
 	 * @return void
 	 */
@@ -202,5 +202,158 @@ class PhplistControllerNewsletters extends PhplistController
 		
 		$this->setRedirect( $redirect, $this->message, $this->messagetype );		
 	}
+	
+	/**
+	 *
+	 * @return
+	 */
+	function validate()
+	{
+	
+		$success = true;
+		$response = array();
+		$response['msg'] = "";
+		$response['error'] = "";
+		$msg = new stdClass();
+		$msg->message = "";
+		$msg->error = "";
+	
+		//get front end attributes info
+		$attributes = PhplistHelperAttribute::getAttributes('1');
+		$required_attribs = false;
+	
+		// get elements from post
+		$elements = json_decode( preg_replace('/[\n\r]+/', '\n', JRequest::getVar( 'elements', '', 'post', 'string' ) ) );
+		// elements is an array of objects
+		// $object->name
+		// $object->value
+		// $object->id (if present, is the element id in the form)
+	
+		// loop through every field in the form
+		// collect the ones to be verified
+		for ($i=0; $i<count($elements); $i++)
+		{
+		$element = $elements[$i];
+		if (trim(strtolower($element->name)) == 'subscriber2add')
+		{
+		$email = $element->value;
+			
+		}
+		if (trim(strtolower($element->name)) == 'boxchecked')
+		{
+		$cid = $element->value;
+		}
+	
+			// attributes fields
+			if ($attributes)
+			{
+			foreach ($attributes as $a)
+		{
+		if ($a->required == '1')
+		{
+		//replace spaces with _ in input names
+		$name = str_replace(' ','_',$a->name);
+			$name = str_replace('.','_',$name);
+	
+			if ($element->name == $name)
+			{
+			$required_attribs[$name]->value = $element->value;
+			$required_attribs[$name]->type = $a->type;
+				$required_attribs[$name]->name = $a->name;
+				$required_attribs[$name]->checked = $element->checked;
+			}
+			}
+			}
+			}
+		}
+	
+		if (isset($email))
+		{
+		if (empty($email))
+		{
+		$msg->message .= '<li>"'.JText::_( 'Email' ).'" '.JText::_( 'is Required' ).'</li>';
+		$msg->error = '1';
+		}
+		else
+		{
+		jimport('joomla.mail.helper');
+		if (!$isEmailAddress = JMailHelper::isEmailAddress( $email ))
+	
+		{
+		$msg->message .= '<li>'.JText::_( 'PLEASE_ENTER_A_VALID_EMAIL_ADDRESS' ).'</li>';
+		$msg->error = '1';
+		}
+		if ($emailExists = PhplistHelperUser::emailExists( $email, '1' ))
+		{
+		$msg->message .= '<li>'.JText::_( 'EMAIL_IS_JUSER' ).'</li>';
+		$msg->error = '1';
+		}
+		elseif ($user = PhplistHelperUser::getUser( $email, '1', 'email' ))
+		{
+		$msg->message .= '<li>'.JText::_( 'EMAIL_IS_PHPLISTUSER' ).'</li>';
+		$msg->error = '1';
+		}
+		}
+		}
+		if ($cid == '' || $cid == '0')
+		{
+		$msg->message .= '<li>'.JText::_( 'PLEASE_SELECT_A_NEWSLETTER' ).'</li>';
+			$msg->error = '1';
+		}
+			
+		// validate required Attributes if they exist
+			if ($attributes && $required_attribs)
+			{
+			foreach ($required_attribs as $a)
+				{
+				switch ($a->type)
+				{
+				case 'textline':
+				case 'textarea':
+				case 'date': //TODO make this check for valid date
+				default:
+				if ($a->value == '')
+				{
+				$msg->message .= '<li>'.$a->name. ' ' .JText::_( 'IS_REQUIRED' ).'</li>';
+				$msg->error = '1';
+				}
+				break;
+				case 'checkbox':
+				case 'radio':
+				if ($a->checked != '1')
+				{
+				$msg->message .= '<li>'.$a->name. ' ' .JText::_( 'IS_REQUIRED' ).'</li>';
+				$msg->error = '1';
+				}
+				break;
+				case 'checkboxgroup':
+				case 'select':
+				// TODO add validation for these
+				break;
+				}
+					}
+				}
+	
+				// set response array
+				if (!empty($msg->error))
+				{
+				$response['msg'] = '
+				<dl id="system-message">
+				<dt class="notice">notice</dt>
+				<dd class="notice message fade">
+				<ul>'.
+				$msg->message
+				.'</ul>
+				</dd>
+				</dl>
+				';
+				$response['error'] = '1';
+				}
+					
+				// encode and echo (need to echo to send back to browser)
+				echo ( json_encode( $response ) );
+	
+				return $success;
+				}
 }
 ?>

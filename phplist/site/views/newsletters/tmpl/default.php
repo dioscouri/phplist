@@ -13,6 +13,7 @@
 <?php $subscribed_src = JURI::root()."/media/com_phplist/images/"."accept.png"; ?>
 <?php $unsubscribed_src = JURI::root()."/media/com_phplist/images/"."remove.png"; ?>
 <?php $subscribe_src = JURI::root()."/media/com_phplist/images/"."add.png"; ?>
+<?php $url_validate = JRoute::_( 'index.php?option=com_phplist&controller=newsletters&view=newsletters&task=validate&format=raw' ); ?>
 
 <?php $htmlemail = isset($this->phplistuser->htmlemail) ? $this->phplistuser->htmlemail : 1; ?>
 
@@ -28,7 +29,7 @@ if ($this->phplistuser)
 }
 ?>
 
-<form action="<?php echo JRoute::_( @$form['action'] ) ?>" method="post" class="adminform" name="adminForm" id="adminForm" enctype="multipart/form-data" onsubmit="Dsc.formValidation( '<?php echo @$form['validation']; ?>', 'validationmessage', document.adminForm.task.value, document.adminForm )">
+<form action="<?php echo JRoute::_( @$form['action'] ) ?>" method="post" class="adminform" name="adminForm" id="adminForm" enctype="multipart/form-data" onsubmit="phplistFormValidation( '<?php echo $url_validate; ?>', 'validationmessage', document.adminForm.task.value, document.adminForm )">
 
     <div id='onBeforeDisplay_wrapper'>
 	    <?php 
