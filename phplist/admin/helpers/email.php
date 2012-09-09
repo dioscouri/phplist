@@ -124,7 +124,7 @@ class PhplistHelperEmail extends PhplistHelperBase
 		$newsletter_names = '';
 		foreach ($cids as $newsletter)
 		{
-			$getname = PhplistHelperNewsletter::getName($newsletter);
+			$getname = PhplistHelperNewsletter::getNewsletter($newsletter);
 			$newsletter_names .= '* ' .$getname->name."\n";
 		}
 		
