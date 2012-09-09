@@ -22,7 +22,7 @@
 	?>
 </div>
 
-<form action="<?php echo JRoute::_( @$form['action'] ) ?>" method="post" class="adminform" name="adminForm" id="adminForm" enctype="multipart/form-data" onsubmit="Dsc.formValidation( '<?php echo @$form['action']; ?>', 'validationmessage', document.adminForm.task.value, document.adminForm )">
+<form action="<?php echo JRoute::_( @$form['action'] ) ?>" method="post" class="adminform" name="adminForm" id="adminForm" enctype="multipart/form-data" onsubmit="Dsc.formValidation( '<?php echo JRoute::_( @$form['action'] ) ?>', 'validationmessage', document.adminForm.task.value, document.adminForm )">
 	<div id="onBeforeDisplay_wrapper">
 	    <?php 
 	    $dispatcher = JDispatcher::getInstance();
@@ -45,7 +45,7 @@
 					<input type="text" name="email" value="" /><br/>
 					<input type="hidden" name="mid" id="mid" value="<?php echo $this->messageid; ?>" />
 					<input type="hidden" name="userid" id="userid" value="<?php echo $row->id; ?>" />
-					<input type="button" onclick="phplistSubmitForm('save')" value='<?php echo JText::_( 'Forward' ); ?>' />
+					<input type="button" onclick="Dsc.submitForm('forward')" value='<?php echo JText::_( 'Forward' ); ?>' />
 				</td>
 				<td valign="top">
 					<div id="onDisplayRightColumn_wrapper">
@@ -64,7 +64,7 @@
 			$dispatcher->trigger( 'onAfterDisplayForward', array( $this->row, @$this->user ) );
 		?>
 	</div>
-	<input type="hidden" name="task" value="save" /> 
+	<input type="hidden" name="task" value="forward" /> 
 	<input type="hidden" name="filter_order" value="<?php  echo @$state->order; ?>" /> 
 	<input type="hidden" name="filter_direction" value="<?php echo @$state->direction; ?>" /> 
 	<?php echo $this->form['validate']; ?>

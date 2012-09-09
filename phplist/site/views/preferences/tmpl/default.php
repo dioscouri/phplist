@@ -87,8 +87,8 @@ $dispatcher = JDispatcher::getInstance();
 $dispatcher->trigger( 'onAfterDisplayPreferencesForm', array( $this->row, @$this->user ) );
 ?></div>
 
-<input type='button' class='button' onclick="submitform('cancel')" value='<?php echo JText::_( 'CANCEL' ); ?>' /> 
-<input type='button' class='button' onclick="submitform('save')" value='<?php echo JText::_( 'SAVE_PREFERENCES' ); ?>' />
+<input type='button' class='button' onclick="Dsc.submitForm('cancel')" value='<?php echo JText::_( 'CANCEL' ); ?>' /> 
+<input type='button' class='button' onclick="Dsc.submitForm('save')" value='<?php echo JText::_( 'SAVE_PREFERENCES' ); ?>' />
 
 
 <input type="hidden" name="task" value="" /> 

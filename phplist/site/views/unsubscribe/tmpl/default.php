@@ -63,8 +63,8 @@
 			<?php endforeach; ?>
         </tbody>
 	</table>
-	<input type="button" class="button" onclick="submitform('cancel')" value="<?php echo JText::_( 'CANCEL' ); ?>" />
-	<input type="button" class="button" onclick="submitform('unsubscribe')" value="<?php echo JText::_('UNSUBSCRIBE'); ?>"  />
+	<input type="button" class="button" onclick="Dsc.submitForm('cancel')" value="<?php echo JText::_( 'CANCEL' ); ?>" />
+	<input type="button" class="button" onclick="Dsc.submitForm('unsubscribe')" value="<?php echo JText::_('UNSUBSCRIBE'); ?>"  />
 	<?php endif; ?>
 		
 	<div id='onAfterDisplay_wrapper'>

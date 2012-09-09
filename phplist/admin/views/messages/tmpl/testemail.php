@@ -6,13 +6,13 @@
 	function submitbutton(pressbutton) {
 		var form = document.adminForm;
 		if (pressbutton == 'close' || pressbutton == 'cancel') {
-			submitform( pressbutton );
+			Dsc.submitForm( pressbutton );
 			return;
 		}
 		if (form.email.value == ""){
 			alert( "<?php echo JText::_( 'Enter an email address to send the test message to', true ); ?>" );
 		} else {
-			submitform( pressbutton );
+			Dsc.submitForm( pressbutton );
 		}
 	}
 </script>

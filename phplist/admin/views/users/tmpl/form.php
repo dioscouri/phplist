@@ -7,14 +7,14 @@
 	function submitbutton(pressbutton) {
 		var form = document.adminForm;
 		if (pressbutton == 'close' || pressbutton == 'cancel') {
-			submitform( pressbutton );
+			Dsc.submitForm( pressbutton );
 			return;
 		}
 		// do field validation
 		if (form.email.value == ""){
 			alert( "<?php echo JText::_( 'EMAIL_VALIDATION', true ); ?>" );
 		} else {
-			submitform( pressbutton );
+			Dsc.submitForm( pressbutton );
 		}
 	}
 </script>

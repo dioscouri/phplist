@@ -48,12 +48,12 @@ if ($this->phplistuser)
 			       <?php } ?>
 			       <br/><br/>
 			       	<?php echo JText::_( "WITH_SELECTED" ); ?>
-			       	<img src="<?php echo $subscribe_src; ?>" style="max-height: 14px; padding-left:7px;" onclick="phplistSubmitForm('subscribe_selected')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" /> 
-					<a href="javascript:void(0);" style="padding-left:3px;" onclick="phplistSubmitForm('subscribe_selected')">
+			       	<img src="<?php echo $subscribe_src; ?>" style="max-height: 14px; padding-left:7px;" onclick="Dsc.submitForm('subscribe_selected')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" /> 
+					<a href="javascript:void(0);" style="padding-left:3px;" onclick="Dsc.submitForm('subscribe_selected')">
 						<?php echo JText::_("SUBSCRIBE"); ?>
 					</a>
-					<img src="<?php echo $unsubscribed_src; ?>" style="max-height: 14px; padding-left:7px;" onclick="phplistSubmitForm('unsubscribe_selected')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("UNSUBSCRIBE"); ?>" /> 
-					<a href="javascript:void(0);" style="padding-left:3px;" onclick="phplistSubmitForm('unsubscribe_selected')">
+					<img src="<?php echo $unsubscribed_src; ?>" style="max-height: 14px; padding-left:7px;" onclick="Dsc.submitForm('unsubscribe_selected')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("UNSUBSCRIBE"); ?>" /> 
+					<a href="javascript:void(0);" style="padding-left:3px;" onclick="Dsc.submitForm('unsubscribe_selected')">
 						<?php echo JText::_("UNSUBSCRIBE"); ?>
 					</a>
 					<input type="hidden" name="uid" value="<?php echo $this->phplistuser->uniqid; ?>" />
@@ -99,8 +99,8 @@ if ($this->phplistuser)
 						</tr>
 						<tr>
 							<td colspan="2">
-								<img src="<?php echo $subscribe_src; ?>" style="max-height: 24px; vertical-align: middle;" onclick="phplistSubmitForm('subscribe_new')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" />
-			  					<a href="javascript:void(0);" onclick="phplistSubmitForm('subscribe_new')">
+								<img src="<?php echo $subscribe_src; ?>" style="max-height: 24px; vertical-align: middle;" onclick="Dsc.submitForm('subscribe_new')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" />
+			  					<a href="javascript:void(0);" onclick="Dsc.submitForm('subscribe_new')">
 			  						<?php echo JText::_("SUBSCRIBE_TO_SELECTED"); ?>
 			  					</a>
 			  				</td>
@@ -181,7 +181,7 @@ if ($this->phplistuser)
 				<td style="text-align: center;">
 					<span class="substatus-container">
 						<a href="<?php echo $item->link_switch; ?>" style='text-decoration: none;'>
-		                  <img src="<?php echo $img ?>" style="max-height: 24px;" onclick="phplistSubmitForm('subscribe_selected')" alt="subcribe selected" />
+		                  <img src="<?php echo $img ?>" style="max-height: 24px;" onclick="Dsc.submitForm('subscribe_selected')" alt="subcribe selected" />
 		                </a>
 					</span>	
 				</td>	
@@ -191,7 +191,7 @@ if ($this->phplistuser)
 		    <?php if (isset($item->description) && strlen($item->description) > 1) : ?>
 			<tr class='row<?php echo $k; ?>'>
 		       	<td style="vertical-align:top; white-space:nowrap;">
-					<span class='href' id='showhidedescription_<?php echo $item->id; ?>' onclick="displayDiv('description_<?php echo $item->id; ?>', 'showhidedescription_<?php echo $item->id; ?>', '<?php echo JText::_('SHOW DESCRIPTION'); ?>', '<?php echo JText::_('HIDE DESCRIPTION'); ?>')">
+					<span class='href' id='showhidedescription_<?php echo $item->id; ?>' onclick="Dsc.displayDiv('description_<?php echo $item->id; ?>', 'showhidedescription_<?php echo $item->id; ?>', '<?php echo JText::_('SHOW DESCRIPTION'); ?>', '<?php echo JText::_('HIDE DESCRIPTION'); ?>')">
 		    			<?php echo JText::_('SHOW_DESCRIPTION'); ?>
 					</span>
 				</td>

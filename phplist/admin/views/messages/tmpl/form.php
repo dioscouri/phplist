@@ -6,7 +6,7 @@
 	function submitbutton(pressbutton) {
 		var form = document.adminForm;
 		if (pressbutton == 'close' || pressbutton == 'cancel') {
-			submitform( pressbutton );
+			Dsc.submitForm( pressbutton );
 			return;
 		}
 		var message = <?php echo $editor->getContent( 'message' ); ?>
@@ -18,7 +18,7 @@
 		} else if (message == ""){
 			alert( "<?php echo JText::_( 'Message must have some text.', true ); ?>" );
 		} else {
-			submitform( pressbutton );
+			Dsc.submitForm( pressbutton );
 		}
 	}
 	function phplistInsertArticle( url, articleid ) 

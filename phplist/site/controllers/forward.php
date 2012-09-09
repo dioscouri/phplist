@@ -53,7 +53,7 @@ class PhplistControllerForward extends PhplistController
 	 * save a record
 	 * @return void
 	 */
-	function save() 
+	function forward() 
 	{		
 		JLoader::import( 'com_phplist.library.url', JPATH_ADMINISTRATOR.DS.'components' );
 		JLoader::import( 'com_phplist.helpers.email', JPATH_ADMINISTRATOR.DS.'components' );

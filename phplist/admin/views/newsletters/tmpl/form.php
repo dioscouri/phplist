@@ -5,14 +5,14 @@
 	function submitbutton(pressbutton) {
 		var form = document.adminForm;
 		if (pressbutton == 'close' || pressbutton == 'cancel') {
-			submitform( pressbutton );
+			Dsc.submitForm( pressbutton );
 			return;
 		}
 		// do field validation
 		if (form.name.value == ""){
 			alert( "<?php echo JText::_( 'NEWSLETTER_NAME_VALIDATION', true ); ?>" );
 		} else {
-			submitform( pressbutton );
+			Dsc.submitForm( pressbutton );
 		}
 	}
 </script>
