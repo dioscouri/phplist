@@ -21,20 +21,28 @@
 			Dsc.submitForm( pressbutton );
 		}
 	}
-	function phplistInsertArticle( url, articleid ) 
-    {
-            // execute Ajax request to server
-            var a=new Ajax(url,{
+	Dsc.selectelementarticle= function(articleid) {
+		  var url='index.php?option=com_phplist&controller=messages&view=messages&task=insertArticle&format=raw';
+          
+            var a = new Request({
+                url: url,
                 method:"get",
                 data:{"articleid":articleid},
-                onComplete: function(response){
-                	var resp=Json.evaluate(response, false);
-                	jInsertEditorText(resp, 'message');
+                onSuccess: function(response){
+                    var resp = JSON.decode(response, false);
+                    if (resp.error != '1')
+                    {
+                    	jInsertEditorText(resp, 'message');
+                    }
                 }
-            }).request();
-            
-            document.getElementById('sbox-window').close();
-    }
+            }).send();
+        	 <?php   if(version_compare(JVERSION,'1.6.0','ge')) { ?>
+                	window.parent.SqueezeBox.close();
+            <?php   } else { ?>
+               document.getElementById('sbox-window').close();
+             <?php   } ?>
+	
+	}
 </script>
 
 <form action="<?php echo JRoute::_( @$form['action'] ) ?>" method="post" class="adminform" name="adminForm" >
@@ -75,7 +83,7 @@
 							</td>
 							<td>
 		                      <?php echo $this->elementArticleModel->_fetchElement('test'); ?>
-                        		<?php echo $this->elementArticleModel->_clearElement('test'); ?>
+                        		<?php // echo $this->elementArticleModel->_clearElement('test'); ?>
 							</td>
 						</tr>
 						<tr>

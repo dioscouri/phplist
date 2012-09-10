@@ -77,8 +77,8 @@ class PhplistModelElementArticle extends DSCModelElement {
 		$link = 'index.php?option=' . $option . '&view=' . $this -> getName() . '&tmpl=component&object=' . $name;
 
 		JHTML::_('behavior.modal', 'a.modal');
-		$html = "\n" . '<div class="pull-left"><input type="text" style="background: #ffffff;" type="text" id="' . $name . '_name" value="' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '" disabled="disabled" /></div>';
-		$html .= '<a class="modal btn btn-primary" style="color:#fff;"  title="' . JText::_($this -> select_title_constant) . '"  href="' . $link . '" rel="{handler: \'iframe\', size: {x: 800, y: 500}}">' . JText::_($this -> select_constant) . '</a>' . "\n";
+		$html = "\n" . '<div class="pull-left"><input type="hidden" style="background: #ffffff;" type="text" id="' . $name . '_name" value="' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '" disabled="disabled" /></div>';
+		$html .= '<a class="modal btn btn-primary" style=""  title="' . JText::_($this -> select_title_constant) . '"  href="' . $link . '" rel="{handler: \'iframe\', size: {x: 800, y: 500}}">' . JText::_($this -> select_constant) . '</a>' . "\n";
 		$html .= "\n" . '<input type="hidden" id="' . $name . '_id" name="' . $fieldName . '" value="' . $value . '" />';
 		$html .= "\n" . '<input type="hidden" id="' . $name . '_name_hidden" name="' . $name . '_name_hidden" value="' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '" />';
 

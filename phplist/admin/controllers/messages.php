@@ -253,7 +253,7 @@ class PhplistControllerMessages extends PhplistController
 		 * @return
 		 */
 		function insertArticle()
-		{
+		{			
 			$success = true;
 			$response = array();
 			$response['msg'] = "";
