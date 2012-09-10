@@ -19,7 +19,6 @@ JHTML::_('script', 'mod_phplist_subscribe.js', 'modules/mod_phplist_subscribe/')
 JHTML::_('script', 'joomla.javascript.js', 'includes/js/');
 JHTML::_('behavior.mootools' );
 JHTML::_('script', 'common.js', 'media/com_phplist/js/');
-JHTML::_('script', 'validation.js', 'media/dioscouri/js/');
 
 $element = 'com_phplist';
 $lang =& JFactory::getLanguage();
@@ -34,7 +33,7 @@ $lang->load( $element, JPATH_BASE );
 </div>
 <?php endif; ?>
 
-<form name="modPhplistSubscribeForm" onsubmit="phplistFormValidation( 'index.php?option=com_phplist&task=validate&format=raw', 'mod_phplist_subscribe-container', 'subscribeModule', document.modPhplistSubscribeForm )" method="post" id="modPhplistSubscribeForm" action="index.php?option=com_phplist&task=subscribeModule" enctype="multipart/form-data">
+<form name="modPhplistSubscribeForm" onsubmit="phplistFormValidation( '<?php echo JRoute::_( 'index.php?option=com_phplist&controller=newsletters&view=newsletters&task=validate&format=raw' ); ?>', 'mod_phplist_subscribe-container', 'subscribeModule', document.modPhplistSubscribeForm )" method="post" id="modPhplistSubscribeForm" action="index.php?option=com_phplist&controller=newsletters&view=newsletters&task=subscribeModule" enctype="multipart/form-data">
 	<input type="hidden" name="display_type" value="<?php echo $display_type; ?>" />
 
 <?php 
@@ -105,13 +104,15 @@ else :
 	endif;
 endif;
 if ($submit_button) : ?>
-<img src="<?php echo JURI::root()."/media/com_phplist/images/add.png"; ?>" style="max-height: 24px; vertical-align: middle;" onclick="phplistSubmitModuleForm('subscribeModule')" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" />
-<a href="javascript:void(0);" style="padding-left:3px;" onclick="phplistSubmitModuleForm('subscribeModule')">
+<img src="<?php echo JURI::root()."/media/com_phplist/images/add.png"; ?>" style="max-height: 24px; vertical-align: middle;" onclick="Dsc.submitForm('subscribeModule', document.modPhplistSubscribeForm)" onmouseover="this.style.cursor='pointer'" alt="<?php echo JText::_("SUBSCRIBE"); ?>" />
+<a href="javascript:void(0);" style="padding-left:3px;" onclick="Dsc.submitForm('subscribeModule', document.modPhplistSubscribeForm)">
 						<?php echo JText::_("SUBSCRIBE"); ?>
 					</a>
 	<?php echo JHTML::_( 'form.token' ); ?>
 	<input type="hidden" name="boxchecked" value="<?php if ($display_type != '1') echo '1';?>" />
 	<input type="hidden" name="return" value="<?php echo $return; ?>" />
+	<input type="hidden" name="task" />
+	
 <?php endif; ?>
 
 

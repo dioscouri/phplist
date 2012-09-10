@@ -355,5 +355,20 @@ class PhplistControllerNewsletters extends PhplistController
 	
 				return $success;
 				}
+				/**
+				 * This method processes the form submitted by the mod_subscribe module.
+				 * It is just a wrapper for the module's helper, which sets the html
+				 * so this entire process is confined to the module itself
+				 *
+				 * @return unknown_type
+				 */
+				function subscribeModule()
+				{
+					// include the module's helper file
+					JLoader::import( 'mod_phplist_subscribe.helper', JPATH_SITE.DS.'modules' );
+					// display whatever output comes from the processForm method
+					echo modPhplistSubscribeHelper::processForm();
+				}
 }
+
 ?>

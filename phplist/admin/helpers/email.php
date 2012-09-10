@@ -139,7 +139,7 @@ class PhplistHelperEmail extends PhplistHelperBase
 		$subject 	= JText::_( 'PLEASE_CONFIRM_YOUR_SUBSCRIPTION' ) . '-'. $sitename ;
 		$subject 	= html_entity_decode($subject, ENT_QUOTES);
 
-		$message = sprintf( JText::_( 'EMAIL_MESSAGE_CONFIRMATION' ), $name, $newsletter_names, $link, $sitename);
+		$message = sprintf( JText::_( 'EMAIL_MESSAGE_CONFIRMATION' ), $newsletter_names, $link, $sitename);
 		$message = html_entity_decode($message, ENT_QUOTES);
 
 		$success = PhplistHelperEmail::_sendEmail($mailfrom, $fromname, $details->email, $subject, $message);
